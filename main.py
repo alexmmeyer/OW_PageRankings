@@ -355,7 +355,7 @@ def ranking_progression(athlete_name, start_date, end_date, increment=7):
     plt.show()
 
 
-def ranking_progression_from_archive(athlete_name, start_date, end_date, increment=7):
+def ranking_progression_from_archive(athlete_name, start_date, end_date, increment=1):
     """
     :param athlete_name:
     :param start_date:
@@ -566,5 +566,5 @@ G = nx.DiGraph()
 correct_predictions = 0
 total_tests = 0
 
-ranking_progression_from_archive("Ferry Weertman", "01/01/2017", "07/30/2018", increment=1)
+ranking_progression_from_archive("Ferry Weertman", "01/01/2017", "07/30/2018")
 
