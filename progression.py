@@ -259,7 +259,6 @@ def archive_rankings_range(start_date, end_date, increment=1):
         print("{:.0%}".format(progress))
 
 
-
 def ranking_progression(athlete_name, start_date, end_date, increment=7):
     """
     :param athlete_name:
@@ -568,5 +567,5 @@ correct_predictions = 0
 total_tests = 0
 
 ranking_progression_from_archive("Ferry Weertman", "01/01/2017", "07/30/2018", increment=1)
-# ranking_progression("Simone Ruffini", "01/01/2018", "07/30/2018", increment=7)
+
 
