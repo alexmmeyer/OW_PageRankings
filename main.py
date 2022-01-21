@@ -451,80 +451,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     plt.ylabel("World Ranking")
     start_date = dt.strftime(start_date, "%m/%d/%Y")
     end_date = dt.strftime(end_date, "%m/%d/%Y")
-    plt.title(f"World Ranking Progression {start_date} to {end_date}: {athlete_name}\n")
-    plt.show()
-
-
-def ranking_progression2(athlete_name, start_date, end_date):
-    """
-
-    :param athlete_name:
-    :param start_date:
-    :param end_date:
-    :return: graph showing athlete's ranking after every race they finished between (inclusive) start_date and end_date
-    """
-
-    global G
-    G = nx.DiGraph()
-
-    dates = []
-    races = []
-    ranks = []
-    athlete_name = athlete_name.title()
-
-    create_ranking(start_date)
-    ranking_data = pd.read_csv(RANKING_FILE_NAME)
-    ranked_athletes = list(ranking_data.name)
-    if athlete_name in ranked_athletes:
-        dates.append(dt.strptime(start_date, "%m/%d/%Y"))
-        rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-        ranks.append(rank_on_date)
-        races.append("start")
-
-    start_date = dt.strptime(start_date, "%m/%d/%Y")
-    end_date = dt.strptime(end_date, "%m/%d/%Y")
-
-    for file in os.listdir(RESULTS_DIRECTORY):
-        G = nx.DiGraph()
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
-        race_data = pd.read_csv(results_file_path)
-        race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
-        names_list = [name.title() for name in race_data.athlete_name]
-        if race_date < start_date or race_date > end_date or athlete_name not in names_list:
-            pass
-        else:
-            create_ranking(race_data.date[0])
-            # print(f"ranking as of {race_data.date[0]} below:")
-            # print(pd.read_csv("PageRanking.csv"))
-            ranking_data = pd.read_csv(RANKING_FILE_NAME)
-            rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-            # if len(ranks) == 0 or rank_on_date != ranks[-1] or rank_on_date == end_date:
-            dates.append(race_date)
-            races.append(f"{int(race_data.distance[0])}km {race_data.event[0]} ({race_data.location[0]})")
-            ranks.append(rank_on_date)
-
-    dates.append(end_date)
-    create_ranking(dt.strftime(end_date, "%m/%d/%Y"))
-    ranking_data = pd.read_csv(RANKING_FILE_NAME)
-    rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-    ranks.append(rank_on_date)
-    races.append("end")
-
-    dates = [date.strftime("%m/%d/%Y") for date in dates]
-    print(dates)
-    print(races)
-    print(ranks)
-    dict = {
-        "dates": dates,
-        "ranks": ranks
-    }
-    df = pd.DataFrame(dict)
-    df.to_csv("progression2.csv")
-    plt.plot(dates, ranks, "o")
-    plt.gca().invert_yaxis()
-    plt.xlabel("Date")
-    plt.ylabel("World Ranking")
-    plt.title(f"World Ranking Progression: {athlete_name}")
+    plt.title(f"{RANK_DIST}km World Ranking Progression: {athlete_name}\n{start_date} to {end_date}\n")
     plt.show()
 
 
@@ -566,5 +493,5 @@ G = nx.DiGraph()
 correct_predictions = 0
 total_tests = 0
 
-ranking_progression_from_archive("Ferry Weertman", "01/01/2017", "07/30/2018")
+ranking_progression_from_archive("allan do carmo", "01/01/2017", "07/30/2018")
 
