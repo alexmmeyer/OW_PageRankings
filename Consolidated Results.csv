@@ -231,18 +231,19 @@ Edouard BELANGER,06/28/2016,FINA World Cup,"Roberval, CAN",10,No Current,Cold,20
 Aleksandar ILIEVSKI,06/28/2016,FINA World Cup,"Roberval, CAN",10,No Current,Cold,20,15
 Aquiles BALAUDO,06/28/2016,FINA World Cup,"Roberval, CAN",10,No Current,Cold,20,16
 Tristan FILION,06/28/2016,FINA World Cup,"Roberval, CAN",10,No Current,Cold,20,17
-Alex MEYER,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,18
-Edoardo STOCHINO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,19
-Tomi STEFANOVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,20
-Edouard LEHOUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,21
-Evgenij POP ACEV,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,22
-Aquiles BALAUDO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,23
-Bertrand VENTURI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,24
-Xavier DESHARNAIS,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,25
-Aleksandar ILIEVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,26
-Gabriel POULIOT,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,27
-Simon PASTOR,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,28
-Xavier THEROUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,29
+end,,2016_06_18_Balatonfured_10km,,,,,,0
+Alex MEYER,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,1
+Edoardo STOCHINO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,2
+Tomi STEFANOVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,3
+Edouard LEHOUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,4
+Evgenij POP ACEV,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,5
+Aquiles BALAUDO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,6
+Bertrand VENTURI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,7
+Xavier DESHARNAIS,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,8
+Aleksandar ILIEVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,9
+Gabriel POULIOT,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,10
+Simon PASTOR,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,11
+Xavier THEROUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,12
 end,,2016_06_30_Roberval_32km,,,,,,0
 Ferry WEERTMAN,08/16/2016,Olympic Games,"Rio de Janeiro, BRA",10,No Current,Neutral,25,1
 Spyridon GIANNIOTIS,08/16/2016,Olympic Games,"Rio de Janeiro, BRA",10,No Current,Neutral,25,2
@@ -579,96 +580,98 @@ Zedheir TORREZ,07/15/2017,FINA World Championships 5km,"Budapest, HUN",5,No Curr
 Amadou NDIAYE,07/15/2017,FINA World Championships 5km,"Budapest, HUN",5,No Current,Neutral,62,59
 Tsz Fung TSE,07/15/2017,FINA World Championships 5km,"Budapest, HUN",5,No Current,Neutral,62,60
 Cristofer LANUZA,07/15/2017,FINA World Championships 5km,"Budapest, HUN",5,No Current,Neutral,62,61
-Ferry WEERTMAN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,62
-Jordan WILIMOVSKY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,63
-Marc-Antoine OLIVIER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,64
-Jack BURNELL,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,65
-Kristof RASOVSZKY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,66
-David AUBRY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,67
-Simone RUFFINI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,68
-Evgenii DRATTCEV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,69
-Brendan CASEY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,70
-Federico VANELLI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,71
-Krzysztof PIELOWSKI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,72
-Christian REICHERT,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,73
-Chad HO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,74
-Ventsislav AYDARSKI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,75
-Vitaliy KHUDYAKOV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,76
-Shahar RESMAN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,77
-Jack BRAZIER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,78
-Marcel SCHOUTEN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,79
-Kirill ABROSIMOV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,80
-Fernando PONTE,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,81
-Danie SZEKELYI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,82
-Guillermo BERTOLA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,83
-Richard WEINBERGER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,84
-Caleb HUGHES,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,85
-Lijun ZU,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,86
-Rob MUFFELS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,87
-Joaquin MORENO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,88
-Philippe GUERTIN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,89
-Allan DO CARMO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,90
-Ivan ENDERICA OCHOA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,91
-Johndry SEGOVIA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,92
-David BRANDL,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,93
-Matej KOZUBEK,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,94
-Igor CHERVYNSKIY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,95
-Jiabao AN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,96
-Tamas FARKAS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,97
-Juan Jose SEGOVIA RAMOS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,98
-Asterios DALDOGIANNIS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,99
-Georgios ARNIAKOS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,100
-Yasunari HIRAI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,101
-David CASTRO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,102
-Marwan ELAMRAWY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,103
-Igor SNITKO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,104
-Taiki NONAKA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,105
-Nico MANOUSSAKIS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,106
-Vit INGEDULD,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,107
-Fernando BETANZOS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,108
-Shai TOLEDANO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,109
-Evgenij POP ACEV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,110
-Haythem ABDELKHALEK,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,111
-Bence BALZAM,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,112
-Arturo PEREZ VERTTI FERRER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,113
-Rodrigo CABALLERO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,114
-Pedro PINOTES,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,115
-Chin Ting Keith SIN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,116
-Kenessary KENENBAYEV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,117
-Peter GUTYAN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,118
-Marek PAVUK,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,119
-Frank Johan OJARAND,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,120
-Youssef Hossameldeen Khalil HOSSAMELDEEN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,121
-Tsz Fung TSE,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,122
-Zedheir TORREZ,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,123
-Emilio AVILA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,124
-Omkumar TOKALKANDIGA HEMKUMAR,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,125
-Cristofer LANUZA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,126
-Axel REYMOND,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,127
-Matteo FURLAN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,128
-Evgenii DRATTCEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,129
-Simone RUFFINI,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,130
-Chip PETERSON,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,131
-Gergely GYURTA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,132
-Vitaliy KHUDYAKOV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,133
-Sergey BOLSHAKOV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,134
-Marcel SCHOUTEN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,135
-Andreas WASCHBURGER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,136
-Soeren MEISSNER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,137
-Evgenij POP ACEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,138
-Allan DO CARMO,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,139
-Santiago ENDERICA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,140
-Yohsuke MIYAMOTO,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,141
-Shahar RESMAN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,142
-Yuval SAFRA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,143
-Matej KOZUBEK,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,144
-Taiki NONAKA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,145
-Guillermo BERTOLA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,146
-Jack BRAZIER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,147
-Victor COLONESE,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,148
-Haythem ABDELKHALEK,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,149
-Saleh MOHAMMAD,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,150
-Kenessary KENENBAYEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,151
+end,,2017_07_15_Budapest_5km,,,,,,0
+Ferry WEERTMAN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,1
+Jordan WILIMOVSKY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,2
+Marc-Antoine OLIVIER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,3
+Jack BURNELL,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,4
+Kristof RASOVSZKY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,5
+David AUBRY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,6
+Simone RUFFINI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,7
+Evgenii DRATTCEV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,8
+Brendan CASEY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,9
+Federico VANELLI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,10
+Krzysztof PIELOWSKI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,11
+Christian REICHERT,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,12
+Chad HO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,13
+Ventsislav AYDARSKI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,14
+Vitaliy KHUDYAKOV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,15
+Shahar RESMAN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,16
+Jack BRAZIER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,17
+Marcel SCHOUTEN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,18
+Kirill ABROSIMOV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,19
+Fernando PONTE,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,20
+Danie SZEKELYI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,21
+Guillermo BERTOLA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,22
+Richard WEINBERGER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,23
+Caleb HUGHES,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,24
+Lijun ZU,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,25
+Rob MUFFELS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,26
+Joaquin MORENO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,27
+Philippe GUERTIN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,28
+Allan DO CARMO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,29
+Ivan ENDERICA OCHOA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,30
+Johndry SEGOVIA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,31
+David BRANDL,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,32
+Matej KOZUBEK,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,33
+Igor CHERVYNSKIY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,34
+Jiabao AN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,35
+Tamas FARKAS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,36
+Juan Jose SEGOVIA RAMOS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,37
+Asterios DALDOGIANNIS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,38
+Georgios ARNIAKOS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,39
+Yasunari HIRAI,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,40
+David CASTRO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,41
+Marwan ELAMRAWY,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,42
+Igor SNITKO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,43
+Taiki NONAKA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,44
+Nico MANOUSSAKIS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,45
+Vit INGEDULD,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,46
+Fernando BETANZOS,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,47
+Shai TOLEDANO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,48
+Evgenij POP ACEV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,49
+Haythem ABDELKHALEK,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,50
+Bence BALZAM,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,51
+Arturo PEREZ VERTTI FERRER,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,52
+Rodrigo CABALLERO,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,53
+Pedro PINOTES,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,54
+Chin Ting Keith SIN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,55
+Kenessary KENENBAYEV,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,56
+Peter GUTYAN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,57
+Marek PAVUK,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,58
+Frank Johan OJARAND,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,59
+Youssef Hossameldeen Khalil HOSSAMELDEEN,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,60
+Tsz Fung TSE,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,61
+Zedheir TORREZ,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,62
+Emilio AVILA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,63
+Omkumar TOKALKANDIGA HEMKUMAR,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,64
+Cristofer LANUZA,07/18/2017,FINA World Championships 10km,"Budapest, HUN",10,No Current,Neutral,65,65
+end,,2017_07_18_Budapest_10km,,,,,,0
+Axel REYMOND,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,1
+Matteo FURLAN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,2
+Evgenii DRATTCEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,3
+Simone RUFFINI,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,4
+Chip PETERSON,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,5
+Gergely GYURTA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,6
+Vitaliy KHUDYAKOV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,7
+Sergey BOLSHAKOV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,8
+Marcel SCHOUTEN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,9
+Andreas WASCHBURGER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,10
+Soeren MEISSNER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,11
+Evgenij POP ACEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,12
+Allan DO CARMO,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,13
+Santiago ENDERICA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,14
+Yohsuke MIYAMOTO,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,15
+Shahar RESMAN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,16
+Yuval SAFRA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,17
+Matej KOZUBEK,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,18
+Taiki NONAKA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,19
+Guillermo BERTOLA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,20
+Jack BRAZIER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,21
+Victor COLONESE,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,22
+Haythem ABDELKHALEK,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,23
+Saleh MOHAMMAD,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,24
+Kenessary KENENBAYEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,25
 end,,2017_07_21_Budapest_25km,,,,,,0
 Simone RUFFINI,07/27/2017,FINA World Cup,"Roberval, CAN",10,No Current,Cold,27,1
 Federico VANELLI,07/27/2017,FINA World Cup,"Roberval, CAN",10,No Current,Cold,27,2
@@ -691,19 +694,20 @@ Edouard BELANGER,07/27/2017,FINA World Cup,"Roberval, CAN",10,No Current,Cold,27
 Francisco Eric SALINAS,07/27/2017,FINA World Cup,"Roberval, CAN",10,No Current,Cold,27,19
 Antoine CHATELAIN-LAFLAMME,07/27/2017,FINA World Cup,"Roberval, CAN",10,No Current,Cold,27,20
 Benjamin LORTIE,07/27/2017,FINA World Cup,"Roberval, CAN",10,No Current,Cold,27,21
-Guillermo BERTOLA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,22
-Philippe GUERTIN,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,23
-Evgenij POP ACEV,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,24
-Xavier DESHARNAIS,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,25
-Alexander STUDZINSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,26
-Damian BLAUM,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,27
-Edoardo STOCHINO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,28
-Edouard LEHOUX,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,29
-Bertrand VENTURI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,30
-Aleksandar ILIEVSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,31
-Matheus EMERIM EVANGELISTA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,32
-Aquiles BALAUDO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,33
-Davy BILLIAU,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,34
+end,,2017_07_21_Budapest_25km,,,,,,0
+Guillermo BERTOLA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,1
+Philippe GUERTIN,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,2
+Evgenij POP ACEV,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,3
+Xavier DESHARNAIS,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,4
+Alexander STUDZINSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,5
+Damian BLAUM,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,6
+Edoardo STOCHINO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,7
+Edouard LEHOUX,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,8
+Bertrand VENTURI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,9
+Aleksandar ILIEVSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,10
+Matheus EMERIM EVANGELISTA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,11
+Aquiles BALAUDO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,12
+Davy BILLIAU,07/29/2017,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,13,13
 end,,2017_07_29_Roberval_32km,,,,,,0
 Kristof RASOVSZKY,08/12/2017,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,21,1
 Federico VANELLI,08/12/2017,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,21,2

@@ -1,29 +1,29 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Marcel SCHOUTEN,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,1
-Fernando PONTE,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,2
-Diogo VILLARINHO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,3
-Allan DO CARMO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,4
-Victor COLONESE,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,5
-Alexander STUDZINSKI,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,6
-Luiz Gustavo FORATTO G. DE BARROS,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,7
-Alexandre FINCO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,8
-Nicolas MASSE-SAVARD,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,9
-Jon Thomas MCKAY,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,10
-Matheus EMERIM EVANGELISTA,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,11
-Joaquin MORENO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,12
-David POULIOT,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,13
-Evgenij POP ACEV,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,14
-Aquiles BALAUDO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,15
-Edouard BELANGER,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,16
-Edoardo STOCHINO,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,17
-Xavier DESHARNAIS,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,18
-Alexander STUDZINSKI,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,19
-Evgenij POP ACEV,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,20
-Edouard LEHOUX,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,21
-Chris DEEGAN,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,22
-Santiago ENDERICA,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,23
-Damian BLAUM,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,24
-Aquiles BALAUDO,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,25
-Aleksandar ILIEVSKI,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,26
-Gabriel POULIOT,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,27
-Joaquin MORENO,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,28
+Marcel SCHOUTEN,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,1.0
+Fernando PONTE,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,2.0
+Diogo VILLARINHO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,3.0
+Allan DO CARMO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,4.0
+Victor COLONESE,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,5.0
+Alexander STUDZINSKI,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,6.0
+Luiz Gustavo FORATTO G. DE BARROS,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,7.0
+Alexandre FINCO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,8.0
+Nicolas MASSE-SAVARD,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,9.0
+Jon Thomas MCKAY,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,10.0
+Matheus EMERIM EVANGELISTA,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,11.0
+Joaquin MORENO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,12.0
+David POULIOT,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,13.0
+Evgenij POP ACEV,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,14.0
+Aquiles BALAUDO,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,15.0
+Edouard BELANGER,07/26/2018,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,21.0,16.0
+Edoardo STOCHINO,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,17.0
+Xavier DESHARNAIS,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,18.0
+Alexander STUDZINSKI,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,19.0
+Evgenij POP ACEV,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,20.0
+Edouard LEHOUX,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,21.0
+Chris DEEGAN,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,22.0
+Santiago ENDERICA,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,23.0
+Damian BLAUM,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,24.0
+Aquiles BALAUDO,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,25.0
+Aleksandar ILIEVSKI,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,26.0
+Gabriel POULIOT,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,27.0
+Joaquin MORENO,07/28/2018,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,15.0,28.0

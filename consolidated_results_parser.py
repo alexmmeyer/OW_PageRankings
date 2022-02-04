@@ -1,6 +1,6 @@
 import pandas
 
-consolidated_file_path = "Consolidated Results.csv"
+consolidated_file_path = "consolidated results 9.16.18-7.27.19.csv"
 
 race_dict = {
     "athlete_name": [],
@@ -22,7 +22,7 @@ for (index, row) in consolidated_data.iterrows():
     elif row.athlete_name == "end":
         file_name = row.event
         df = pandas.DataFrame(race_dict)
-        df.to_csv(f"results/{file_name}.csv",index=False)
+        df.to_csv(f"results/{file_name}.csv", index=False)
         print(f"File {file_name} created")
         race_dict["athlete_name"] = []
         race_dict["date"] = []

@@ -1,35 +1,14 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Simone RUFFINI,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,1
-Federico VANELLI,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,2
-Hau-Li FAN,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,3
-Allan DO CARMO,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,4
-Andreas WASCHBURGER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,5
-Christian REICHERT,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,6
-Diogo VILLARINHO,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,7
-Richard WEINBERGER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,8
-Soeren MEISSNER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,9
-Nicolas MASSE-SAVARD,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,10
-Simon HUITENGA,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,11
-Guillermo BERTOLA,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,12
-Yasunari HIRAI,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,13
-Chris DEEGAN,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,14
-Davy BILLIAU,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,15
-Fernando PONTE,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,16
-Jeremias MUNOZ,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,17
-Edouard BELANGER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,18
-Francisco Eric SALINAS,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,19
-Antoine CHATELAIN-LAFLAMME,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,20
-Benjamin LORTIE,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,21
-Guillermo BERTOLA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,22
-Philippe GUERTIN,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,23
-Evgenij POP ACEV,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,24
-Xavier DESHARNAIS,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,25
-Alexander STUDZINSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,26
-Damian BLAUM,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,27
-Edoardo STOCHINO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,28
-Edouard LEHOUX,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,29
-Bertrand VENTURI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,30
-Aleksandar ILIEVSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,31
-Matheus EMERIM EVANGELISTA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,32
-Aquiles BALAUDO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,33
-Davy BILLIAU,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,34
+Guillermo BERTOLA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,1.0
+Philippe GUERTIN,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,2.0
+Evgenij POP ACEV,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,3.0
+Xavier DESHARNAIS,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,4.0
+Alexander STUDZINSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,5.0
+Damian BLAUM,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,6.0
+Edoardo STOCHINO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,7.0
+Edouard LEHOUX,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,8.0
+Bertrand VENTURI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,9.0
+Aleksandar ILIEVSKI,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,10.0
+Matheus EMERIM EVANGELISTA,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,11.0
+Aquiles BALAUDO,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,12.0
+Davy BILLIAU,07/29/2017,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,13.0,13.0

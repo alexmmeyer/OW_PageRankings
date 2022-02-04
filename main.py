@@ -69,8 +69,8 @@ def get_distance_weight(race_dist, units="km"):
 def label(race_result_file, *args):
     race_data = pd.read_csv(race_result_file)
     race_label = ""
-    for i in args:
-        race_label = race_label + str(race_data[i][0]) + " "
+    for arg in args:
+        race_label = race_label + str(race_data[arg][0]) + " "
     return race_label.strip()
 
 
@@ -393,6 +393,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     # date, and a list of the race names to be used as labels in the graph
     all_race_dates = list(get_results(athlete_name).date)
     race_dates = [date for date in all_race_dates if start_date <= dt.strptime(date, "%m/%d/%Y") <= end_date]
+    print(race_dates)
 
     all_events = list(get_results(athlete_name).event)
     all_locations = list(get_results(athlete_name).location)
@@ -411,6 +412,8 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     print(all_race_labels)
     print(race_dates)
     print(race_labels)
+
+    print(race_dates)
 
     for rd in race_dates:
         file_name = rd.replace("/", "_")
@@ -444,7 +447,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     plt.plot(race_dates, race_date_ranks, "o")
     for i, label in enumerate(race_labels):
         plt.text(race_dates[i], race_date_ranks[i], label, rotation=45, fontsize="xx-small")
-    plt.ylim(ymin=0)
+    plt.ylim(ymin=0.5)
     plt.gca().invert_yaxis()
     plt.xticks(rotation=45)
     plt.xlabel("Date")
@@ -493,5 +496,4 @@ G = nx.DiGraph()
 correct_predictions = 0
 total_tests = 0
 
-ranking_progression_from_archive("allan do carmo", "01/01/2017", "07/30/2018")
-
+ranking_progression_from_archive("allan do carmo", "01/01/2017", "12/31/2018")

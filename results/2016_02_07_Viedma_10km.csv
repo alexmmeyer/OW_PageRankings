@@ -1,37 +1,37 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Alex MEYER,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,1
-Simone RUFFINI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,2
-Federico VANELLI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,3
-Diego VERA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,4
-Axel REYMOND,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,5
-Damien CATTIN-VIDAL,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,6
-Esteban ENDERICA SALGADO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,7
-Daniel DELGADILLO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,8
-Mario SANZULLO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,9
-Martin CARRIZO YUNGES,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,10
-Erwin MALDONADO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,11
-Benjamin BRANTU,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,12
-Guillermo BERTOLA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,13
-Ivan ENDERICA OCHOA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,14
-Christian REICHERT,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,15
-Luis Fernardo BOLANOS ZULOAGA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,16
-Wilder CARRENO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,17
-Chip PETERSON,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,18
-Juan Jose SEGOVIA RAMOS,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,19
-Andrea BIANCHI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,20
-Santiago ENDERICA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,21
-Diogo VILLARINHO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,22
-Gabriel Raul VILLAGOIZ,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,23
-Vitaliy KHUDYAKOV,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,24
-Johndry SEGOVIA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,25
-Logan FONTAINE,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,26
-Guillaume BOSCHER,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,27
-Rafael GIL,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,28
-Hugo RIBEIRO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,29
-Damian BLAUM,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,30
-Tomi STEFANOVSKI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,31
-Vasco GASPAR,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,32
-Aquiles BALAUDO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,33
-Aleksandar ILIEVSKI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,34
-Rodrigo CABALLERO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,35
-Fausto Emanuel BRONDO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,36
+Alex MEYER,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,1.0
+Simone RUFFINI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,2.0
+Federico VANELLI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,3.0
+Diego VERA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,4.0
+Axel REYMOND,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,5.0
+Damien CATTIN-VIDAL,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,6.0
+Esteban ENDERICA SALGADO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,7.0
+Daniel DELGADILLO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,8.0
+Mario SANZULLO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,9.0
+Martin CARRIZO YUNGES,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,10.0
+Erwin MALDONADO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,11.0
+Benjamin BRANTU,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,12.0
+Guillermo BERTOLA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,13.0
+Ivan ENDERICA OCHOA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,14.0
+Christian REICHERT,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,15.0
+Luis Fernardo BOLANOS ZULOAGA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,16.0
+Wilder CARRENO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,17.0
+Chip PETERSON,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,18.0
+Juan Jose SEGOVIA RAMOS,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,19.0
+Andrea BIANCHI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,20.0
+Santiago ENDERICA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,21.0
+Diogo VILLARINHO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,22.0
+Gabriel Raul VILLAGOIZ,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,23.0
+Vitaliy KHUDYAKOV,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,24.0
+Johndry SEGOVIA,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,25.0
+Logan FONTAINE,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,26.0
+Guillaume BOSCHER,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,27.0
+Rafael GIL,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,28.0
+Hugo RIBEIRO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,29.0
+Damian BLAUM,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,30.0
+Tomi STEFANOVSKI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,31.0
+Vasco GASPAR,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,32.0
+Aquiles BALAUDO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,33.0
+Aleksandar ILIEVSKI,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,34.0
+Rodrigo CABALLERO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,35.0
+Fausto Emanuel BRONDO,02/07/2016,FINA World Cup,"Viedma, ARG",10.0,Current,Neutral,39.0,36.0
