@@ -151,6 +151,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
 
     global correct_predictions
     global total_tests
+    global G
 
     # first remove the ranking file that may exist from past function calls
     if os.path.exists(RANKING_FILE_NAME):
@@ -210,33 +211,32 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
         ranking_data = pd.read_csv(RANKING_FILE_NAME)
         print(ranking_data[ranking_data["rank"] < display_list + 1])
 
-    # if vis > 0:
-    #
-    #     pr_dict = nx.pagerank(G)
-    #
-    #     ranking_dict = {
-    #         "name": list(pr_dict.keys()),
-    #         "pagerank": list(pr_dict.values())
-    #     }
-    #
-    #     ranking_df = pd.DataFrame(ranking_dict)
-    #     ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
-    #     ranking_df["rank"] = range(1, len(pr_dict) + 1)
-    #     print(ranking_df[ranking_df["rank"] < 26])
-    #
-    #     num_of_athletes = vis
-    #     top_athletes = list(ranking_df.name[ranking_df["rank"] < num_of_athletes + 1])
-    #     G = G.subgraph(top_athletes)
-    #
-    #     size_map = []
-    #     thicknesses = []
-    #     for name in G.nodes:
-    #         size_map.append(float(ranking_df.pagerank[ranking_df.name == name] * 10000))
-    #     for edge in G.edges:
-    #         thicknesses.append(G[edge[0]][edge[1]]["weight"] * 2)
-    #
-    #     nx.draw_networkx(G, node_size=size_map, width=thicknesses, pos=nx.spring_layout(G))
-    #     plt.show()
+    if vis > 0:
+
+        pr_dict = nx.pagerank(G)
+
+        ranking_dict = {
+            "name": list(pr_dict.keys()),
+            "pagerank": list(pr_dict.values())
+        }
+
+        ranking_df = pd.DataFrame(ranking_dict)
+        ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
+        ranking_df["rank"] = range(1, len(pr_dict) + 1)
+
+        num_of_athletes = vis
+        top_athletes = list(ranking_df.name[ranking_df["rank"] < num_of_athletes + 1])
+        G = G.subgraph(top_athletes)
+
+        size_map = []
+        thicknesses = []
+        for name in G.nodes:
+            size_map.append(float(ranking_df.pagerank[ranking_df.name == name] * 10000))
+        for edge in G.edges:
+            thicknesses.append(G[edge[0]][edge[1]]["weight"] * 2)
+
+        nx.draw_networkx(G, node_size=size_map, width=thicknesses, pos=nx.spring_layout(G))
+        plt.show()
 
 
 def archive_ranking(ranking_date):
@@ -522,5 +522,5 @@ correct_predictions = 0
 total_tests = 0
 
 # ranking_progression_from_archive("allan do carmo", "01/01/2017", "12/31/2018")
-create_ranking("12/31/2018", test=True, comment=True)
+create_ranking("12/31/2018", test=True, vis=10, display_list=10)
 
