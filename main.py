@@ -80,6 +80,9 @@ def update_rankings(race_result_file, ranking_date):
     :param race_result_file: csv file with results from a single race
     :return: adds nodes and edges from race_result_file to existing graph
     """
+    # is global G needed? seems to work without it...
+    global G
+
     race_data = pd.read_csv(race_result_file)
     name_list = [name.title() for name in race_data.athlete_name.tolist()]
     age_weight = age_weight_exp(race_data.date[0], ranking_date)
@@ -135,9 +138,13 @@ def test_predictability(race_result_file):
                 correct_predictions += 1
                 instance_correct_predictions += 1
 
-    instance_predictability = instance_correct_predictions / instance_total_tests
-    instance_predictability = "{:.0%}".format(instance_predictability)
-    print(f"Ranking predictability at {race_label}: {instance_predictability}")
+    try:
+        instance_predictability = instance_correct_predictions / instance_total_tests
+    except ZeroDivisionError:
+        print(f"cannot calculate predictability for {race_result_file} -- cannot divide by 0")
+    else:
+        instance_predictability = "{:.0%}".format(instance_predictability)
+        print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
 def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0):
@@ -145,9 +152,12 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
     global correct_predictions
     global total_tests
 
+    # first remove the ranking file that may exist from past function calls
     if os.path.exists(RANKING_FILE_NAME):
         os.remove(RANKING_FILE_NAME)
 
+    # Loop through each race result file. If it's in the date range, update global G with that race's results by
+    # calling update_rankings()
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
         race_data = pd.read_csv(results_file_path)
@@ -161,15 +171,39 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
         elif os.path.exists(RANKING_FILE_NAME):
             if test:
                 test_predictability(results_file_path)
-            update_rankings(results_file_path, ranking_date)
-        else:
             if comment:
                 print(f"Loading {file}")
             update_rankings(results_file_path, ranking_date)
+            pr_dict = nx.pagerank(G)
+            ranking_dict = {
+                "name": list(pr_dict.keys()),
+                "pagerank": list(pr_dict.values())
+            }
+            ranking_df = pd.DataFrame(ranking_dict)
+            ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
+            ranking_df["rank"] = range(1, len(pr_dict) + 1)
+            ranking_df.to_csv(RANKING_FILE_NAME, index=False)
+        else:
+            if test:
+                pass
+            if comment:
+                print(f"Loading {file}")
+            update_rankings(results_file_path, ranking_date)
+            pr_dict = nx.pagerank(G)
+            ranking_dict = {
+                "name": list(pr_dict.keys()),
+                "pagerank": list(pr_dict.values())
+            }
+            ranking_df = pd.DataFrame(ranking_dict)
+            ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
+            ranking_df["rank"] = range(1, len(pr_dict) + 1)
+            ranking_df.to_csv(RANKING_FILE_NAME, index=False)
 
     if test:
         predictability = correct_predictions / total_tests
         predictability = "{:.0%}".format(predictability)
+        print(correct_predictions)
+        print(total_tests)
         print(f"Predictability: {predictability}")
 
     if display_list > 0:
@@ -204,20 +238,11 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
     #     nx.draw_networkx(G, node_size=size_map, width=thicknesses, pos=nx.spring_layout(G))
     #     plt.show()
 
-    pr_dict = nx.pagerank(G)
-
-    ranking_dict = {
-        "name": list(pr_dict.keys()),
-        "pagerank": list(pr_dict.values())
-    }
-
-    ranking_df = pd.DataFrame(ranking_dict)
-    ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
-    ranking_df["rank"] = range(1, len(pr_dict) + 1)
-    ranking_df.to_csv(RANKING_FILE_NAME, index=False)
-
 
 def archive_ranking(ranking_date):
+
+    global G
+    G = nx.DiGraph()
 
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
@@ -496,4 +521,6 @@ G = nx.DiGraph()
 correct_predictions = 0
 total_tests = 0
 
-ranking_progression_from_archive("allan do carmo", "01/01/2017", "12/31/2018")
+# ranking_progression_from_archive("allan do carmo", "01/01/2017", "12/31/2018")
+create_ranking("12/31/2018", test=True, comment=True)
+
