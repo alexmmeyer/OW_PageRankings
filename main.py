@@ -12,37 +12,29 @@ RANKING_FILE_NAME = variables.RANKING_FILE_NAME
 DEPRECIATION_PERIOD = variables.DEPRECIATION_PERIOD
 LAMBDA = variables.LAMBDA
 event_type_weights = variables.event_points
+DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
 RANK_DIST = variables.RANK_DIST
 
 
-def age_weight_exp(race_date_text, ranking_date):
-    """
-    :param ranking_date:
-    :param race_date_text: date in MM/DD/YYYY text format
-    :return: weight based on RANKING_AS_OF, DEPRECIATION_PERIOD, and LAMBDA (exponential decay)
-    """
-    race_date = dt.strptime(race_date_text, "%m/%d/%Y")
-    rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
-    days_old = (rank_date.date() - race_date.date()).days
-    years_old = days_old / 365
-    weight = 2.71828 ** (LAMBDA * years_old)
-    return weight
+def get_age_weight(race_date_text, ranking_date):
+
+    if DEPRECIATION_MODEL == "linear":
+        race_date = dt.strptime(race_date_text, "%m/%d/%Y")
+        rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
+        days_old = (rank_date.date() - race_date.date()).days
+        weight = (DEPRECIATION_PERIOD - days_old) / DEPRECIATION_PERIOD
+        return weight
+    elif DEPRECIATION_MODEL == "exponential":
+        e = 2.71828
+        race_date = dt.strptime(race_date_text, "%m/%d/%Y")
+        rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
+        days_old = (rank_date.date() - race_date.date()).days
+        years_old = days_old / 365
+        weight = e ** (LAMBDA * years_old)
+        return weight
 
 
-def age_weight_linear(race_date_text, ranking_date):
-    """
-    :param ranking_date:
-    :param race_date_text: date in MM/DD/YYYY text format
-    :return: weight based on RANKING_AS_OF and DEPRECIATION_PERIOD (linear decay)
-    """
-    race_date = dt.strptime(race_date_text, "%m/%d/%Y")
-    rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
-    days_old = (rank_date.date() - race_date.date()).days
-    weight = (DEPRECIATION_PERIOD - days_old) / DEPRECIATION_PERIOD
-    return weight
-
-
-def comp_level(event_type):
+def get_comp_weight(event_type):
     """
     :param event_type: event type as text, ie: "FINA World Cup"
     :return: weight as a float
@@ -85,8 +77,8 @@ def update_rankings(race_result_file, ranking_date):
 
     race_data = pd.read_csv(race_result_file)
     name_list = [name.title() for name in race_data.athlete_name.tolist()]
-    age_weight = age_weight_exp(race_data.date[0], ranking_date)
-    comp_weight = comp_level(race_data.event[0])
+    age_weight = get_age_weight(race_data.date[0], ranking_date)
+    comp_weight = get_comp_weight(race_data.event[0])
     dist_weight = get_distance_weight(race_data.distance[0])
     total_weight = age_weight * comp_weight * dist_weight
     race_label = label(race_result_file, "event", "location", "distance", "date")
@@ -141,10 +133,11 @@ def test_predictability(race_result_file):
     try:
         instance_predictability = instance_correct_predictions / instance_total_tests
     except ZeroDivisionError:
-        print(f"cannot calculate predictability for {race_result_file} -- cannot divide by 0")
+        # print(f"cannot calculate predictability for {race_result_file} -- cannot divide by 0")
+        pass
     else:
         instance_predictability = "{:.0%}".format(instance_predictability)
-        print(f"Ranking predictability at {race_label}: {instance_predictability}")
+        # print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
 def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0):
@@ -152,6 +145,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
     global correct_predictions
     global total_tests
     global G
+    G = nx.DiGraph()
 
     # first remove the ranking file that may exist from past function calls
     if os.path.exists(RANKING_FILE_NAME):
@@ -202,10 +196,11 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
 
     if test:
         predictability = correct_predictions / total_tests
-        predictability = "{:.0%}".format(predictability)
-        print(correct_predictions)
-        print(total_tests)
-        print(f"Predictability: {predictability}")
+        # predictability = "{:.0%}".format(predictability)
+        # print(correct_predictions)
+        # print(total_tests)
+        # print(f"Predictability: {predictability}")
+        print(predictability)
 
     if display_list > 0:
         ranking_data = pd.read_csv(RANKING_FILE_NAME)
@@ -517,10 +512,61 @@ def get_results(athlete_name):
     return pd.concat(rows, ignore_index=True)
 
 
+def show_edges(graph, athlete1, athlete2):
+    """
+    :param graph: a previously created ranking graph
+    :param athlete1: string
+    :param athlete2: string
+    :return: shows all edges (wins/losses) between to two athletes in the graph that is passed in
+    """
+
+    results_dict = {
+        "winner": [],
+        "event": [],
+        "weight": []
+    }
+
+    athlete_one_wins = graph[athlete2][athlete1]["race_weights"]
+
+    for (key, value) in athlete_one_wins.items():
+        results_dict["winner"].append(athlete1)
+        results_dict["event"].append(key)
+        results_dict["weight"].append(value)
+
+    athlete_two_wins = graph[athlete1][athlete2]["race_weights"]
+
+    for (key, value) in athlete_two_wins.items():
+        results_dict["winner"].append(athlete2)
+        results_dict["event"].append(key)
+        results_dict["weight"].append(value)
+
+    df = pd.DataFrame(results_dict)
+    print(df)
+
+
 G = nx.DiGraph()
 correct_predictions = 0
 total_tests = 0
 
-# ranking_progression_from_archive("allan do carmo", "01/01/2017", "12/31/2018")
-create_ranking("12/31/2018", test=True, vis=10, display_list=10)
+# ranking_progression_from_archive("allan do carmo", "07/01/2017", "12/31/2018")
+
+# years = [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5]
+# lambdas = [-0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2]
+
+# for num in years:
+#     DEPRECIATION_PERIOD = 365 * num
+#     print(f"{num} years:")
+#     create_ranking("07/27/2019", test=True)
+#
+# for num in lambdas:
+#     LAMBDA = num
+#     print(f"Lambda: {num}")
+#     create_ranking("07/27/2019", test=True)
+
+create_ranking("12/15/2021", display_list=50, test=True)
+# print(G["Simone Ruffini"]["Ferry Weertman"])
+
+# show_edges(G, "Ferry Weertman", "Simone Ruffini")
+
+
 
