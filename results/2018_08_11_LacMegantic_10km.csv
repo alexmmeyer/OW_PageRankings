@@ -1,37 +1,37 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Christian REICHERT,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,1.0
-Dario VERANI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,2.0
-Fernando PONTE,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,3.0
-Marcel SCHOUTEN,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,4.0
-Luiz Gustavo FORATTO G. DE BARROS,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,5.0
-Alexandre FINCO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,6.0
-Xavier DESHARNAIS,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,7.0
-Matheus EMERIM EVANGELISTA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,8.0
-Vitaliy KHUDYAKOV,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,9.0
-Elliot SODEMANN,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,10.0
-Diogo VILLARINHO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,11.0
-Edouard LEHOUX,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,12.0
-Jon Thomas MCKAY,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,13.0
-Santiago ENDERICA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,14.0
-Aquiles BALAUDO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,15.0
-Chris DEEGAN,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,16.0
-Nicolas MASSE-SAVARD,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,17.0
-David POULIOT,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,18.0
-Edouard BELANGER,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,19.0
-Jia HU,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,20.0
-Maxime GAGNON,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,22.0,21.0
-Francesco GHETTINI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,22.0
-Edoardo STOCHINO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,23.0
-Andrea BIANCHI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,24.0
-Alexander STUDZINSKI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,25.0
-Joaquin MORENO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,26.0
-Evgenij POP ACEV,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,27.0
-Damian BLAUM,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,28.0
-Santiago ENDERICA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,29.0
-Artur PEDROZA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,30.0
-Xavier DESHARNAIS,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,31.0
-Aleksandar ILIEVSKI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,32.0
-Aquiles BALAUDO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,33.0
-Luciano SEGURADO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,34.0
-Matias DIAZ HERNANDEZ,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,35.0
-Arseny BEKETOV,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10.0,No Current,Neutral,17.0,36.0
+Christian REICHERT,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,1
+Dario VERANI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,2
+Fernando PONTE,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,3
+Marcel SCHOUTEN,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,4
+Luiz Gustavo FORATTO G. DE BARROS,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,5
+Alexandre FINCO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,6
+Xavier DESHARNAIS,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,7
+Matheus EMERIM EVANGELISTA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,8
+Vitaliy KHUDYAKOV,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,9
+Elliot SODEMANN,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,10
+Diogo VILLARINHO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,11
+Edouard LEHOUX,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,12
+Jon Thomas MCKAY,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,13
+Santiago ENDERICA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,14
+Aquiles BALAUDO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,15
+Chris DEEGAN,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,16
+Nicolas MASSE-SAVARD,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,17
+David POULIOT,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,18
+Edouard BELANGER,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,19
+Jia HU,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,20
+Maxime GAGNON,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,22,21
+Francesco GHETTINI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,22
+Edoardo STOCHINO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,23
+Andrea BIANCHI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,24
+Alexander STUDZINSKI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,25
+Joaquin MORENO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,26
+Evgenij POP ACEV,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,27
+Damian BLAUM,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,28
+Santiago ENDERICA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,29
+Artur PEDROZA,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,30
+Xavier DESHARNAIS,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,31
+Aleksandar ILIEVSKI,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,32
+Aquiles BALAUDO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,33
+Luciano SEGURADO,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,34
+Matias DIAZ HERNANDEZ,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,35
+Arseny BEKETOV,08/11/2018,FINA World Cup,"Lac Megantic, CAN",10,No Current,Neutral,17,36

@@ -1,18 +1,47 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Philippe GUERTIN,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,1.0
-Chip PETERSON,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,2.0
-Andreas WASCHBURGER,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,3.0
-Eric HEDLIN,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,4.0
-Richard WEINBERGER,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,5.0
-Pepijn SMITS,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,6.0
-Damien CATTIN-VIDAL,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,7.0
-Christian REICHERT,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,8.0
-Santiago ENDERICA,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,9.0
-Nicolas MASSE-SAVARD,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,10.0
-Diogo VILLARINHO,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,11.0
-Davy BILLIAU,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,12.0
-Xavier DESHARNAIS,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,13.0
-Edouard BELANGER,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,14.0
-Aleksandar ILIEVSKI,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,15.0
-Aquiles BALAUDO,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,16.0
-Tristan FILION,06/28/2016,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,20.0,17.0
+Simone RUFFINI,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,1
+Andreas WASCHBURGER,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,2
+Richard WEINBERGER,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,3
+Sean RYAN,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,4
+Kristof RASOVSZKY,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,5
+Sören Dellef Meissner,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,6
+Chip PETERSON,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,7
+Diogo VILLARINHO,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,8
+Federico VANELLI,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,9
+Ivan ENDERICA OCHOA,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,10
+Damien CATTIN-VIDAL,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,11
+Christian REICHERT,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,12
+David HERON,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,13
+Daniel SZEKELYI,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,14
+Moritz Andreas BARTELS,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,15
+Allan DO CARMO,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,16
+Matteo FURLAN,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,17
+Patrik RAKOS,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,18
+Evgenij POP ACEV,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,19
+Jan URBANIAK,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,20
+Daniel KOBER,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,21
+Vitaliy KHUDYAKOV,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,22
+Yuval SAFRA,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,23
+Nicolas MASSE-SAVARD,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,24
+Phillip RYAN,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,25
+Xavier DESHARNAIS,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,26
+Shahar RESMAN,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,27
+Mathieu MATTELEAR,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,28
+Matej KOZUBEK,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,29
+Tamas NOVOSZATH,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,30
+Matan RODITI,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,31
+Benjamin BRANTU,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,32
+Philippe GUERTIN,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,33
+Adam OROSZ,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,34
+Zoltán DRIGAN,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,35
+Davy BILLIAU,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,36
+Yasunari HIRAI,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,37
+Vit INGEDULD,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,38
+Yohsuke MIYAMOTO,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,39
+Tamas FARKAS,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,40
+Edwin SERES,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,41
+Bartosz KUBKOWSKI,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,42
+Alon LERNER,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,43
+Daniel ZACHAR,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,44
+Bence BALZAM,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,45
+Marek PAVUK,06/18/2016,FINA World Cup,"Balatonfured, HUN",10,No Current,Neutral,47,46

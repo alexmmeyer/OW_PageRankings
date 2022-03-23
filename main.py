@@ -12,9 +12,14 @@ RANKING_FILE_NAME = variables.RANKING_FILE_NAME
 DEPRECIATION_PERIOD = variables.DEPRECIATION_PERIOD
 LAMBDA = variables.LAMBDA
 event_type_weights = variables.event_points
+athlete_countries = variables.athlete_countries
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
 RANK_DIST = variables.RANK_DIST
 
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
 
 def get_age_weight(race_date_text, ranking_date):
 
@@ -172,6 +177,8 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
             pr_dict = nx.pagerank(G)
             ranking_dict = {
                 "name": list(pr_dict.keys()),
+                # "country": [athlete_countries.country[athlete_countries.proper_name == name] for name in
+                #             list(pr_dict.keys())],
                 "pagerank": list(pr_dict.values())
             }
             ranking_df = pd.DataFrame(ranking_dict)
@@ -187,6 +194,8 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
             pr_dict = nx.pagerank(G)
             ranking_dict = {
                 "name": list(pr_dict.keys()),
+                # "country": [athlete_countries.country[athlete_countries.proper_name == name] for name in
+                #             list(pr_dict.keys())],
                 "pagerank": list(pr_dict.values())
             }
             ranking_df = pd.DataFrame(ranking_dict)
@@ -212,6 +221,8 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
 
         ranking_dict = {
             "name": list(pr_dict.keys()),
+            # "country": [athlete_countries.country[athlete_countries.proper_name == name] for name in
+            #                 list(pr_dict.keys())],
             "pagerank": list(pr_dict.values())
         }
 
@@ -492,7 +503,9 @@ def show_results(athlete_name):
             row = race_data[race_data.athlete_name == athlete_name.title()]
             rows.append(row)
 
-    print(pd.concat(rows, ignore_index=True))
+    df = pd.concat(rows, ignore_index=True)
+    print(df)
+    df.to_csv(f"show_results/{athlete_name}.csv")
 
 
 def get_results(athlete_name):
@@ -563,10 +576,11 @@ total_tests = 0
 #     print(f"Lambda: {num}")
 #     create_ranking("07/27/2019", test=True)
 
-create_ranking("12/15/2021", display_list=50, test=True)
-# print(G["Simone Ruffini"]["Ferry Weertman"])
+create_ranking("03/23/2022", comment=True, test=True, display_list=70)
 
-# show_edges(G, "Ferry Weertman", "Simone Ruffini")
+# show_edges(G, "Athanasios Kynigakis", "Rob Muffels")
+
+# show_results("Angel De OÃ±a Ramirez")
 
 
 

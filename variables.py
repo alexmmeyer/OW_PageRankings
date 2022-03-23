@@ -1,6 +1,7 @@
 import pandas
 
 event_points = pandas.read_csv("event_points.csv")
+athlete_countries = pandas.read_csv("athlete_countries.csv")
 RESULTS_DIRECTORY = "results"
 RANKING_FILE_NAME = "PageRanking.csv"
 

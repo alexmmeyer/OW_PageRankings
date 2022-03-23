@@ -1,7 +1,6 @@
 import pandas
 
-consolidated_file_path = "consolidated results/consolidated_results_7.27.19_to_eo2021.csv"
-
+consolidated_file_path = "consolidated results/Complete Results.csv"
 race_dict = {
     "athlete_name": [],
     "date": [],

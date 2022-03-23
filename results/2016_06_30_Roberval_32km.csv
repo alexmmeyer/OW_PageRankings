@@ -1,13 +1,13 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Alex MEYER,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,1.0
-Edoardo STOCHINO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,2.0
-Tomi STEFANOVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,3.0
-Edouard LEHOUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,4.0
-Evgenij POP ACEV,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,5.0
-Aquiles BALAUDO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,6.0
-Bertrand VENTURI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,7.0
-Xavier DESHARNAIS,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,8.0
-Aleksandar ILIEVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,9.0
-Gabriel POULIOT,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,10.0
-Simon PASTOR,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,11.0
-Xavier THEROUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32.0,No Current,Cold,16.0,12.0
+Alex MEYER,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,1
+Edoardo STOCHINO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,2
+Tomi STEFANOVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,3
+Edouard LEHOUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,4
+Evgenij POP ACEV,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,5
+Aquiles BALAUDO,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,6
+Bertrand VENTURI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,7
+Xavier DESHARNAIS,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,8
+Aleksandar ILIEVSKI,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,9
+Gabriel POULIOT,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,10
+Simon PASTOR,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,11
+Xavier THEROUX,06/30/2016,FINA Grand Prix,"Roberval, CAN",32,No Current,Cold,16,12

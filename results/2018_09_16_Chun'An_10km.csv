@@ -1,41 +1,41 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Jack BURNELL,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,1.0
-Rob MUFFELS,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,2.0
-Gregorio PALTRINIERI,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,3.0
-Ferry WEERTMAN,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,4.0
-Kristof RASOVSZKY,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,5.0
-Simone RUFFINI,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,6.0
-Soeren MEISSNER,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,7.0
-Matteo FURLAN,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,8.0
-Allan DO CARMO,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,9.0
-Kai Graeme EDWARDS,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,10.0
-Christian REICHERT,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,11.0
-Fernando PONTE,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,12.0
-Tobias Patrick ROBINSON,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,13.0
-Zhongyi QIAO,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,14.0
-Marcel SCHOUTEN,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,15.0
-Hayden Paul COTTER,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,16.0
-Vitaliy KHUDYAKOV,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,17.0
-Marcus HERWIG,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,18.0
-Shuyi LIU,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,19.0
-James OTLEY-DOE,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,20.0
-William Yan THORLEY,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,21.0
-Lu LIU,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,22.0
-Elliot SODEMANN,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,23.0
-Reilly KENNEDY,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,24.0
-Ziyang ZHANG,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,25.0
-Junbohang ZHAO,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,26.0
-Yunze WANG,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,27.0
-Wei Jun SU,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,28.0
-Bozhao ZHANG,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,29.0
-Ruoyu WANG,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,30.0
-Gong CHENG,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,31.0
-Zi Ce PEI,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,32.0
-Suebsakul KUMTON,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,33.0
-Chin Ting Keith SIN,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,34.0
-Nattapon INTARATCHAIKIJ,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,35.0
-Chak Fung LAM,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,36.0
-Chun Hin HUI,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,37.0
-Siwat MATANGKAPONG,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,38.0
-Kenessary KENENBAYEV,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,39.0
-Abdelrahman MOHAMED,09/16/2018,FINA World Cup,"Chun'An, CHN",10.0,No Current,Neutral,42.0,40.0
+Jack BURNELL,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,1
+Rob MUFFELS,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,2
+Gregorio PALTRINIERI,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,3
+Ferry WEERTMAN,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,4
+Kristof RASOVSZKY,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,5
+Simone RUFFINI,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,6
+Sören Dellef Meissner,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,7
+Matteo FURLAN,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,8
+Allan DO CARMO,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,9
+Kai Graeme EDWARDS,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,10
+Christian REICHERT,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,11
+Fernando PONTE,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,12
+Tobias Patrick ROBINSON,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,13
+Zhongyi QIAO,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,14
+Marcel SCHOUTEN,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,15
+Hayden Paul COTTER,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,16
+Vitaliy KHUDYAKOV,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,17
+Marcus HERWIG,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,18
+Shuyi LIU,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,19
+James OTLEY-DOE,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,20
+William Yan THORLEY,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,21
+Lu LIU,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,22
+Elliot SODEMANN,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,23
+Reilly KENNEDY,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,24
+Ziyang ZHANG,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,25
+Junbohang ZHAO,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,26
+Yunze WANG,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,27
+Wei Jun SU,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,28
+Bozhao ZHANG,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,29
+Ruoyu WANG,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,30
+Gong CHENG,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,31
+Zi Ce PEI,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,32
+Suebsakul KUMTON,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,33
+Chin Ting Keith SIN,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,34
+Nattapon INTARATCHAIKIJ,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,35
+Chak Fung LAM,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,36
+Chun Hin HUI,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,37
+Siwat MATANGKAPONG,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,38
+Kenessary KENENBAYEV,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,39
+Abdelrahman MOHAMED,9/16/2018,FINA World Cup,"Chun'An, CHN",10,No Current,Neutral,42,40

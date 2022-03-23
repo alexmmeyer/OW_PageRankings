@@ -1,22 +1,26 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Simone RUFFINI,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,1.0
-Federico VANELLI,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,2.0
-Hau-Li FAN,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,3.0
-Allan DO CARMO,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,4.0
-Andreas WASCHBURGER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,5.0
-Christian REICHERT,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,6.0
-Diogo VILLARINHO,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,7.0
-Richard WEINBERGER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,8.0
-Soeren MEISSNER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,9.0
-Nicolas MASSE-SAVARD,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,10.0
-Simon HUITENGA,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,11.0
-Guillermo BERTOLA,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,12.0
-Yasunari HIRAI,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,13.0
-Chris DEEGAN,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,14.0
-Davy BILLIAU,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,15.0
-Fernando PONTE,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,16.0
-Jeremias MUNOZ,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,17.0
-Edouard BELANGER,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,18.0
-Francisco Eric SALINAS,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,19.0
-Antoine CHATELAIN-LAFLAMME,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,20.0
-Benjamin LORTIE,07/27/2017,FINA World Cup,"Roberval, CAN",10.0,No Current,Cold,27.0,21.0
+Axel REYMOND,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,1
+Matteo FURLAN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,2
+Evgenii DRATTCEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,3
+Simone RUFFINI,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,4
+Chip PETERSON,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,5
+Gergely GYURTA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,6
+Vitaliy KHUDYAKOV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,7
+Sergey BOLSHAKOV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,8
+Marcel SCHOUTEN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,9
+Andreas WASCHBURGER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,10
+Sören Dellef Meissner,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,11
+Evgenij POP ACEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,12
+Allan DO CARMO,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,13
+Santiago ENDERICA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,14
+Yohsuke MIYAMOTO,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,15
+Shahar RESMAN,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,16
+Yuval SAFRA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,17
+Matej KOZUBEK,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,18
+Taiki NONAKA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,19
+Guillermo BERTOLA,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,20
+Jack BRAZIER,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,21
+Victor COLONESE,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,22
+Haythem ABDELKHALEK,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,23
+Saleh MOHAMMAD,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,24
+Kenessary KENENBAYEV,07/21/2017,FINA World Championships 25km,"Budapest, HUN",25,No Current,Neutral,28,25

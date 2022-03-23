@@ -1,39 +1,39 @@
 athlete_name,date,event,location,distance,current_type,temp,field_size,place
-Marc-Antoine OLIVIER,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,1.0
-Nicholas SLOMAN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,2.0
-Kristof RASOVSZKY,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,3.0
-Ferry WEERTMAN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,4.0
-Bailey ARMSTRONG,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,5.0
-Kai Graeme EDWARDS,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,6.0
-Hayden Paul COTTER,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,7.0
-Matteo FURLAN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,8.0
-Yuval SAFRA,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,9.0
-Evgenii DRATTCEV,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,10.0
-Jiabao AN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,11.0
-Kirill ABROSIMOV,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,12.0
-Zhongyi QIAO,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,13.0
-Daniel SZEKELYI,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,14.0
-Allan DO CARMO,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,15.0
-Andreas WASCHBURGER,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,16.0
-Chad HO,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,17.0
-Victor COLONESE,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,18.0
-Elliot SODEMANN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,19.0
-Shahar RESMAN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,20.0
-Nicholas ROLLO,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,21.0
-Pepijn SMITS,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,22.0
-Marcel SCHOUTEN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,23.0
-Danie MARAIS,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,24.0
-Mark PAPP,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,25.0
-Ziyang ZHANG,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,26.0
-Peter GALICZ,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,27.0
-Yunze WANG,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,28.0
-Reilly KENNEDY,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,29.0
-Dario VERANI,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,30.0
-Christopher JEDEL,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,31.0
-Shuyi LIU,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,32.0
-Phillip SEIDLER,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,33.0
-Idan MORDEL,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,34.0
-Gong CHENG,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,35.0
-Levente SELMECI,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,36.0
-Simon BACHMANN,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,37.0
-Damien PAYET,05/12/2019,FINA World Cup,"Seychelles, SEY",10.0,No Current,Neutral,55.0,38.0
+Marc-Antoine OLIVIER,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,1
+Nicholas SLOMAN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,2
+Kristof RASOVSZKY,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,3
+Ferry WEERTMAN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,4
+Bailey ARMSTRONG,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,5
+Kai Graeme EDWARDS,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,6
+Hayden Paul COTTER,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,7
+Matteo FURLAN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,8
+Yuval SAFRA,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,9
+Evgenii DRATTCEV,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,10
+Jiabao AN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,11
+Kirill ABROSIMOV,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,12
+Zhongyi QIAO,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,13
+Daniel SZEKELYI,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,14
+Allan DO CARMO,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,15
+Andreas WASCHBURGER,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,16
+Chad HO,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,17
+Victor COLONESE,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,18
+Elliot SODEMANN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,19
+Shahar RESMAN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,20
+Nicholas ROLLO,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,21
+Pepijn SMITS,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,22
+Marcel SCHOUTEN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,23
+Danie MARAIS,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,24
+Mark PAPP,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,25
+Ziyang ZHANG,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,26
+Peter GALICZ,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,27
+Yunze WANG,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,28
+Reilly KENNEDY,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,29
+Dario VERANI,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,30
+Christopher JEDEL,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,31
+Shuyi LIU,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,32
+Phillip SEIDLER,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,33
+Idan MORDEL,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,34
+Gong CHENG,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,35
+Levente SELMECI,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,36
+Simon BACHMANN,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,37
+Damien PAYET,5/12/2019,FINA World Cup,"Seychelles, SEY",10,No Current,Neutral,55,38
