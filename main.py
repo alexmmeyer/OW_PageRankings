@@ -14,6 +14,7 @@ LAMBDA = variables.LAMBDA
 event_type_weights = variables.event_points
 athlete_countries = variables.athlete_countries
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
+gender = variables.gender
 RANK_DIST = variables.RANK_DIST
 
 pd.set_option('display.max_rows', None)
@@ -116,7 +117,7 @@ def test_predictability(race_result_file):
 
     instance_correct_predictions = 0
     instance_total_tests = 0
-    race_label = label(race_result_file, "event", "location", "date")
+    # race_label = label(race_result_file, "event", "location", "date")
 
     ranking_data = pd.read_csv(RANKING_FILE_NAME)
     race_data = pd.read_csv(race_result_file)
@@ -145,12 +146,17 @@ def test_predictability(race_result_file):
         # print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
-def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0):
+def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0, dated=False):
 
     global correct_predictions
     global total_tests
     global G
+    global RANKING_FILE_NAME
     G = nx.DiGraph()
+
+    if dated:
+        transformed_date = ranking_date.replace("/", "-")
+        RANKING_FILE_NAME = f"{transformed_date} {gender}'s ranking.csv"
 
     # first remove the ranking file that may exist from past function calls
     if os.path.exists(RANKING_FILE_NAME):
@@ -271,7 +277,7 @@ def archive_ranking(ranking_date):
     ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
     ranking_df["rank"] = range(1, len(pr_dict) + 1)
     file_name = ranking_date.replace("/", "_")
-    ranking_df.to_csv(f"rankings_archive/{file_name}.csv", index=False)
+    ranking_df.to_csv(f"{gender}/rankings_archive/{file_name}.csv", index=False)
 
 
 def archive_rankings_range(start_date, end_date, increment=1):
@@ -554,33 +560,79 @@ def show_edges(graph, athlete1, athlete2):
         results_dict["weight"].append(value)
 
     df = pd.DataFrame(results_dict)
+    df = df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
     print(df)
 
+
+def print_race_labels():
+    for file in os.listdir(RESULTS_DIRECTORY):
+        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        print(label(results_file_path, "event", "location", "date", "distance"),"km")
+
+
+def compare_place_wr(results_file_path):
+
+    race_data = pd.read_csv(results_file_path)
+    race_date = race_data.date[0]
+    rank_date = (dt.strptime(race_date, "%m/%d/%Y") - timedelta(days=1)).strftime("%m/%d/%Y")
+    create_ranking(rank_date)
+    places = list(race_data.place)
+    athletes = list(race_data.athlete_name)
+    athletes = [athlete.title() for athlete in athletes]
+    ranking = pd.read_csv(RANKING_FILE_NAME)
+
+    graph_places = []
+    graph_athletes = []
+    graph_ranks = []
+
+    for i in range(len(places)):
+        try:
+            rank = int(ranking["rank"][ranking["name"] == athletes[i]])
+        except:
+            pass
+        else:
+            graph_places.append(places[i])
+            graph_athletes.append(athletes[i])
+            graph_ranks.append(rank)
+
+    # print(graph_places)
+    # print(graph_athletes)
+    # print(graph_ranks)
+    plt.plot(graph_places, graph_ranks, "o")
+    plt.xlabel("Place")
+    plt.ylabel("World Ranking")
+    title = label(results_file_path, "event", "location", "date")
+    plt.title(f"{title}")
+    plt.show()
 
 G = nx.DiGraph()
 correct_predictions = 0
 total_tests = 0
 
-# ranking_progression_from_archive("allan do carmo", "07/01/2017", "12/31/2018")
+# ranking_progression_from_archive("allan do carmo", "01/01/2017", "09/10/2018")
 
-# years = [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5]
-# lambdas = [-0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2]
+create_ranking("05/31/2021", comment=True)
 
-# for num in years:
-#     DEPRECIATION_PERIOD = 365 * num
-#     print(f"{num} years:")
-#     create_ranking("07/27/2019", test=True)
+# compare_place_wr("results/2021_08_04_Tokyo_10km.csv")
+
+# show_edges(G, "Simone Ruffini", "Andreas Waschburger")
+
+# show_results("Alex Meyer")
+
+# dates = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018", "07/31/2018", "08/31/2018",
+#          "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018", "01/31/2019", "02/28/2019", "03/31/2019", "04/30/2019",
+#          "05/31/2019", "06/30/2019", "07/31/2019", "08/31/2019", "09/30/2019", "10/31/2019", "11/30/2019", "12/31/2019",
+#          "01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020", "07/31/2020", "08/31/2020",
+#          "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020", "01/31/2021", "02/28/2021", "03/31/2021", "04/30/2021",
+#          "05/31/2021", "06/30/2021", "07/31/2021", "08/31/2021", "09/30/2021", "10/31/2021", "11/30/2021", "12/31/2021",
+#          "01/31/2022", "02/28/2022", "03/31/2022"]
 #
-# for num in lambdas:
-#     LAMBDA = num
-#     print(f"Lambda: {num}")
-#     create_ranking("07/27/2019", test=True)
-
-create_ranking("03/23/2022", comment=True, test=True, display_list=70)
-
-# show_edges(G, "Athanasios Kynigakis", "Rob Muffels")
-
-# show_results("Angel De OÃ±a Ramirez")
+# dates = ["01/31/2021", "02/28/2021", "03/31/2021", "04/30/2021", "05/31/2021", "06/30/2021", "07/31/2021", "08/31/2021",
+#          "09/30/2021", "10/31/2021", "11/30/2021", "12/31/2021", "01/31/2022", "02/28/2022", "03/31/2022"]
+#
+# for date in dates:
+#     create_ranking(date, dated=True)
+#     print(f"{date} ranking complete")
 
 
 
