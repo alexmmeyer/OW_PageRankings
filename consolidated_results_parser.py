@@ -3,16 +3,19 @@ import pandas
 import variables
 
 gender = variables.gender
-consolidated_file_path = "women/consolidated_results/LEN/European Champs/Europeans 2016 & 2021 W.csv"
+
+consolidated_file_path = f"{gender}/consolidated results/Complete Results {gender}.csv"
 race_dict = {
     "athlete_name": [],
+    "country": [],
     "date": [],
     "event": [],
     "location": [],
     "distance": [],
-    "current_type": [],
-    "temp": [],
+    "wetsuit": [],
+    "condition": [],
     "field_size": [],
+    "time": [],
     "place": [],
 }
 
@@ -27,24 +30,28 @@ for (index, row) in consolidated_data.iterrows():
         df.to_csv(f"{gender}/results/{file_name}.csv", index=False)
         print(f"{file_name}.csv created")
         race_dict["athlete_name"] = []
+        race_dict["country"] = []
         race_dict["date"] = []
         race_dict["event"] = []
         race_dict["location"] = []
         race_dict["distance"] = []
-        race_dict["current_type"] = []
-        race_dict["temp"] = []
+        race_dict["wetsuit"] = []
+        race_dict["condition"] = []
         race_dict["field_size"] = []
+        race_dict["time"] = []
         race_dict["place"] = []
 
     else:
         race_dict["athlete_name"].append(row.athlete_name)
+        race_dict["country"].append(row.country)
         race_dict["date"].append(row.date)
         race_dict["event"].append(row.event)
         race_dict["location"].append(row.location)
         race_dict["distance"].append(row.distance)
-        race_dict["current_type"].append(row.current_type)
-        race_dict["temp"].append(row.temp)
+        race_dict["wetsuit"].append(row.wetsuit)
+        race_dict["condition"].append(row.condition)
         race_dict["field_size"].append(row.field_size)
+        race_dict["time"].append(row.time)
         race_dict["place"].append(row.place)
 
 

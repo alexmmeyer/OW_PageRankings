@@ -5,6 +5,7 @@ from datetime import timedelta
 from itertools import combinations
 import variables
 import networkx as nx
+import time
 import matplotlib.pyplot as plt
 
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
@@ -93,6 +94,12 @@ def update_rankings(race_result_file, ranking_date):
     combos = [tuple(reversed(combo)) for combo in combos]
 
     for combo in combos:
+        # from_name = combo[0].title()
+        # to_name = combo[1].title()
+        # # check for a tie
+        # if int(race_data.place[race_data.athlete_name == from_name]) \
+        #         == int(race_data.place[race_data.athlete_name == to_name]):
+        #     pass
         if combo in G.edges:
             current_weight = G[combo[0]][combo[1]]["weight"]
             new_weight = current_weight + total_weight
@@ -146,13 +153,16 @@ def test_predictability(race_result_file):
         # print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
-def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0, dated=False):
+def create_ranking(ranking_date, test=False, comment=True, display_list=0, vis=0, dated=False):
+
+    start = time.time()
 
     global correct_predictions
     global total_tests
     global G
     global RANKING_FILE_NAME
     G = nx.DiGraph()
+    race_count = 0
 
     if dated:
         transformed_date = ranking_date.replace("/", "-")
@@ -180,6 +190,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
             if comment:
                 print(f"Loading {file}")
             update_rankings(results_file_path, ranking_date)
+            race_count += 1
             pr_dict = nx.pagerank(G)
             ranking_dict = {
                 "name": list(pr_dict.keys()),
@@ -197,6 +208,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
             if comment:
                 print(f"Loading {file}")
             update_rankings(results_file_path, ranking_date)
+            race_count += 1
             pr_dict = nx.pagerank(G)
             ranking_dict = {
                 "name": list(pr_dict.keys()),
@@ -249,6 +261,16 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
 
         nx.draw_networkx(G, node_size=size_map, width=thicknesses, pos=nx.spring_layout(G))
         plt.show()
+
+    end = time.time()
+
+    print(f"New ranking file created: {RANKING_FILE_NAME}")
+    print(f"Time to execute: {round((end - start), 2)}s")
+    print(f"Races included in ranking: {race_count}")
+    print(f"Gender: {gender}")
+    print(f"Distance: {RANK_DIST}km")
+    print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
+    print(f"Depreciation model: {DEPRECIATION_MODEL}")
 
 
 def archive_ranking(ranking_date):
@@ -416,7 +438,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
 
     for date in date_range:
         file_name = date.replace("/", "_")
-        ranking_data = pd.read_csv(f"rankings_archive/{file_name}.csv")
+        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}.csv")
         ranked_athletes = list(ranking_data.name)
         if athlete_name in ranked_athletes:
             dates.append(date)
@@ -454,7 +476,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
 
     for rd in race_dates:
         file_name = rd.replace("/", "_")
-        ranking_data = pd.read_csv(f"rankings_archive/{file_name}.csv")
+        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}.csv")
         rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
         race_date_ranks.append(rank_on_date)
         progress = len(race_date_ranks) / len(race_dates)
@@ -511,7 +533,7 @@ def show_results(athlete_name):
 
     df = pd.concat(rows, ignore_index=True)
     print(df)
-    df.to_csv(f"show_results/{athlete_name}.csv")
+    df.to_csv(f"{gender}/show_results/{athlete_name}.csv")
 
 
 def get_results(athlete_name):
@@ -545,6 +567,9 @@ def show_edges(graph, athlete1, athlete2):
         "weight": []
     }
 
+    athlete1 = athlete1.title()
+    athlete2 = athlete2.title()
+
     athlete_one_wins = graph[athlete2][athlete1]["race_weights"]
 
     for (key, value) in athlete_one_wins.items():
@@ -560,7 +585,6 @@ def show_edges(graph, athlete1, athlete2):
         results_dict["weight"].append(value)
 
     df = pd.DataFrame(results_dict)
-    df = df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
     print(df)
 
 
@@ -605,34 +629,46 @@ def compare_place_wr(results_file_path):
     plt.title(f"{title}")
     plt.show()
 
+
+def sum_of_edges(graph, athlete):
+
+    weight_dict = {
+    }
+
+    for node in graph.nodes:
+        # print(node)
+        try:
+            dict = graph[node][athlete]["race_weights"]
+        except KeyError:
+            pass
+        else:
+            # print(dict)
+            for key, value in dict.items():
+                if key in weight_dict.keys():
+                    weight_dict[key] += value
+                else:
+                    weight_dict[key] = value
+
+    new_dict = {
+        "race": list(weight_dict.keys()),
+        "sum_of_weights": list(weight_dict.values()),
+    }
+
+    df = pd.DataFrame(new_dict)
+    print(df.sort_values(by="sum_of_weights", ascending=False).reset_index(drop=True))
+    print(f"Sum of edge weights directed at {athlete}: {sum(weight_dict.values())}")
+
+
 G = nx.DiGraph()
 correct_predictions = 0
 total_tests = 0
 
-# ranking_progression_from_archive("allan do carmo", "01/01/2017", "09/10/2018")
 
-create_ranking("05/31/2021", comment=True)
 
-# compare_place_wr("results/2021_08_04_Tokyo_10km.csv")
 
-# show_edges(G, "Simone Ruffini", "Andreas Waschburger")
+02/07/2018
+12/16/2021
 
-# show_results("Alex Meyer")
-
-# dates = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018", "07/31/2018", "08/31/2018",
-#          "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018", "01/31/2019", "02/28/2019", "03/31/2019", "04/30/2019",
-#          "05/31/2019", "06/30/2019", "07/31/2019", "08/31/2019", "09/30/2019", "10/31/2019", "11/30/2019", "12/31/2019",
-#          "01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020", "07/31/2020", "08/31/2020",
-#          "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020", "01/31/2021", "02/28/2021", "03/31/2021", "04/30/2021",
-#          "05/31/2021", "06/30/2021", "07/31/2021", "08/31/2021", "09/30/2021", "10/31/2021", "11/30/2021", "12/31/2021",
-#          "01/31/2022", "02/28/2022", "03/31/2022"]
-#
-# dates = ["01/31/2021", "02/28/2021", "03/31/2021", "04/30/2021", "05/31/2021", "06/30/2021", "07/31/2021", "08/31/2021",
-#          "09/30/2021", "10/31/2021", "11/30/2021", "12/31/2021", "01/31/2022", "02/28/2022", "03/31/2022"]
-#
-# for date in dates:
-#     create_ranking(date, dated=True)
-#     print(f"{date} ranking complete")
 
 
 
