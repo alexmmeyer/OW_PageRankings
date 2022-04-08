@@ -153,7 +153,7 @@ def test_predictability(race_result_file):
         # print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
-def create_ranking(ranking_date, test=False, comment=True, display_list=0, vis=0, dated=False):
+def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0, dated=False, summary=False):
 
     start = time.time()
 
@@ -194,8 +194,6 @@ def create_ranking(ranking_date, test=False, comment=True, display_list=0, vis=0
             pr_dict = nx.pagerank(G)
             ranking_dict = {
                 "name": list(pr_dict.keys()),
-                # "country": [athlete_countries.country[athlete_countries.proper_name == name] for name in
-                #             list(pr_dict.keys())],
                 "pagerank": list(pr_dict.values())
             }
             ranking_df = pd.DataFrame(ranking_dict)
@@ -212,8 +210,6 @@ def create_ranking(ranking_date, test=False, comment=True, display_list=0, vis=0
             pr_dict = nx.pagerank(G)
             ranking_dict = {
                 "name": list(pr_dict.keys()),
-                # "country": [athlete_countries.country[athlete_countries.proper_name == name] for name in
-                #             list(pr_dict.keys())],
                 "pagerank": list(pr_dict.values())
             }
             ranking_df = pd.DataFrame(ranking_dict)
@@ -264,13 +260,34 @@ def create_ranking(ranking_date, test=False, comment=True, display_list=0, vis=0
 
     end = time.time()
 
-    print(f"New ranking file created: {RANKING_FILE_NAME}")
-    print(f"Time to execute: {round((end - start), 2)}s")
-    print(f"Races included in ranking: {race_count}")
-    print(f"Gender: {gender}")
-    print(f"Distance: {RANK_DIST}km")
-    print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
-    print(f"Depreciation model: {DEPRECIATION_MODEL}")
+    if summary:
+        print(f"New ranking file created: {RANKING_FILE_NAME}")
+        print(f"Time to execute: {round((end - start), 2)}s")
+        print(f"Races included in ranking: {race_count}")
+        print(f"Gender: {gender}")
+        print(f"Distance: {RANK_DIST}km")
+        print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
+        print(f"Depreciation model: {DEPRECIATION_MODEL}")
+
+
+def alpha_date(date):
+    """
+    :param date: MM/DD/YYYY
+    :return: YYYY_MM_DD
+    """
+    date = date.replace("/", "_")
+    alphadate = date[6:] + "_" + date[:5]
+    return alphadate
+
+
+def unalpha_date(date):
+    """
+    :param date: YYYY_MM_DD
+    :return: MM/DD/YYYY
+    """
+    uad = date[5:] + "_" + date[:4]
+    uad = uad.replace("_", "/")
+    return uad
 
 
 def archive_ranking(ranking_date):
@@ -298,8 +315,9 @@ def archive_ranking(ranking_date):
     ranking_df = pd.DataFrame(ranking_dict)
     ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
     ranking_df["rank"] = range(1, len(pr_dict) + 1)
-    file_name = ranking_date.replace("/", "_")
-    ranking_df.to_csv(f"{gender}/rankings_archive/{file_name}.csv", index=False)
+    file_name = f"{alpha_date(ranking_date)}_{gender}_{RANK_DIST}km.csv"
+    ranking_df.to_csv(f"{gender}/rankings_archive/{file_name}", index=False)
+    print(f"{gender}/rankings_archive/{file_name} archived")
 
 
 def archive_rankings_range(start_date, end_date, increment=1):
@@ -344,7 +362,7 @@ def ranking_progression(athlete_name, start_date, end_date, increment=7):
 
     for date in date_range:
         G = nx.DiGraph()
-        create_ranking(date)
+        create_ranking(date, comment=False)
         ranking_data = pd.read_csv(RANKING_FILE_NAME)
         ranked_athletes = list(ranking_data.name)
         if athlete_name in ranked_athletes:
@@ -375,7 +393,7 @@ def ranking_progression(athlete_name, start_date, end_date, increment=7):
 
     for rd in race_dates:
         G = nx.DiGraph()
-        create_ranking(rd)
+        create_ranking(rd, comment=False)
         ranking_data = pd.read_csv(RANKING_FILE_NAME)
         rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
         race_date_ranks.append(rank_on_date)
@@ -414,7 +432,7 @@ def ranking_progression(athlete_name, start_date, end_date, increment=7):
     plt.show()
 
 
-def ranking_progression_from_archive(athlete_name, start_date, end_date, increment=1):
+def ranking_progression_from_archive(athlete_name, start_date, end_date, increment=1, save=False):
     """
     :param athlete_name:
     :param start_date:
@@ -437,8 +455,8 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     loop_count = 0
 
     for date in date_range:
-        file_name = date.replace("/", "_")
-        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}.csv")
+        file_name = f"{alpha_date(date)}_{gender}_{RANK_DIST}km.csv"
+        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}")
         ranked_athletes = list(ranking_data.name)
         if athlete_name in ranked_athletes:
             dates.append(date)
@@ -475,8 +493,8 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     print(race_dates)
 
     for rd in race_dates:
-        file_name = rd.replace("/", "_")
-        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}.csv")
+        file_name = f"{alpha_date(rd)}_{gender}_{RANK_DIST}km.csv"
+        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}")
         rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
         race_date_ranks.append(rank_on_date)
         progress = len(race_date_ranks) / len(race_dates)
@@ -490,12 +508,13 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     print(race_date_ranks)
     print(race_labels)
 
-    # dict = {
-    #     "dates": dates,
-    #     "ranks": ranks
-    # }
-    # df = pd.DataFrame(dict)
-    # df.to_csv(f"{athlete_name}progression.csv")
+    if save:
+        dict = {
+            "dates": dates,
+            "ranks": ranks
+        }
+        df = pd.DataFrame(dict)
+        df.to_csv(f"{gender}/progressions/{athlete_name} progression.csv")
 
 
     # Plot progression dates and ranks in a step chart, plot races on top of that as singular scatter points.
@@ -549,6 +568,8 @@ def get_results(athlete_name):
         if athlete_name.title() in names_list:
             row = race_data[race_data.athlete_name == athlete_name.title()]
             rows.append(row)
+            # print(file)
+            # print(row)
 
     return pd.concat(rows, ignore_index=True)
 
@@ -599,7 +620,7 @@ def compare_place_wr(results_file_path):
     race_data = pd.read_csv(results_file_path)
     race_date = race_data.date[0]
     rank_date = (dt.strptime(race_date, "%m/%d/%Y") - timedelta(days=1)).strftime("%m/%d/%Y")
-    create_ranking(rank_date)
+    create_ranking(rank_date, comment=False)
     places = list(race_data.place)
     athletes = list(race_data.athlete_name)
     athletes = [athlete.title() for athlete in athletes]
@@ -622,9 +643,9 @@ def compare_place_wr(results_file_path):
     # print(graph_places)
     # print(graph_athletes)
     # print(graph_ranks)
-    plt.plot(graph_places, graph_ranks, "o")
-    plt.xlabel("Place")
-    plt.ylabel("World Ranking")
+    plt.plot(graph_ranks, graph_places, "o")
+    plt.xlabel("World Ranking")
+    plt.ylabel("Place")
     title = label(results_file_path, "event", "location", "date")
     plt.title(f"{title}")
     plt.show()
@@ -664,10 +685,23 @@ correct_predictions = 0
 total_tests = 0
 
 
+DEPRECIATION_PERIOD = 365 * 1.6
+archive_rankings_range("01/01/2017", "12/31/2017")
 
+DEPRECIATION_PERIOD = 365 * 1.6
+archive_rankings_range("01/01/2018", "12/31/2018")
 
-02/07/2018
-12/16/2021
+DEPRECIATION_PERIOD = 365 * 1.6
+archive_rankings_range("01/01/2019", "12/31/2019")
+
+DEPRECIATION_PERIOD = 365 * 1.3
+archive_rankings_range("01/01/2020", "12/31/2020")
+
+DEPRECIATION_PERIOD = 365 * 2.9
+archive_rankings_range("01/01/2021", "12/31/2021")
+
+DEPRECIATION_PERIOD = 365 * 3.5
+archive_rankings_range("01/01/2022", "04/06/2022")
 
 
 

@@ -2,10 +2,10 @@ import os
 import pandas as pd
 import variables
 
-for file in os.listdir(variables.RESULTS_DIRECTORY):
-    results_file_path = os.path.join(variables.RESULTS_DIRECTORY, file)
-    race_data = pd.read_csv(results_file_path)
-    print(race_data["place"][0])
+# for file in os.listdir(variables.RESULTS_DIRECTORY):
+#     results_file_path = os.path.join(variables.RESULTS_DIRECTORY, file)
+#     race_data = pd.read_csv(results_file_path)
+#     print(race_data["place"][0])
 
 # print_race_labels()
 # compare_place_wr("results/2021_08_04_Tokyo_10km.csv")
@@ -47,3 +47,26 @@ for file in os.listdir(variables.RESULTS_DIRECTORY):
 #         print("tie")
 #     else:
 #         print("not a tie")
+
+date = "2022_04_06"
+
+print(date[:4])
+print(date[5:])
+
+def unalpha_date(date):
+    """
+    :param date: YYYY_MM_DD
+    :return: MM/DD/YYYY
+    """
+    uad = date[5:] + "_" + date[:4]
+    uad = uad.replace("_", "/")
+    return uad
+
+print(unalpha_date("2022_04_06"))
+
+
+
+def alphadate(date):
+    date = date.replace("/", "_")
+    alpha_date = date[6:] + "_" + date[:5]
+    return(alpha_date)
