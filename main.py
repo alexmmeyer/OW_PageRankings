@@ -724,35 +724,40 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
     df.to_csv("horserace.csv")
 
 
-def time_diffs(athlete, comp_to_athlete):
+def time_diffs(dist, athlete, comp_to_athlete):
 
-    dist = 0
     diffs = []
 
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
         race_data = pd.read_csv(results_file_path)
+        race_dist = race_data.distance[0]
         if athlete in list(race_data.athlete_name) and comp_to_athlete in list(race_data.athlete_name):
-            # print(file)
-            main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
-            comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
-            # print(f"{main_athlete}'s time: {main_time}")
-            # print(f"{comp_athlete}'s time: {comp_time}")
-            diff = round(main_time - comp_to_time, 2)
-            if not(math.isnan(diff)):
-                diffs.append(diff)
+            if race_dist == dist or dist == "all":
+                main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
+                comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
+                diff = round(main_time - comp_to_time, 2)
+                if not(math.isnan(diff)):
+                    diffs.append(diff)
 
     return diffs
 
 
-def plot_time_diffs(max_diff, athlete_name, *comp_athletes):
+def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
+    """
+    :param dist: number or "all"
+    :param max_diff: in seconds, max/min shown on chart
+    :param athlete_name: athlete you are comparing to all others in comp_athletes
+    :param comp_athletes: athletes that athlete_name is being compared to
+    :return: chart
+    """
 
     all_names = []
     all_diffs = []
     all_hues = []
 
     for comp_athlete in comp_athletes:
-        diffs = time_diffs(athlete_name, comp_athlete)
+        diffs = time_diffs(dist, athlete_name, comp_athlete)
         if len(diffs) > 0:
             for diff in diffs:
                 all_names.append(comp_athlete)
@@ -764,15 +769,21 @@ def plot_time_diffs(max_diff, athlete_name, *comp_athletes):
                 all_hues.append(win_lose)
 
     diff_dict = {
-        "name": all_names,
-        "diff": all_diffs,
-        "win_lose": all_hues
+        "Competitor": all_names,
+        "Time Difference": all_diffs,
+        f"Outcome for {athlete_name}": all_hues
     }
 
     df = pd.DataFrame(diff_dict)
-    print(df)
-    chart = sb.stripplot(y="name", x="diff", hue="win_lose", linewidth=1, size=8, data=df)
+    # print(df)
+    chart = sb.stripplot(y="Competitor", x="Time Difference", hue=f"Outcome for {athlete_name}", linewidth=1, size=7, data=df)
+    if dist == "all":
+        dist_subtitle = "all race distances"
+    else:
+        dist_subtitle = f"{dist}km races"
+    chart.set(title=f"{athlete_name}'s time differential to various competitors\n{dist_subtitle}, +/- {max_diff}s")
     chart.set_xlim(-max_diff, max_diff)
+    chart.invert_xaxis()
     plt.show()
 
 
@@ -785,7 +796,9 @@ correct_predictions = 0
 # show_edges(G, "Florian Wellbrock", "Marc-Antoine Olivier")
 
 
-plot_time_diffs(15, "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Florian Wellbrock", "Domenico Acerenza", "Mario Sanzullo")
+# plot_time_diffs(30, "Marc-Antoine Olivier", "Gregorio Paltrinieri", "Florian Wellbrock", "Kristof Rasovszky", "Domenico Acerenza", "Mario Sanzullo")
+plot_time_diffs("all", 30, "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Leonie Beck", "Lara Grangeon De Villele", "Rachele Bruni", "Anna Olasz")
+# "Giulia Gabbrielleschi", "Lara Grangeon De Villele", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni"
 
 
 
