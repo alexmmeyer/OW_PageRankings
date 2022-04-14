@@ -48,25 +48,32 @@ import variables
 #     else:
 #         print("not a tie")
 
-date = "2022_04_06"
 
-print(date[:4])
-print(date[5:])
+# DEPRECIATION_PERIOD = 365 * 1.4
+# archive_rankings_range("01/01/2017", "12/31/2017")
+#
+# DEPRECIATION_PERIOD = 365 * 1.7
+# archive_rankings_range("01/01/2018", "12/31/2018")
+#
+# DEPRECIATION_PERIOD = 365 * 1.9
+# archive_rankings_range("01/01/2019", "12/31/2019")
+#
+# DEPRECIATION_PERIOD = 365 * 1.6
+# archive_rankings_range("01/01/2020", "12/31/2020")
+#
+# DEPRECIATION_PERIOD = 365 * 3.2
+# archive_rankings_range("01/01/2021", "12/31/2021")
+#
+# DEPRECIATION_PERIOD = 365 * 3.6
+# archive_rankings_range("01/01/2022", "04/06/2022")
 
-def unalpha_date(date):
-    """
-    :param date: YYYY_MM_DD
-    :return: MM/DD/YYYY
-    """
-    uad = date[5:] + "_" + date[:4]
-    uad = uad.replace("_", "/")
-    return uad
+list = ["a", "b", "c", "d", "e", "f"]
+print(list[0:2])
 
-print(unalpha_date("2022_04_06"))
+for date in date_range:
+    file_path = f"{gender}/rankings_archive/{alpha_date(date)}_{gender}_{RANK_DIST}km.csv"
+    df = pd.read_csv(file_path)
+    print(file_path)
+    ranks = [int(df["rank"][df["name"] == athlete]) for athlete in athlete_list]
+    horse_race_dict[date] = ranks
 
-
-
-def alphadate(date):
-    date = date.replace("/", "_")
-    alpha_date = date[6:] + "_" + date[:5]
-    return(alpha_date)
