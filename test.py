@@ -67,13 +67,10 @@ import variables
 # DEPRECIATION_PERIOD = 365 * 3.6
 # archive_rankings_range("01/01/2022", "04/06/2022")
 
-list = ["a", "b", "c", "d", "e", "f"]
-print(list[0:2])
 
-for date in date_range:
-    file_path = f"{gender}/rankings_archive/{alpha_date(date)}_{gender}_{RANK_DIST}km.csv"
-    df = pd.read_csv(file_path)
-    print(file_path)
-    ranks = [int(df["rank"][df["name"] == athlete]) for athlete in athlete_list]
-    horse_race_dict[date] = ranks
+letter_list = ["a", "b", "c", "d", "e", "f"]
+num_list = [1, 2, 3, 4, 3, 2]
+
+print(num_list.index(max(num_list)))
+
 

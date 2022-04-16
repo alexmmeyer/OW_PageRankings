@@ -9,7 +9,6 @@ import time
 import matplotlib.pyplot as plt
 import math
 import seaborn as sb
-sb.set_style("darkgrid")
 
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
 RANKING_FILE_NAME = variables.RANKING_FILE_NAME
@@ -156,19 +155,15 @@ def test_predictability(race_result_file):
         # print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
-def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0, dated=False, summary=False):
-    start = time.time()
+def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0, summary=False):
 
+    start = time.time()
     global correct_predictions
     global total_tests
     global G
     global RANKING_FILE_NAME
     G = nx.DiGraph()
     race_count = 0
-
-    if dated:
-        transformed_date = ranking_date.replace("/", "-")
-        RANKING_FILE_NAME = f"{transformed_date} {gender}'s ranking.csv"
 
     # first remove the ranking file that may exist from past function calls
     if os.path.exists(RANKING_FILE_NAME):
@@ -177,16 +172,19 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
     # Loop through each race result file. If it's in the date range, update global G with that race's results by
     # calling update_rankings()
     for file in os.listdir(RESULTS_DIRECTORY):
+        print(file)
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
         if (rank_date.date() - race_date.date()).days > DEPRECIATION_PERIOD or rank_date.date() < race_date.date():
+            print(f"Excluding {file}, race is not in date range.")
             if comment:
                 print(f"Excluding {file}, race is not in date range.")
             else:
                 pass
         elif os.path.exists(RANKING_FILE_NAME):
+            print('ranking file exists')
             if test:
                 test_predictability(results_file_path)
             if comment:
@@ -203,6 +201,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
             ranking_df["rank"] = range(1, len(pr_dict) + 1)
             ranking_df.to_csv(RANKING_FILE_NAME, index=False)
         else:
+            print("ranking file doesn't exist, not testing predictability on this one")
             if test:
                 pass
             if comment:
@@ -226,6 +225,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
         # print(total_tests)
         # print(f"Predictability: {predictability}")
         print(predictability)
+        return predictability
 
     if display_list > 0:
         ranking_data = pd.read_csv(RANKING_FILE_NAME)
@@ -253,11 +253,12 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
         size_map = []
         thicknesses = []
         for name in G.nodes:
-            size_map.append(float(ranking_df.pagerank[ranking_df.name == name] * 10000))
+            size_map.append(float(ranking_df.pagerank[ranking_df.name == name] * 3000))
         for edge in G.edges:
-            thicknesses.append(G[edge[0]][edge[1]]["weight"] * 2)
+            thicknesses.append(G[edge[0]][edge[1]]["weight"] * .4)
 
-        nx.draw_networkx(G, node_size=size_map, width=thicknesses, pos=nx.spring_layout(G))
+        nx.draw_networkx(G, node_size=size_map, font_size=8, font_color="red", width=thicknesses,
+                         pos=nx.spring_layout(G))
         plt.show()
 
     end = time.time()
@@ -641,13 +642,21 @@ def compare_place_wr(results_file_path):
             graph_athletes.append(athletes[i])
             graph_ranks.append(rank)
 
-    # print(graph_places)
-    # print(graph_athletes)
-    # print(graph_ranks)
+    place_wr_dict = {
+        "name": graph_athletes,
+        "place": graph_places,
+        "rank": graph_ranks
+    }
+
+    df = pd.DataFrame(place_wr_dict)
+    print(df)
+
+    print(place_wr_dict)
+
     plt.plot(graph_ranks, graph_places, "o")
     plt.xlabel("World Ranking")
     plt.ylabel("Place")
-    title = label(results_file_path, "event", "location", "date")
+    title = label(results_file_path, "event", "location", "date", "distance") + "km"
     plt.title(f"{title}")
     plt.show()
 
@@ -725,7 +734,6 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
 
 
 def time_diffs(dist, athlete, comp_to_athlete):
-
     diffs = []
 
     for file in os.listdir(RESULTS_DIRECTORY):
@@ -737,7 +745,7 @@ def time_diffs(dist, athlete, comp_to_athlete):
                 main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
                 comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
                 diff = round(main_time - comp_to_time, 2)
-                if not(math.isnan(diff)):
+                if not (math.isnan(diff)):
                     diffs.append(diff)
 
     return diffs
@@ -755,6 +763,7 @@ def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
     all_names = []
     all_diffs = []
     all_hues = []
+    sb.set_style("darkgrid")
 
     for comp_athlete in comp_athletes:
         diffs = time_diffs(dist, athlete_name, comp_athlete)
@@ -770,13 +779,14 @@ def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
 
     diff_dict = {
         "Competitor": all_names,
-        "Time Difference": all_diffs,
+        f"Time Difference: {athlete_name} compared to competitors": all_diffs,
         f"Outcome for {athlete_name}": all_hues
     }
 
     df = pd.DataFrame(diff_dict)
     # print(df)
-    chart = sb.stripplot(y="Competitor", x="Time Difference", hue=f"Outcome for {athlete_name}", linewidth=1, size=7, data=df)
+    chart = sb.stripplot(y="Competitor", x=f"Time Difference: {athlete_name} compared to competitors",
+                         hue=f"Outcome for {athlete_name}", linewidth=1, size=7, data=df)
     if dist == "all":
         dist_subtitle = "all race distances"
     else:
@@ -787,18 +797,55 @@ def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
     plt.show()
 
 
-
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
-#
-# create_ranking("04/01/2022")
-# show_edges(G, "Florian Wellbrock", "Marc-Antoine Olivier")
 
+dates_to_test = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018", "07/31/2018",
+                 "08/31/2018",
+                 "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018", "01/31/2019", "02/28/2019", "03/31/2019",
+                 "04/30/2019",
+                 "05/31/2019", "06/30/2019", "07/31/2019", "08/31/2019", "09/30/2019", "10/31/2019", "11/30/2019",
+                 "12/31/2019",
+                 "01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020", "07/31/2020",
+                 "08/31/2020",
+                 "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020", "01/31/2021", "02/28/2021", "03/31/2021",
+                 "04/30/2021",
+                 "05/31/2021", "06/30/2021", "07/31/2021", "08/31/2021", "09/30/2021", "10/31/2021", "11/30/2021",
+                 "12/31/2021",
+                 "01/31/2022", "02/28/2022", "03/31/2022"]
 
-# plot_time_diffs(30, "Marc-Antoine Olivier", "Gregorio Paltrinieri", "Florian Wellbrock", "Kristof Rasovszky", "Domenico Acerenza", "Mario Sanzullo")
-plot_time_diffs("all", 30, "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Leonie Beck", "Lara Grangeon De Villele", "Rachele Bruni", "Anna Olasz")
-# "Giulia Gabbrielleschi", "Lara Grangeon De Villele", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni"
+year_values = [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9,
+               2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9,
+               3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
 
+dates = []
+opt_year_values = []
+opt_predict_values = []
 
+for date in dates_to_test:
+    year_value_list = []
+    predict_value_list = []
+    for year_value in year_values:
+        # global total_tests
+        # global correct_predictions
+        DEPRECIATION_PERIOD = year_value  # reset the depreciation period with new value to test
+        year_value_list.append(year_value)
+        predict_value_list.append(create_ranking(date, test=True))
+        # reset the counters after every ranking created
+        total_tests = 0
+        correct_predictions = 0
+    dates.append(date)
+    opt_predict_value = max(predict_value_list)
+    opt_year_value = year_value_list[predict_value_list.index(opt_predict_value)]
+    opt_year_values.append(opt_year_value)
+    opt_predict_values.append(opt_predict_value)
 
+opt_dict = {
+    "date": dates,
+    "years": opt_year_values,
+    "predictability": opt_predict_values
+}
+
+df = pd.DataFrame(opt_dict)
+print(df)
