@@ -172,19 +172,16 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
     # Loop through each race result file. If it's in the date range, update global G with that race's results by
     # calling update_rankings()
     for file in os.listdir(RESULTS_DIRECTORY):
-        print(file)
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
         if (rank_date.date() - race_date.date()).days > DEPRECIATION_PERIOD or rank_date.date() < race_date.date():
-            print(f"Excluding {file}, race is not in date range.")
             if comment:
                 print(f"Excluding {file}, race is not in date range.")
             else:
                 pass
         elif os.path.exists(RANKING_FILE_NAME):
-            print('ranking file exists')
             if test:
                 test_predictability(results_file_path)
             if comment:
@@ -201,7 +198,6 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
             ranking_df["rank"] = range(1, len(pr_dict) + 1)
             ranking_df.to_csv(RANKING_FILE_NAME, index=False)
         else:
-            print("ranking file doesn't exist, not testing predictability on this one")
             if test:
                 pass
             if comment:
@@ -801,23 +797,20 @@ G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 
-dates_to_test = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018", "07/31/2018",
-                 "08/31/2018",
-                 "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018", "01/31/2019", "02/28/2019", "03/31/2019",
-                 "04/30/2019",
-                 "05/31/2019", "06/30/2019", "07/31/2019", "08/31/2019", "09/30/2019", "10/31/2019", "11/30/2019",
-                 "12/31/2019",
-                 "01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020", "07/31/2020",
-                 "08/31/2020",
-                 "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020", "01/31/2021", "02/28/2021", "03/31/2021",
-                 "04/30/2021",
-                 "05/31/2021", "06/30/2021", "07/31/2021", "08/31/2021", "09/30/2021", "10/31/2021", "11/30/2021",
-                 "12/31/2021",
+dates_to_test = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018",
+                 "07/31/2018", "08/31/2018", "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018",
+                 "01/31/2019", "02/28/2019", "03/31/2019", "04/30/2019", "05/31/2019", "06/30/2019",
+                 "07/31/2019", "08/31/2019", "09/30/2019", "10/31/2019", "11/30/2019", "12/31/2019",
+                 "01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020",
+                 "07/31/2020", "08/31/2020", "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020",
+                 "01/31/2021", "02/28/2021", "03/31/2021", "04/30/2021","05/31/2021", "06/30/2021",
+                 "07/31/2021", "08/31/2021", "09/30/2021", "10/31/2021", "11/30/2021","12/31/2021",
                  "01/31/2022", "02/28/2022", "03/31/2022"]
 
 year_values = [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9,
                2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9,
                3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
+
 
 dates = []
 opt_year_values = []
@@ -829,8 +822,9 @@ for date in dates_to_test:
     for year_value in year_values:
         # global total_tests
         # global correct_predictions
-        DEPRECIATION_PERIOD = year_value  # reset the depreciation period with new value to test
+        DEPRECIATION_PERIOD = 365 * year_value  # reset the depreciation period with new value to test
         year_value_list.append(year_value)
+        print(f"date: {date}, years: {year_value}")
         predict_value_list.append(create_ranking(date, test=True))
         # reset the counters after every ranking created
         total_tests = 0
@@ -849,3 +843,4 @@ opt_dict = {
 
 df = pd.DataFrame(opt_dict)
 print(df)
+df.to_csv(f"optimization {dates_to_test[0]} to {dates_to_test[-1]}.csv")
