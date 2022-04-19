@@ -1,6 +1,6 @@
 import pandas
 
-gender = "women"
+gender = "men"
 
 event_points = pandas.read_csv("event_points.csv")
 athlete_countries = pandas.read_csv("athlete_countries.csv")

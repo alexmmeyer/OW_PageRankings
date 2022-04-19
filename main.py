@@ -75,7 +75,7 @@ def label(race_result_file, *args):
     return race_label.strip()
 
 
-def update_rankings(race_result_file, ranking_date):
+def update_graph(race_result_file, ranking_date):
     """
     :param ranking_date:
     :param race_result_file: csv file with results from a single race
@@ -186,7 +186,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
                 test_predictability(results_file_path)
             if comment:
                 print(f"Loading {file}")
-            update_rankings(results_file_path, ranking_date)
+            update_graph(results_file_path, ranking_date)
             race_count += 1
             pr_dict = nx.pagerank(G)
             ranking_dict = {
@@ -202,7 +202,7 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
                 pass
             if comment:
                 print(f"Loading {file}")
-            update_rankings(results_file_path, ranking_date)
+            update_graph(results_file_path, ranking_date)
             race_count += 1
             pr_dict = nx.pagerank(G)
             ranking_dict = {
@@ -301,7 +301,7 @@ def archive_ranking(ranking_date):
         if (rank_date.date() - race_date.date()).days > DEPRECIATION_PERIOD or rank_date.date() < race_date.date():
             pass
         else:
-            update_rankings(results_file_path, ranking_date)
+            update_graph(results_file_path, ranking_date)
 
     pr_dict = nx.pagerank(G)
 
@@ -332,102 +332,6 @@ def archive_rankings_range(start_date, end_date, increment=1):
         files_created += 1
         progress = files_created / total_files
         print("{:.0%}".format(progress))
-
-
-def ranking_progression(athlete_name, start_date, end_date, increment=7):
-    """
-    :param athlete_name:
-    :param start_date:
-    :param end_date:
-    :return: graph showing athlete's ranking on every day between (inclusive) start_date and end_date
-    :param increment:
-    """
-
-    global G
-
-    # Get a list of dates called date_range within the start and end range
-    start_date = dt.strptime(start_date, "%m/%d/%Y")
-    end_date = dt.strptime(end_date, "%m/%d/%Y")
-    athlete_name = athlete_name.title()
-    date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
-                  if i % increment == 0]
-
-    # Loop through each of the dates in date_range and create a ranking. Add the date to one list and add the
-    # athlete's rank to a separate list. Count loops to track progress.
-    dates = []
-    ranks = []
-    loop_count = 0
-
-    for date in date_range:
-        G = nx.DiGraph()
-        create_ranking(date, comment=False)
-        ranking_data = pd.read_csv(RANKING_FILE_NAME)
-        ranked_athletes = list(ranking_data.name)
-        if athlete_name in ranked_athletes:
-            dates.append(date)
-            rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-            ranks.append(rank_on_date)
-        progress = loop_count / len(date_range)
-        loop_count += 1
-        print("{:.0%}".format(progress))
-
-    # Create a list of all dates that the athlete raced, a list of the athlete's rank on that date, and a list of the
-    # race names to be used as labels in the graph
-    all_race_dates = list(get_results(athlete_name).date)
-    race_dates = [date for date in all_race_dates if start_date <= dt.strptime(date, "%m/%d/%Y") <= end_date]
-
-    all_events = list(get_results(athlete_name).event)
-    all_locations = list(get_results(athlete_name).location)
-    all_race_labels = [all_events[i] + " " + all_locations[i] for i in range(len(all_events))]
-    race_labels = []
-
-    # Build the list of dates and labels to be used in the graph
-    for date in all_race_dates:
-        if start_date <= dt.strptime(date, "%m/%d/%Y") <= end_date:
-            race_labels.append(all_race_labels[race_dates.index(date)])
-
-    # Build the list of ranks to be used in the graph
-    race_date_ranks = []
-
-    for rd in race_dates:
-        G = nx.DiGraph()
-        create_ranking(rd, comment=False)
-        ranking_data = pd.read_csv(RANKING_FILE_NAME)
-        rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-        race_date_ranks.append(rank_on_date)
-        progress = len(race_date_ranks) / len(race_dates)
-        print("{:.0%}".format(progress))
-
-    print("Progression dates and ranks:")
-    print(dates)
-    print(ranks)
-    print("Race dates, ranks, and race labels:")
-    print(race_dates)
-    print(race_date_ranks)
-    print(race_labels)
-
-    # dict = {
-    #     "dates": dates,
-    #     "ranks": ranks
-    # }
-    # df = pd.DataFrame(dict)
-    # df.to_csv("progression1.csv")
-
-    # Plot progression dates and ranks in a step chart, plot races on top of that as singular scatter points.
-    dates = [dt.strptime(date, "%m/%d/%Y") for date in dates]
-    race_dates = [dt.strptime(date, "%m/%d/%Y") for date in race_dates]
-
-    plt.step(dates, ranks, where="post")
-    plt.plot(race_dates, race_date_ranks, "o")
-    for i, label in enumerate(race_labels):
-        plt.text(race_dates[i], race_date_ranks[i], label, rotation=45, fontsize="xx-small")
-    plt.ylim(ymin=0)
-    plt.gca().invert_yaxis()
-    plt.xticks(rotation=45)
-    plt.xlabel("Date")
-    plt.ylabel("World Ranking")
-    plt.title(f"World Ranking Progression: {athlete_name}\n")
-    plt.show()
 
 
 def ranking_progression_from_archive(athlete_name, start_date, end_date, increment=1, save=False):
@@ -793,54 +697,133 @@ def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
     plt.show()
 
 
+def compare_wr_num_races(ranking_date, comment=False, summary=False):
+
+    start = time.time()
+    global correct_predictions
+    global total_tests
+    global G
+    global RANKING_FILE_NAME
+    G = nx.DiGraph()
+    race_count = 0
+    athlete_list = []
+
+    # first remove the ranking file that may exist from past function calls
+    if os.path.exists(RANKING_FILE_NAME):
+        os.remove(RANKING_FILE_NAME)
+
+    # Loop through each race result file. If it's in the date range, update global G with that race's results by
+    # calling update_rankings()
+    for file in os.listdir(RESULTS_DIRECTORY):
+        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        race_data = pd.read_csv(results_file_path)
+        race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
+        rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
+        if (rank_date.date() - race_date.date()).days > DEPRECIATION_PERIOD or rank_date.date() < race_date.date():
+            if comment:
+                print(f"Excluding {file}, race is not in date range.")
+            else:
+                pass
+        elif os.path.exists(RANKING_FILE_NAME):
+            if comment:
+                print(f"Loading {file}")
+            update_graph(results_file_path, ranking_date)
+            athlete_list.extend(list(race_data.athlete_name))
+            race_count += 1
+            pr_dict = nx.pagerank(G)
+            ranking_dict = {
+                "name": list(pr_dict.keys()),
+                "pagerank": list(pr_dict.values())
+            }
+            ranking_df = pd.DataFrame(ranking_dict)
+            ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
+            ranking_df["rank"] = range(1, len(pr_dict) + 1)
+            ranking_df["qty_races"] = [athlete_list.count(name) for name in list(ranking_df["name"])]
+            ranking_df.to_csv(RANKING_FILE_NAME, index=False)
+        else:
+            if comment:
+                print(f"Loading {file}")
+            update_graph(results_file_path, ranking_date)
+            athlete_list.extend(list(race_data.athlete_name))
+            race_count += 1
+            pr_dict = nx.pagerank(G)
+            ranking_dict = {
+                "name": list(pr_dict.keys()),
+                "pagerank": list(pr_dict.values())
+            }
+            ranking_df = pd.DataFrame(ranking_dict)
+            ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
+            ranking_df["rank"] = range(1, len(pr_dict) + 1)
+            ranking_df["qty_races"] = [athlete_list.count(name) for name in list(ranking_df["name"])]
+            ranking_df.to_csv(RANKING_FILE_NAME, index=False)
+
+    df = pd.read_csv(RANKING_FILE_NAME)
+    ranks = list(df["rank"])
+    qty_races = list(df["qty_races"])
+    plt.plot(qty_races, ranks, "o")
+    plt.gca().invert_yaxis()
+    # plt.xlim(xmin=9.5)
+    plt.xlabel("Quantity of races in ranking")
+    plt.ylabel("World Ranking")
+    plt.title(f"Does Racing More Improve Your World Ranking?\n(ranking as of {ranking_date}, "
+              f"includes {DEPRECIATION_PERIOD / 365} years of results)")
+    plt.show()
+
+
+    end = time.time()
+
+    if summary:
+        print(f"New ranking file created: {RANKING_FILE_NAME}")
+        print(f"Time to execute: {round((end - start), 2)}s")
+        print(f"Races included in ranking: {race_count}")
+        print(f"Gender: {gender}")
+        print(f"Distance: {RANK_DIST}km")
+        print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
+        print(f"Depreciation model: {DEPRECIATION_MODEL}")
+
+
+
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 
-dates_to_test = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018",
-                 "07/31/2018", "08/31/2018", "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018",
-                 "01/31/2019", "02/28/2019", "03/31/2019", "04/30/2019", "05/31/2019", "06/30/2019",
-                 "07/31/2019", "08/31/2019", "09/30/2019", "10/31/2019", "11/30/2019", "12/31/2019",
-                 "01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020",
-                 "07/31/2020", "08/31/2020", "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020",
-                 "01/31/2021", "02/28/2021", "03/31/2021", "04/30/2021","05/31/2021", "06/30/2021",
-                 "07/31/2021", "08/31/2021", "09/30/2021", "10/31/2021", "11/30/2021","12/31/2021",
-                 "01/31/2022", "02/28/2022", "03/31/2022"]
+# dates_to_test = ["01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020",
+#                  "07/31/2020", "08/31/2020", "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020"]
+#
+# year_values = [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9,
+#                2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9]
+#
+# dates = []
+# opt_year_values = []
+# opt_predict_values = []
+#
+# for date in dates_to_test:
+#     year_value_list = []
+#     predict_value_list = []
+#     for year_value in year_values:
+#         # global total_tests
+#         # global correct_predictions
+#         DEPRECIATION_PERIOD = 365 * year_value  # reset the depreciation period with new value to test
+#         year_value_list.append(year_value)
+#         print(f"date: {date}, years: {year_value}")
+#         predict_value_list.append(create_ranking(date, test=True))
+#         # reset the counters after every ranking created
+#         total_tests = 0
+#         correct_predictions = 0
+#     dates.append(date)
+#     opt_predict_value = max(predict_value_list)
+#     opt_year_value = year_value_list[predict_value_list.index(opt_predict_value)]
+#     opt_year_values.append(opt_year_value)
+#     opt_predict_values.append(opt_predict_value)
+#
+# opt_dict = {
+#     "date": dates,
+#     "years": opt_year_values,
+#     "predictability": opt_predict_values
+# }
+#
+# df = pd.DataFrame(opt_dict)
+# print(df)
+# df.to_csv(f"{gender}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
 
-year_values = [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9,
-               2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9,
-               3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
-
-
-dates = []
-opt_year_values = []
-opt_predict_values = []
-
-for date in dates_to_test:
-    year_value_list = []
-    predict_value_list = []
-    for year_value in year_values:
-        # global total_tests
-        # global correct_predictions
-        DEPRECIATION_PERIOD = 365 * year_value  # reset the depreciation period with new value to test
-        year_value_list.append(year_value)
-        print(f"date: {date}, years: {year_value}")
-        predict_value_list.append(create_ranking(date, test=True))
-        # reset the counters after every ranking created
-        total_tests = 0
-        correct_predictions = 0
-    dates.append(date)
-    opt_predict_value = max(predict_value_list)
-    opt_year_value = year_value_list[predict_value_list.index(opt_predict_value)]
-    opt_year_values.append(opt_year_value)
-    opt_predict_values.append(opt_predict_value)
-
-opt_dict = {
-    "date": dates,
-    "years": opt_year_values,
-    "predictability": opt_predict_values
-}
-
-df = pd.DataFrame(opt_dict)
-print(df)
-df.to_csv(f"optimization {dates_to_test[0]} to {dates_to_test[-1]}.csv")
+compare_wr_num_races("04/17/2022", comment=True)
