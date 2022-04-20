@@ -71,6 +71,8 @@ import variables
 letter_list = ["a", "b", "c", "d", "e", "f"]
 num_list = [1, 2, 3, 4, 3, 2]
 
+print(mea)
+
 print(letter_list.count("c"))
 
 dates_to_test = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018",

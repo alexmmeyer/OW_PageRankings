@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from datetime import datetime as dt
 from datetime import timedelta
+from datetime import date
 from itertools import combinations
 import variables
 import networkx as nx
@@ -128,7 +129,11 @@ def test_predictability(race_result_file):
     instance_total_tests = 0
     # race_label = label(race_result_file, "event", "location", "date")
 
-    ranking_data = pd.read_csv(RANKING_FILE_NAME)
+    # Optimize test for a subset of the overall ranking.
+    from_rank = 1
+    to_rank = 100
+
+    ranking_data = pd.read_csv(RANKING_FILE_NAME).iloc[(from_rank - 1):to_rank]
     race_data = pd.read_csv(race_result_file)
     name_list = race_data.athlete_name.tolist()
     combos = list(combinations(name_list, 2))
@@ -441,7 +446,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     plt.show()
 
 
-def show_results(athlete_name):
+def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y"), sortby="date"):
     rows = []
 
     for file in os.listdir(RESULTS_DIRECTORY):
@@ -451,10 +456,37 @@ def show_results(athlete_name):
         names_list = [name.title() for name in names_list]
         race_data.athlete_name = names_list
         if athlete_name.title() in names_list:
+            # calculate the weight of this race and add it to the row:
+            age_weight = max(0, get_age_weight(race_data.date[0], as_of))
+            comp_weight = get_comp_weight(race_data.event[0])
+            dist_weight = get_distance_weight(race_data.distance[0])
+            total_weight = age_weight * comp_weight * dist_weight
             row = race_data[race_data.athlete_name == athlete_name.title()]
+            row["weight"] = total_weight
+            # calculate the WR of the top 10 finishers, average it, and add it to the row:
+            top_ten = names_list[0:min(10, len(names_list))]
+            rank_file = f"{gender}/rankings_archive/{alpha_date(as_of)}_{gender}_{RANK_DIST}km.csv"
+            rank_df = pd.read_csv(rank_file)
+            # top_ten_ranks = [int(rank_df["rank"][rank_df["name"] == name]) for name in top_ten
+            #                  if name in list(rank_file["name"])]
+            # print(int(rank_df["rank"][rank_df["name"] == top_ten[0]]))
+            # print(int(rank_df["rank"][rank_df["name"] == top_ten[1]]))
+            # print(int(rank_df["rank"][rank_df["name"] == top_ten[2]]))
+            top_ten_ranks = []
+            for name in top_ten:
+                try:
+                    rank = int(rank_df["rank"][rank_df["name"] == name])
+                except TypeError:
+                    pass
+                else:
+                    top_ten_ranks.append(rank)
+            top_ten_avg = sum(top_ten_ranks) / len(top_ten_ranks)
+            ranks_list_as_str = ", ".join([str(num) for num in top_ten_ranks])
+            row["top 10 avg rank"] = ranks_list_as_str
             rows.append(row)
 
     df = pd.concat(rows, ignore_index=True)
+    # df.sort_values(by="weight", ascending=False).reset_index(drop=True)
     print(df)
     df.to_csv(f"{gender}/show_results/{athlete_name}.csv")
 
@@ -575,6 +607,7 @@ def sum_of_edges(graph, athlete):
             # print(dict)
             for key, value in dict.items():
                 if key in weight_dict.keys():
+                    # pass
                     weight_dict[key] += value
                 else:
                     weight_dict[key] = value
@@ -826,4 +859,13 @@ correct_predictions = 0
 # print(df)
 # df.to_csv(f"{gender}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
 
-compare_wr_num_races("04/17/2022", comment=True)
+# show_results("Kristof Rasovszky", sortby="weight")
+# show_results("Florian Wellbrock")
+create_ranking("03/31/2022", test=True, comment=True, summary=True)
+# print(G["Kristof Rasovszky"]["Florian Wellbrock"]["race_weights"])
+# show_edges(G, "Kristof Rasovszky", "Florian Wellbrock")
+# sum_of_edges(G, "Kristof Rasovszky")
+# sum_of_edges(G, "Florian Wellbrock")
+# archive_rankings_range("04/14/2022", "04/20/2022")
+
+
