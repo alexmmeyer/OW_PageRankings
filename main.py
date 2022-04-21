@@ -127,11 +127,11 @@ def test_predictability(race_result_file):
 
     instance_correct_predictions = 0
     instance_total_tests = 0
-    # race_label = label(race_result_file, "event", "location", "date")
+    race_label = label(race_result_file, "event", "location", "date", "distance")
 
     # Optimize test for a subset of the overall ranking.
-    from_rank = 1
-    to_rank = 100
+    from_rank = 4
+    to_rank = 5
 
     ranking_data = pd.read_csv(RANKING_FILE_NAME).iloc[(from_rank - 1):to_rank]
     race_data = pd.read_csv(race_result_file)
@@ -152,11 +152,12 @@ def test_predictability(race_result_file):
 
     try:
         instance_predictability = instance_correct_predictions / instance_total_tests
+        # print(f"{race_label} instance_predictability {instance_predictability}")
     except ZeroDivisionError:
         # print(f"cannot calculate predictability for {race_result_file} -- cannot divide by 0")
         pass
     else:
-        instance_predictability = "{:.0%}".format(instance_predictability)
+        # instance_predictability = "{:.0%}".format(instance_predictability)
         # print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
@@ -446,7 +447,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     plt.show()
 
 
-def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y"), sortby="date"):
+def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
     rows = []
 
     for file in os.listdir(RESULTS_DIRECTORY):
@@ -815,49 +816,60 @@ def compare_wr_num_races(ranking_date, comment=False, summary=False):
         print(f"Depreciation model: {DEPRECIATION_MODEL}")
 
 
+def optimization_test(year_start_value, year_end_value, increment):
+
+    dates_to_test = ["01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020",
+                     "07/31/2020", "08/31/2020", "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020"]
+
+    year_values = [year_start_value]
+    keep_going = True
+    while keep_going:
+        new_num = year_values[-1] + increment
+        if new_num <= year_end_value:
+            year_values.append(new_num)
+        else:
+            year_values.append(year_end_value)
+            keep_going = False
+
+    dates = []
+    opt_year_values = []
+    opt_predict_values = []
+
+    for date in dates_to_test:
+        year_value_list = []
+        predict_value_list = []
+        for year_value in year_values:
+            # global total_tests
+            # global correct_predictions
+            DEPRECIATION_PERIOD = 365 * year_value  # reset the depreciation period with new value to test
+            year_value_list.append(year_value)
+            print(f"date: {date}, years: {year_value}")
+            predict_value_list.append(create_ranking(date, test=True))
+            # reset the counters after every ranking created
+            total_tests = 0
+            correct_predictions = 0
+        dates.append(date)
+        opt_predict_value = max(predict_value_list)
+        opt_year_value = year_value_list[predict_value_list.index(opt_predict_value)]
+        opt_year_values.append(opt_year_value)
+        opt_predict_values.append(opt_predict_value)
+
+    opt_dict = {
+        "date": dates,
+        "years": opt_year_values,
+        "predictability": opt_predict_values
+    }
+
+    df = pd.DataFrame(opt_dict)
+    print(df)
+    df.to_csv(
+        f"{gender}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
+
 
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 
-# dates_to_test = ["01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020",
-#                  "07/31/2020", "08/31/2020", "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020"]
-#
-# year_values = [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9,
-#                2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9]
-#
-# dates = []
-# opt_year_values = []
-# opt_predict_values = []
-#
-# for date in dates_to_test:
-#     year_value_list = []
-#     predict_value_list = []
-#     for year_value in year_values:
-#         # global total_tests
-#         # global correct_predictions
-#         DEPRECIATION_PERIOD = 365 * year_value  # reset the depreciation period with new value to test
-#         year_value_list.append(year_value)
-#         print(f"date: {date}, years: {year_value}")
-#         predict_value_list.append(create_ranking(date, test=True))
-#         # reset the counters after every ranking created
-#         total_tests = 0
-#         correct_predictions = 0
-#     dates.append(date)
-#     opt_predict_value = max(predict_value_list)
-#     opt_year_value = year_value_list[predict_value_list.index(opt_predict_value)]
-#     opt_year_values.append(opt_year_value)
-#     opt_predict_values.append(opt_predict_value)
-#
-# opt_dict = {
-#     "date": dates,
-#     "years": opt_year_values,
-#     "predictability": opt_predict_values
-# }
-#
-# df = pd.DataFrame(opt_dict)
-# print(df)
-# df.to_csv(f"{gender}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
 
 # show_results("Kristof Rasovszky", sortby="weight")
 # show_results("Florian Wellbrock")
