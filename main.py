@@ -12,14 +12,17 @@ import math
 import seaborn as sb
 
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
+RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
 RANKING_FILE_NAME = variables.RANKING_FILE_NAME
 DEPRECIATION_PERIOD = variables.DEPRECIATION_PERIOD
 LAMBDA = variables.LAMBDA
-event_type_weights = variables.event_points
+event_type_weights = variables.event_weights
 athlete_countries = variables.athlete_countries
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
-gender = variables.gender
+GENDER = variables.GENDER
 RANK_DIST = variables.RANK_DIST
+FROM_RANK = variables.FROM_RANK
+TO_RANK = variables.TO_RANK
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -53,19 +56,23 @@ def get_comp_weight(event_type):
     return weight
 
 
-def get_distance_weight(race_dist, units="km"):
+def get_distance_weight(race_dist):
     """
-    :param race_dist: distance of the race (default is km)
-    :param units: 'km' (default) or 'mi'
+    :param race_dist: distance of the race in km
     :return: weight as a float
     """
     if RANK_DIST == 0:
         weight = 1
     else:
-        if units == "mi":
-            race_dist = race_dist * 1.60934
         weight = min(race_dist, RANK_DIST) / max(race_dist, RANK_DIST)
     return weight
+
+    # # only use races that are the same distance as RANK_DIST
+    # if RANK_DIST == race_dist:
+    #     weight = 1
+    # else:
+    #     weight = 0
+    # return weight
 
 
 def label(race_result_file, *args):
@@ -97,17 +104,17 @@ def update_graph(race_result_file, ranking_date):
     combos = [tuple(reversed(combo)) for combo in combos]
 
     for combo in combos:
-        # from_name = combo[0].title()
-        # to_name = combo[1].title()
-        # # check for a tie
-        # if int(race_data.place[race_data.athlete_name == from_name]) \
-        #         == int(race_data.place[race_data.athlete_name == to_name]):
+        loser = combo[0]
+        winner = combo[1]
+        # check for a tie
+        # if int(race_data.place[race_data.athlete_name == loser]) \
+        #         == int(race_data.place[race_data.athlete_name == winner]):
         #     pass
         if combo in G.edges:
-            current_weight = G[combo[0]][combo[1]]["weight"]
+            current_weight = G[loser][winner]["weight"]
             new_weight = current_weight + total_weight
-            G[combo[0]][combo[1]]["weight"] = new_weight
-            G[combo[0]][combo[1]]["race_weights"][race_label] = total_weight
+            G[loser][winner]["weight"] = new_weight
+            G[loser][winner]["race_weights"][race_label] = total_weight
 
         else:
             label_dict = {
@@ -124,16 +131,18 @@ def test_predictability(race_result_file):
 
     global correct_predictions
     global total_tests
+    global FROM_RANK
+    global TO_RANK
 
     instance_correct_predictions = 0
     instance_total_tests = 0
     race_label = label(race_result_file, "event", "location", "date", "distance")
 
-    # Optimize test for a subset of the overall ranking.
-    from_rank = 4
-    to_rank = 5
+    # # Optimize test for a subset of the overall ranking.
+    # FROM_RANK = 1
+    # TO_RANK = 100
 
-    ranking_data = pd.read_csv(RANKING_FILE_NAME).iloc[(from_rank - 1):to_rank]
+    ranking_data = pd.read_csv(RANKING_FILE_NAME).iloc[(FROM_RANK - 1):TO_RANK]
     race_data = pd.read_csv(race_result_file)
     name_list = race_data.athlete_name.tolist()
     combos = list(combinations(name_list, 2))
@@ -157,11 +166,11 @@ def test_predictability(race_result_file):
         # print(f"cannot calculate predictability for {race_result_file} -- cannot divide by 0")
         pass
     else:
-        # instance_predictability = "{:.0%}".format(instance_predictability)
+        instance_predictability = "{:.0%}".format(instance_predictability)
         # print(f"Ranking predictability at {race_label}: {instance_predictability}")
 
 
-def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=0, summary=False):
+def create_ranking(ranking_date, test=False, comment=False, summary=False, display_list=0, vis=0):
 
     start = time.time()
     global correct_predictions
@@ -220,15 +229,6 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
             ranking_df["rank"] = range(1, len(pr_dict) + 1)
             ranking_df.to_csv(RANKING_FILE_NAME, index=False)
 
-    if test:
-        predictability = correct_predictions / total_tests
-        # predictability = "{:.0%}".format(predictability)
-        # print(correct_predictions)
-        # print(total_tests)
-        # print(f"Predictability: {predictability}")
-        print(predictability)
-        return predictability
-
     if display_list > 0:
         ranking_data = pd.read_csv(RANKING_FILE_NAME)
         print(ranking_data[ranking_data["rank"] < display_list + 1])
@@ -269,10 +269,18 @@ def create_ranking(ranking_date, test=False, comment=False, display_list=0, vis=
         print(f"New ranking file created: {RANKING_FILE_NAME}")
         print(f"Time to execute: {round((end - start), 2)}s")
         print(f"Races included in ranking: {race_count}")
-        print(f"Gender: {gender}")
+        print(f"Gender: {GENDER}")
         print(f"Distance: {RANK_DIST}km")
         print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
         print(f"Depreciation model: {DEPRECIATION_MODEL}")
+        if test:
+            predictability = correct_predictions / total_tests
+            # predictability = "{:.0%}".format(predictability)
+            # print(correct_predictions)
+            # print(total_tests)
+            # print(f"Predictability: {predictability}")
+            print(f"Predictability ({FROM_RANK} - {TO_RANK}): {predictability}")
+            return predictability
 
 
 def alpha_date(date):
@@ -319,9 +327,9 @@ def archive_ranking(ranking_date):
     ranking_df = pd.DataFrame(ranking_dict)
     ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
     ranking_df["rank"] = range(1, len(pr_dict) + 1)
-    file_name = f"{alpha_date(ranking_date)}_{gender}_{RANK_DIST}km.csv"
-    ranking_df.to_csv(f"{gender}/rankings_archive/{file_name}", index=False)
-    print(f"{gender}/rankings_archive/{file_name} archived")
+    file_name = f"{alpha_date(ranking_date)}_{GENDER}_{RANK_DIST}km.csv"
+    ranking_df.to_csv(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name}", index=False)
+    print(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name} archived")
 
 
 def archive_rankings_range(start_date, end_date, increment=1):
@@ -363,8 +371,8 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     loop_count = 0
 
     for date in date_range:
-        file_name = f"{alpha_date(date)}_{gender}_{RANK_DIST}km.csv"
-        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}")
+        file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+        ranking_data = pd.read_csv(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name}")
         ranked_athletes = list(ranking_data.name)
         if athlete_name in ranked_athletes:
             dates.append(date)
@@ -403,8 +411,8 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     print(race_dates)
 
     for rd in race_dates:
-        file_name = f"{alpha_date(rd)}_{gender}_{RANK_DIST}km.csv"
-        ranking_data = pd.read_csv(f"{gender}/rankings_archive/{file_name}")
+        file_name = f"{alpha_date(rd)}_{GENDER}_{RANK_DIST}km.csv"
+        ranking_data = pd.read_csv(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name}")
         rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
         race_date_ranks.append(rank_on_date)
         progress = len(race_date_ranks) / len(race_dates)
@@ -424,7 +432,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
             "ranks": ranks
         }
         df = pd.DataFrame(dict)
-        df.to_csv(f"{gender}/progressions/{athlete_name} progression.csv")
+        df.to_csv(f"{GENDER}/progressions/{athlete_name} progression.csv")
 
     # Plot progression dates and ranks in a step chart, plot races on top of that as singular scatter points.
     dates = [dt.strptime(date, "%m/%d/%Y") for date in dates]
@@ -466,7 +474,7 @@ def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
             row["weight"] = total_weight
             # calculate the WR of the top 10 finishers, average it, and add it to the row:
             top_ten = names_list[0:min(10, len(names_list))]
-            rank_file = f"{gender}/rankings_archive/{alpha_date(as_of)}_{gender}_{RANK_DIST}km.csv"
+            rank_file = f"{GENDER}/{RANKINGS_DIRECTORY}/{alpha_date(as_of)}_{GENDER}_{RANK_DIST}km.csv"
             rank_df = pd.read_csv(rank_file)
             # top_ten_ranks = [int(rank_df["rank"][rank_df["name"] == name]) for name in top_ten
             #                  if name in list(rank_file["name"])]
@@ -489,7 +497,7 @@ def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
     df = pd.concat(rows, ignore_index=True)
     # df.sort_values(by="weight", ascending=False).reset_index(drop=True)
     print(df)
-    df.to_csv(f"{gender}/show_results/{athlete_name}.csv")
+    df.to_csv(f"{GENDER}/show_results/{athlete_name}.csv")
 
 
 def get_results(athlete_name):
@@ -527,19 +535,25 @@ def show_edges(graph, athlete1, athlete2):
     athlete1 = athlete1.title()
     athlete2 = athlete2.title()
 
-    athlete_one_wins = graph[athlete2][athlete1]["race_weights"]
+    try:
+        athlete_one_wins = graph[athlete2][athlete1]["race_weights"]
+    except KeyError:
+        pass
+    else:
+        for (key, value) in athlete_one_wins.items():
+            results_dict["winner"].append(athlete1)
+            results_dict["event"].append(key)
+            results_dict["weight"].append(value)
 
-    for (key, value) in athlete_one_wins.items():
-        results_dict["winner"].append(athlete1)
-        results_dict["event"].append(key)
-        results_dict["weight"].append(value)
-
-    athlete_two_wins = graph[athlete1][athlete2]["race_weights"]
-
-    for (key, value) in athlete_two_wins.items():
-        results_dict["winner"].append(athlete2)
-        results_dict["event"].append(key)
-        results_dict["weight"].append(value)
+    try:
+        athlete_two_wins = graph[athlete1][athlete2]["race_weights"]
+    except KeyError:
+        pass
+    else:
+        for (key, value) in athlete_two_wins.items():
+            results_dict["winner"].append(athlete2)
+            results_dict["event"].append(key)
+            results_dict["weight"].append(value)
 
     df = pd.DataFrame(results_dict)
     print(df)
@@ -632,7 +646,7 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
     athlete_list = []
 
     for date in date_range:
-        file_path = f"{gender}/rankings_archive/{alpha_date(date)}_{gender}_{RANK_DIST}km.csv"
+        file_path = f"{GENDER}/{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
         df = pd.read_csv(file_path)
         all_athletes = list(df.name)
         selected_athletes = all_athletes[0:num_athletes + 1]
@@ -646,7 +660,7 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
 
     for date in date_range:
         chart_values = []
-        file_path = f"{gender}/rankings_archive/{alpha_date(date)}_{gender}_{RANK_DIST}km.csv"
+        file_path = f"{GENDER}/{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
         df = pd.read_csv(file_path)
         print(file_path)
         for athlete in athlete_list:
@@ -810,7 +824,7 @@ def compare_wr_num_races(ranking_date, comment=False, summary=False):
         print(f"New ranking file created: {RANKING_FILE_NAME}")
         print(f"Time to execute: {round((end - start), 2)}s")
         print(f"Races included in ranking: {race_count}")
-        print(f"Gender: {gender}")
+        print(f"Gender: {GENDER}")
         print(f"Distance: {RANK_DIST}km")
         print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
         print(f"Depreciation model: {DEPRECIATION_MODEL}")
@@ -818,8 +832,10 @@ def compare_wr_num_races(ranking_date, comment=False, summary=False):
 
 def optimization_test(year_start_value, year_end_value, increment):
 
-    dates_to_test = ["01/31/2020", "02/29/2020", "03/31/2020", "04/30/2020", "05/31/2020", "06/30/2020",
-                     "07/31/2020", "08/31/2020", "09/30/2020", "10/31/2020", "11/30/2020", "12/31/2020"]
+    global DEPRECIATION_PERIOD
+    global correct_predictions
+    global total_tests
+    dates_to_test = ["03/31/2022"]
 
     year_values = [year_start_value]
     keep_going = True
@@ -839,8 +855,6 @@ def optimization_test(year_start_value, year_end_value, increment):
         year_value_list = []
         predict_value_list = []
         for year_value in year_values:
-            # global total_tests
-            # global correct_predictions
             DEPRECIATION_PERIOD = 365 * year_value  # reset the depreciation period with new value to test
             year_value_list.append(year_value)
             print(f"date: {date}, years: {year_value}")
@@ -862,8 +876,7 @@ def optimization_test(year_start_value, year_end_value, increment):
 
     df = pd.DataFrame(opt_dict)
     print(df)
-    df.to_csv(
-        f"{gender}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
+    df.to_csv(f"{GENDER}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
 
 
 G = nx.DiGraph()
@@ -873,11 +886,16 @@ correct_predictions = 0
 
 # show_results("Kristof Rasovszky", sortby="weight")
 # show_results("Florian Wellbrock")
-create_ranking("03/31/2022", test=True, comment=True, summary=True)
 # print(G["Kristof Rasovszky"]["Florian Wellbrock"]["race_weights"])
 # show_edges(G, "Kristof Rasovszky", "Florian Wellbrock")
 # sum_of_edges(G, "Kristof Rasovszky")
 # sum_of_edges(G, "Florian Wellbrock")
 # archive_rankings_range("04/14/2022", "04/20/2022")
+
+create_ranking("03/31/2022", test=True, comment=True, summary=True)
+# show_edges(G, "Ana Marcela Cunha", "Leonie Beck")
+# show_results("Sharon Van Rouwendaal", "03/31/2022")
+# plot_time_diffs("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni")
+# print_race_labels()
 
 

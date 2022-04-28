@@ -2,7 +2,7 @@ import pandas
 
 import variables
 
-gender = variables.gender
+gender = variables.GENDER
 
 consolidated_file_path = f"{gender}/consolidated results/Complete Results {gender}.csv"
 race_dict = {
