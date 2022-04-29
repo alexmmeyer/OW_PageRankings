@@ -71,8 +71,6 @@ import variables
 letter_list = ["a", "b", "c", "d", "e", "f"]
 num_list = [1, 2, 3, 4, 3, 2]
 
-
-
 # dates_to_test = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018",
 #                  "07/31/2018", "08/31/2018", "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018",
 #                  "01/31/2019", "02/28/2019", "03/31/2019", "04/30/2019", "05/31/2019", "06/30/2019",
@@ -88,18 +86,6 @@ num_list = [1, 2, 3, 4, 3, 2]
 #                3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
 
 
-year_start_value = 1
-year_end_value = 3
-increment = .1
 
-year_values = [year_start_value]
-keep_going = True
-while keep_going:
-    new_num = year_values[-1] + increment
-    if new_num <= year_end_value:
-        year_values.append(new_num)
-    else:
-        year_values.append(year_end_value)
-        keep_going = False
-
-print(year_values)
+nums = list(range(1, 10))
+print(nums)

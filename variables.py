@@ -1,11 +1,11 @@
 import pandas
 
-GENDER = "women"
+GENDER = "men"
 
 event_weights = pandas.read_csv("event_points.csv")
 athlete_countries = pandas.read_csv("athlete_countries.csv")
 RESULTS_DIRECTORY = GENDER + "/results"
-RANKINGS_DIRECTORY = "rankings_archive"
+RANKINGS_DIRECTORY = GENDER + "/rankings_archive"
 RANKING_FILE_NAME = "PageRanking.csv"
 
 # Depreciation Period: time period in days over which a depreciation is applied to the initial weight of a result.

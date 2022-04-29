@@ -136,7 +136,7 @@ def test_predictability(race_result_file):
 
     instance_correct_predictions = 0
     instance_total_tests = 0
-    race_label = label(race_result_file, "event", "location", "date", "distance")
+    # race_label = label(race_result_file, "event", "location", "date", "distance")
 
     # # Optimize test for a subset of the overall ranking.
     # FROM_RANK = 1
@@ -328,8 +328,8 @@ def archive_ranking(ranking_date):
     ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
     ranking_df["rank"] = range(1, len(pr_dict) + 1)
     file_name = f"{alpha_date(ranking_date)}_{GENDER}_{RANK_DIST}km.csv"
-    ranking_df.to_csv(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name}", index=False)
-    print(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name} archived")
+    ranking_df.to_csv(f"{RANKINGS_DIRECTORY}/{file_name}", index=False)
+    print(f"{RANKINGS_DIRECTORY}/{file_name} archived")
 
 
 def archive_rankings_range(start_date, end_date, increment=1):
@@ -348,7 +348,7 @@ def archive_rankings_range(start_date, end_date, increment=1):
         print("{:.0%}".format(progress))
 
 
-def ranking_progression_from_archive(athlete_name, start_date, end_date, increment=1, save=False):
+def ranking_progression(athlete_name, start_date, end_date, increment=1, save=False):
     """
     :param athlete_name:
     :param start_date:
@@ -372,7 +372,7 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
 
     for date in date_range:
         file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-        ranking_data = pd.read_csv(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name}")
+        ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
         ranked_athletes = list(ranking_data.name)
         if athlete_name in ranked_athletes:
             dates.append(date)
@@ -403,16 +403,9 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     # Build the list of ranks to be used in the graph
     race_date_ranks = []
 
-    print(all_race_dates)
-    print(all_race_labels)
-    print(race_dates)
-    print(race_labels)
-
-    print(race_dates)
-
     for rd in race_dates:
         file_name = f"{alpha_date(rd)}_{GENDER}_{RANK_DIST}km.csv"
-        ranking_data = pd.read_csv(f"{GENDER}/{RANKINGS_DIRECTORY}/{file_name}")
+        ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
         rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
         race_date_ranks.append(rank_on_date)
         progress = len(race_date_ranks) / len(race_dates)
@@ -425,6 +418,9 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
     print(race_dates)
     print(race_date_ranks)
     print(race_labels)
+    dot_labels = list(range(1, len(race_labels) + 1))
+    print(dot_labels)
+
 
     if save:
         dict = {
@@ -440,15 +436,13 @@ def ranking_progression_from_archive(athlete_name, start_date, end_date, increme
 
     plt.step(dates, ranks, where="post")
     plt.plot(race_dates, race_date_ranks, "o")
-    for i, label in enumerate(race_labels):
-        plt.text(race_dates[i], race_date_ranks[i], label, rotation=25, fontsize="xx-small")
+    for i, label in enumerate(dot_labels):
+        plt.text(race_dates[i], race_date_ranks[i], label, fontsize="x-small")
     plt.ylim(ymin=0.5)
     plt.gca().invert_yaxis()
     plt.xticks(rotation=45)
     plt.xlabel("Date")
     plt.ylabel("World Ranking")
-    start_date = dt.strftime(start_date, "%m/%d/%Y")
-    end_date = dt.strftime(end_date, "%m/%d/%Y")
     title_start_date = dt.strftime(dates[0], "%m/%d/%Y")
     title_end_date = dt.strftime(dates[-1], "%m/%d/%Y")
     plt.title(f"{RANK_DIST}km World Ranking Progression: {athlete_name}\n{title_start_date} to {title_end_date}\n")
@@ -474,7 +468,7 @@ def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
             row["weight"] = total_weight
             # calculate the WR of the top 10 finishers, average it, and add it to the row:
             top_ten = names_list[0:min(10, len(names_list))]
-            rank_file = f"{GENDER}/{RANKINGS_DIRECTORY}/{alpha_date(as_of)}_{GENDER}_{RANK_DIST}km.csv"
+            rank_file = f"{RANKINGS_DIRECTORY}/{alpha_date(as_of)}_{GENDER}_{RANK_DIST}km.csv"
             rank_df = pd.read_csv(rank_file)
             # top_ten_ranks = [int(rank_df["rank"][rank_df["name"] == name]) for name in top_ten
             #                  if name in list(rank_file["name"])]
@@ -646,7 +640,7 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
     athlete_list = []
 
     for date in date_range:
-        file_path = f"{GENDER}/{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+        file_path = f"{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
         df = pd.read_csv(file_path)
         all_athletes = list(df.name)
         selected_athletes = all_athletes[0:num_athletes + 1]
@@ -660,7 +654,7 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
 
     for date in date_range:
         chart_values = []
-        file_path = f"{GENDER}/{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+        file_path = f"{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
         df = pd.read_csv(file_path)
         print(file_path)
         for athlete in athlete_list:
@@ -879,23 +873,70 @@ def optimization_test(year_start_value, year_end_value, increment):
     df.to_csv(f"{GENDER}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
 
 
+def num_one_consec_days():
+
+    names = []
+    num_days = []
+    start_dates = []
+    end_dates = []
+    day_count = 0
+    prev_date = ""
+
+    for file in os.listdir(RANKINGS_DIRECTORY):
+        print(file)
+        results_file_path = os.path.join(RANKINGS_DIRECTORY, file)
+        ranking_data = pd.read_csv(results_file_path)
+        num_one = ranking_data.name[0]
+        ranking_date = unalpha_date(file[:10])
+        if len(names) == 0:
+            # handle the first file in the directory
+            names.append(num_one)
+            day_count += 1
+            start_dates.append(ranking_date)
+            prev_date = ranking_date
+        elif num_one == names[-1]:
+            # no change in number one
+            day_count += 1
+        else:
+            # if there's a change in number one
+            num_days.append(day_count)
+            end_dates.append(prev_date)
+            names.append(num_one)
+            day_count = 1
+            start_dates.append(ranking_date)
+        if file == os.listdir(RANKINGS_DIRECTORY)[-1]:
+            # check if the last file in ranking archive
+            num_days.append(day_count)
+            end_dates.append(ranking_date)
+        prev_date = ranking_date
+
+        # print(names)
+        # print(num_days)
+        # print(start_dates)
+        # print(end_dates)
+
+    cd_dict = {
+        "name": names,
+        "days": num_days,
+        "from": start_dates,
+        "to": end_dates
+    }
+
+    df = pd.DataFrame(cd_dict)
+    df = df.sort_values(by="days", ascending=False).reset_index(drop=True)
+    df.to_csv(f"{GENDER}/num_one_consecutive_days.csv")
+    print(df)
+
+
+
+
+
+
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 
+ranking_progression("Gregorio Paltrinieri", "01/01/2018", "04/01/2022")
 
-# show_results("Kristof Rasovszky", sortby="weight")
-# show_results("Florian Wellbrock")
-# print(G["Kristof Rasovszky"]["Florian Wellbrock"]["race_weights"])
-# show_edges(G, "Kristof Rasovszky", "Florian Wellbrock")
-# sum_of_edges(G, "Kristof Rasovszky")
-# sum_of_edges(G, "Florian Wellbrock")
-# archive_rankings_range("04/14/2022", "04/20/2022")
-
-create_ranking("03/31/2022", test=True, comment=True, summary=True)
-# show_edges(G, "Ana Marcela Cunha", "Leonie Beck")
-# show_results("Sharon Van Rouwendaal", "03/31/2022")
-# plot_time_diffs("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni")
-# print_race_labels()
 
 
