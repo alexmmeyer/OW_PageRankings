@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import lxml
 import variables
 
 # for file in os.listdir(variables.RESULTS_DIRECTORY):
@@ -67,10 +68,6 @@ import variables
 # DEPRECIATION_PERIOD = 365 * 3.6
 # archive_rankings_range("01/01/2022", "04/06/2022")
 
-
-letter_list = ["a", "b", "c", "d", "e", "f"]
-num_list = [1, 2, 3, 4, 3, 2]
-
 # dates_to_test = ["01/31/2018", "02/28/2018", "03/31/2018", "04/30/2018", "05/31/2018", "06/30/2018",
 #                  "07/31/2018", "08/31/2018", "09/30/2018", "10/31/2018", "11/30/2018", "12/31/2018",
 #                  "01/31/2019", "02/28/2019", "03/31/2019", "04/30/2019", "05/31/2019", "06/30/2019",
@@ -85,7 +82,7 @@ num_list = [1, 2, 3, 4, 3, 2]
 #                2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9,
 #                3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
 
+race_dates = ['03/13/2021', '05/12/2021', '05/13/2021', '08/04/2021', '09/25/2021', '10/03/2021', '10/09/2021', '03/23/2022', '03/24/2022']
+race_date_ranks = [5, 1, 1, 1, 2, 1, 1, 1, 2]
+race_labels = ['FINA World Cup Doha, QAT (10km)', 'European Championships Budapest, HUN (5km)', 'European Championships Budapest, HUN (10km)', 'Olympic Games Tokyo, JPN (10km)', 'LEN Cup Barcelona, ESP (10km)', 'LEN Cup Piombino, ITA (10km)', 'LEN Cup Alghero, ITA (10km)', 'LEN Cup Eilat, ISR (5km)', 'LEN Cup Eilat, ISR (10km)']
 
-
-nums = list(range(1, 10))
-print(nums)

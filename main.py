@@ -10,19 +10,20 @@ import time
 import matplotlib.pyplot as plt
 import math
 import seaborn as sb
+import plotly.express as px
 
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
 RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
 RANKING_FILE_NAME = variables.RANKING_FILE_NAME
 DEPRECIATION_PERIOD = variables.DEPRECIATION_PERIOD
 LAMBDA = variables.LAMBDA
-event_type_weights = variables.event_weights
-athlete_countries = variables.athlete_countries
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
 GENDER = variables.GENDER
 RANK_DIST = variables.RANK_DIST
 FROM_RANK = variables.FROM_RANK
 TO_RANK = variables.TO_RANK
+event_type_weights = variables.event_weights
+athlete_countries = variables.athlete_countries
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -265,6 +266,11 @@ def create_ranking(ranking_date, test=False, comment=False, summary=False, displ
 
     end = time.time()
 
+    if test and not summary:
+        predictability = correct_predictions / total_tests
+        print(f"Predictability ({FROM_RANK} - {TO_RANK}): {predictability}")
+        return predictability
+
     if summary:
         print(f"New ranking file created: {RANKING_FILE_NAME}")
         print(f"Time to execute: {round((end - start), 2)}s")
@@ -418,9 +424,8 @@ def ranking_progression(athlete_name, start_date, end_date, increment=1, save=Fa
     print(race_dates)
     print(race_date_ranks)
     print(race_labels)
-    dot_labels = list(range(1, len(race_labels) + 1))
-    print(dot_labels)
-
+    # dot_labels = list(range(1, len(race_labels) + 1))
+    # print(dot_labels)
 
     if save:
         dict = {
@@ -434,10 +439,17 @@ def ranking_progression(athlete_name, start_date, end_date, increment=1, save=Fa
     dates = [dt.strptime(date, "%m/%d/%Y") for date in dates]
     race_dates = [dt.strptime(date, "%m/%d/%Y") for date in race_dates]
 
+    race_dict = {
+        "race_date": race_dates,
+        "race_date_rank": race_date_ranks,
+        "race_label": race_labels
+    }
+    race_df = pd.DataFrame(race_dict)
+
     plt.step(dates, ranks, where="post")
-    plt.plot(race_dates, race_date_ranks, "o")
-    for i, label in enumerate(dot_labels):
-        plt.text(race_dates[i], race_date_ranks[i], label, fontsize="x-small")
+    for ind in race_df.index:
+        plt.plot(race_df["race_date"][ind], race_df["race_date_rank"][ind], "o", label=race_df["race_label"][ind], markeredgecolor="black")
+    plt.legend(ncol=1, loc=(0, 0))
     plt.ylim(ymin=0.5)
     plt.gca().invert_yaxis()
     plt.xticks(rotation=45)
@@ -829,7 +841,7 @@ def optimization_test(year_start_value, year_end_value, increment):
     global DEPRECIATION_PERIOD
     global correct_predictions
     global total_tests
-    dates_to_test = ["03/31/2022"]
+    dates_to_test = ["04/30/2022"]
 
     year_values = [year_start_value]
     keep_going = True
@@ -928,15 +940,60 @@ def num_one_consec_days():
     print(df)
 
 
+def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes):
+    """
+    :param dist: number or "all"
+    :param max_diff: in seconds, max/min shown on chart
+    :param athlete_name: athlete you are comparing to all others in comp_athletes
+    :param comp_athletes: athletes that athlete_name is being compared to
+    :return: chart
+    """
 
+    all_names = []
+    all_diffs = []
+    all_hues = []
+    sb.set_style("darkgrid")
 
+    for comp_athlete in comp_athletes:
+        diffs = time_diffs(dist, athlete_name, comp_athlete)
+        if len(diffs) > 0:
+            for diff in diffs:
+                all_names.append(comp_athlete)
+                all_diffs.append(diff)
+                if diff > 0:
+                    win_lose = "lose"
+                else:
+                    win_lose = "win"
+                all_hues.append(win_lose)
+
+    diff_dict = {
+        "competitor": all_names,
+        "time_diff": all_diffs,
+        # "Outcome for {athlete_name}": all_hues
+    }
+
+    df = pd.DataFrame(diff_dict)
+    # chart = sb.stripplot(y="Competitor", x=f"Time Difference: {athlete_name} compared to competitors",
+    #                      hue=f"Outcome for {athlete_name}", linewidth=1, size=7, data=df)
+    chart = px.strip(df, y="competitor", x="time_diff")
+    # if dist == "all":
+    #     dist_subtitle = "all race distances"
+    # else:
+    #     dist_subtitle = f"{dist}km races"
+    # chart.set(title=f"{athlete_name}'s time differential to various competitors\n{dist_subtitle}, +/- {max_diff}s")
+    # chart.set_xlim(-max_diff, max_diff)
+    # chart.invert_xaxis()
+    chart.show()
 
 
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 
-ranking_progression("Gregorio Paltrinieri", "01/01/2018", "04/01/2022")
+# df = pd.read_csv(RANKING_FILE_NAME).iloc[(FROM_RANK - 1):TO_RANK]
+# fig = px.strip(df, x="rank", y="pagerank", hover_name="name")
+#
+# fig.show()
 
-
-
+# optimization_test(3.4, 3.8, .05)
+archive_ranking("04/30/2022")
