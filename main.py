@@ -32,16 +32,15 @@ pd.set_option('display.max_colwidth', None)
 
 
 def get_age_weight(race_date_text, ranking_date):
+    race_date = dt.strptime(race_date_text, "%m/%d/%Y")
+    rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
+
     if DEPRECIATION_MODEL == "linear":
-        race_date = dt.strptime(race_date_text, "%m/%d/%Y")
-        rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
         days_old = (rank_date.date() - race_date.date()).days
         weight = (DEPRECIATION_PERIOD - days_old) / DEPRECIATION_PERIOD
         return weight
     elif DEPRECIATION_MODEL == "exponential":
         e = 2.71828
-        race_date = dt.strptime(race_date_text, "%m/%d/%Y")
-        rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
         days_old = (rank_date.date() - race_date.date()).days
         years_old = days_old / 365
         weight = e ** (LAMBDA * years_old)
@@ -704,9 +703,13 @@ def time_diffs(dist, athlete, comp_to_athlete):
     return diffs
 
 
-def time_diffs2(dist, athlete, comp_to_athlete):
+def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
+
     diffs = []
-    race_diffs = []
+    races = []
+    events = []
+    field_sizes = []
+    weights = []
 
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
@@ -718,12 +721,34 @@ def time_diffs2(dist, athlete, comp_to_athlete):
                 comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
                 diff = round(main_time - comp_to_time, 2)
                 race = label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance")
-                race_diff = (race, diff)
-                if not (math.isnan(race_diff[1])):
-                    # diffs.append(race_diff[1])
-                    race_diffs.append(race_diff)
-    # return diffs
-    return race_diffs
+                event = race_data.event[0]
+                field_size = race_data.field_size[0]
+                if date_for_weights != "":
+                    age_weight = max(0, get_age_weight(race_data.date[0], date_for_weights))
+                    comp_weight = get_comp_weight(race_data.event[0])
+                    dist_weight = get_distance_weight(race_data.distance[0])
+                    total_weight = age_weight * comp_weight * dist_weight
+                    weights.append(total_weight)
+                if not (math.isnan(diff)):
+                    diffs.append(diff)
+                    races.append(race)
+                    events.append(event)
+                    field_sizes.append(field_size)
+
+
+    diff_dict = {
+        "time_diff": diffs,
+        "race": races,
+        "event": events,
+        "field_size": field_sizes,
+    }
+
+    if date_for_weights != "":
+        diff_dict["weight"] = weights
+
+    df = pd.DataFrame(diff_dict)
+    print(df)
+    return df
 
 
 def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
@@ -961,8 +986,9 @@ def num_one_consec_days():
     print(df)
 
 
-def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes):
+def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes, date_for_weights=""):
     """
+    :param date_for_weights:
     :param dist: number or "all"
     :param max_diff: in seconds, max/min shown on chart
     :param athlete_name: athlete you are comparing to all others in comp_athletes
@@ -970,38 +996,14 @@ def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes):
     :return: chart
     """
 
-    all_names = []
-    all_diffs = []
-    all_outcomes = []
-    all_races = []
-    sb.set_style("darkgrid")
 
     for comp_athlete in comp_athletes:
-        diffs = time_diffs2(dist, athlete_name, comp_athlete)
-        if len(diffs) > 0:
-            for diff in diffs:
-                all_names.append(comp_athlete)
-                all_diffs.append(diff[1])
-                all_races.append(diff[0])
-                if diff[1] > 0:
-                    win_lose = "lose"
-                else:
-                    win_lose = "win"
-                all_outcomes.append(win_lose)
+        diffs = time_diffs2(dist, athlete_name, comp_athlete, date_for_weights=date_for_weights)
+        diffs["competitor"] = [comp_athlete for i in range(len(diffs))]
+        print(diffs)
 
-    diff_dict = {
-        "competitor": all_names,
-        "time_diff": all_diffs,
-        "race": all_races,
-        "outcome": all_outcomes
-    }
 
-    df = pd.DataFrame(diff_dict)
-    print(df)
-    fig = px.strip(df, x="time_diff", y="competitor", color="outcome", stripmode="overlay", hover_data=["competitor", "time_diff", "race"])
-    fig['layout']['xaxis']['autorange'] = "reversed"
-    fig.update_layout(xaxis_range=[-max_diff, max_diff])
-    fig.show()
+
 
     # chart = sb.stripplot(y="Competitor", x=f"Time Difference: {athlete_name} compared to competitors",
     #                      hue=f"Outcome for {athlete_name}", linewidth=1, size=7, data=df)
@@ -1024,6 +1026,6 @@ def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes):
 # fig.show()
 
 
-plot_time_diffs("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni")
+plot_time_diffs2("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni", date_for_weights="04/01/2022")
 
 
