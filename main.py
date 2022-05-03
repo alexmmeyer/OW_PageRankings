@@ -699,10 +699,31 @@ def time_diffs(dist, athlete, comp_to_athlete):
                 main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
                 comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
                 diff = round(main_time - comp_to_time, 2)
-                if not (math.isnan(diff)):
+                if not math.isnan(diff):
                     diffs.append(diff)
-
     return diffs
+
+
+def time_diffs2(dist, athlete, comp_to_athlete):
+    diffs = []
+    race_diffs = []
+
+    for file in os.listdir(RESULTS_DIRECTORY):
+        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        race_data = pd.read_csv(results_file_path)
+        race_dist = race_data.distance[0]
+        if athlete in list(race_data.athlete_name) and comp_to_athlete in list(race_data.athlete_name):
+            if race_dist == dist or dist == "all":
+                main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
+                comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
+                diff = round(main_time - comp_to_time, 2)
+                race = label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance")
+                race_diff = (race, diff)
+                if not (math.isnan(race_diff[1])):
+                    # diffs.append(race_diff[1])
+                    race_diffs.append(race_diff)
+    # return diffs
+    return race_diffs
 
 
 def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
@@ -951,31 +972,39 @@ def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes):
 
     all_names = []
     all_diffs = []
-    all_hues = []
+    all_outcomes = []
+    all_races = []
     sb.set_style("darkgrid")
 
     for comp_athlete in comp_athletes:
-        diffs = time_diffs(dist, athlete_name, comp_athlete)
+        diffs = time_diffs2(dist, athlete_name, comp_athlete)
         if len(diffs) > 0:
             for diff in diffs:
                 all_names.append(comp_athlete)
-                all_diffs.append(diff)
-                if diff > 0:
+                all_diffs.append(diff[1])
+                all_races.append(diff[0])
+                if diff[1] > 0:
                     win_lose = "lose"
                 else:
                     win_lose = "win"
-                all_hues.append(win_lose)
+                all_outcomes.append(win_lose)
 
     diff_dict = {
         "competitor": all_names,
         "time_diff": all_diffs,
-        # "Outcome for {athlete_name}": all_hues
+        "race": all_races,
+        "outcome": all_outcomes
     }
 
     df = pd.DataFrame(diff_dict)
+    print(df)
+    fig = px.strip(df, x="time_diff", y="competitor", color="outcome", stripmode="overlay", hover_data=["competitor", "time_diff", "race"])
+    fig['layout']['xaxis']['autorange'] = "reversed"
+    fig.update_layout(xaxis_range=[-max_diff, max_diff])
+    fig.show()
+
     # chart = sb.stripplot(y="Competitor", x=f"Time Difference: {athlete_name} compared to competitors",
     #                      hue=f"Outcome for {athlete_name}", linewidth=1, size=7, data=df)
-    chart = px.strip(df, y="competitor", x="time_diff")
     # if dist == "all":
     #     dist_subtitle = "all race distances"
     # else:
@@ -983,17 +1012,18 @@ def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes):
     # chart.set(title=f"{athlete_name}'s time differential to various competitors\n{dist_subtitle}, +/- {max_diff}s")
     # chart.set_xlim(-max_diff, max_diff)
     # chart.invert_xaxis()
-    chart.show()
+    # plt.show()
 
 
-G = nx.DiGraph()
-total_tests = 0
-correct_predictions = 0
+# G = nx.DiGraph()
+# total_tests = 0
+# correct_predictions = 0
 
 # df = pd.read_csv(RANKING_FILE_NAME).iloc[(FROM_RANK - 1):TO_RANK]
 # fig = px.strip(df, x="rank", y="pagerank", hover_name="name")
-#
 # fig.show()
 
-# optimization_test(3.4, 3.8, .05)
-archive_ranking("04/30/2022")
+
+plot_time_diffs("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni")
+
+
