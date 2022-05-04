@@ -171,7 +171,6 @@ def test_predictability(race_result_file):
 
 
 def create_ranking(ranking_date, test=False, comment=False, summary=False, display_list=0, vis=0):
-
     start = time.time()
     global correct_predictions
     global total_tests
@@ -447,7 +446,8 @@ def ranking_progression(athlete_name, start_date, end_date, increment=1, save=Fa
 
     plt.step(dates, ranks, where="post")
     for ind in race_df.index:
-        plt.plot(race_df["race_date"][ind], race_df["race_date_rank"][ind], "o", label=race_df["race_label"][ind], markeredgecolor="black")
+        plt.plot(race_df["race_date"][ind], race_df["race_date_rank"][ind], "o", label=race_df["race_label"][ind],
+                 markeredgecolor="black")
     plt.legend(ncol=1, loc=(0, 0))
     plt.ylim(ymin=0.5)
     plt.gca().invert_yaxis()
@@ -705,7 +705,8 @@ def time_diffs(dist, athlete, comp_to_athlete):
 
 def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
 
-    diffs = []
+    time_diffs = []
+    outcomes = []
     races = []
     events = []
     field_sizes = []
@@ -723,6 +724,13 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
                 race = label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance")
                 event = race_data.event[0]
                 field_size = race_data.field_size[0]
+                athlete_place = int(race_data.place[race_data.athlete_name == athlete])
+                comp_athlete_place = int(race_data.place[race_data.athlete_name == comp_to_athlete])
+                if athlete_place < comp_athlete_place:
+                    outcome = "win"
+                else:
+                    outcome = "lose"
+                outcomes.append(outcome)
                 if date_for_weights != "":
                     age_weight = max(0, get_age_weight(race_data.date[0], date_for_weights))
                     comp_weight = get_comp_weight(race_data.event[0])
@@ -730,14 +738,15 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
                     total_weight = age_weight * comp_weight * dist_weight
                     weights.append(total_weight)
                 if not (math.isnan(diff)):
-                    diffs.append(diff)
+                    time_diffs.append(diff)
                     races.append(race)
                     events.append(event)
                     field_sizes.append(field_size)
 
-
     diff_dict = {
-        "time_diff": diffs,
+        "competitor": [comp_to_athlete for i in range(len(time_diffs))],
+        "time_diff": time_diffs,
+        "outcome": outcomes,
         "race": races,
         "event": events,
         "field_size": field_sizes,
@@ -746,9 +755,9 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
     if date_for_weights != "":
         diff_dict["weight"] = weights
 
-    df = pd.DataFrame(diff_dict)
-    print(df)
-    return df
+    # df = pd.DataFrame(diff_dict)
+    # print(df)
+    return diff_dict
 
 
 def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
@@ -797,8 +806,54 @@ def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
     plt.show()
 
 
-def compare_wr_num_races(ranking_date, comment=False, summary=False):
+def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes, date_for_weights=""):
+    """
+    :param date_for_weights:
+    :param dist: number or "all"
+    :param max_diff: in seconds, max/min shown on chart
+    :param athlete_name: athlete you are comparing to all others in comp_athletes
+    :param comp_athletes: athletes that athlete_name is being compared to
+    :return: chart
+    """
 
+    competitors = []
+    time_diffs = []
+    outcomes = []
+    races = []
+    events = []
+    field_sizes = []
+    weights = []
+
+    for comp_athlete in comp_athletes:
+        diff_dict = time_diffs2(dist, athlete_name, comp_athlete, date_for_weights=date_for_weights)
+        competitors.extend(diff_dict["competitor"])
+        time_diffs.extend(diff_dict["time_diff"])
+        outcomes.extend(diff_dict["outcome"])
+        races.extend(diff_dict["race"])
+        events.extend(diff_dict["event"])
+        field_sizes.extend(diff_dict["field_size"])
+
+    diff_dict = {
+        "competitor": competitors,
+        "time_diff": time_diffs,
+        "outcome": outcomes,
+        "race": races,
+        "event": events,
+        "field_size": field_sizes,
+    }
+
+    df = pd.DataFrame(diff_dict)
+    print(df)
+
+    fig = px.strip(df, x="time_diff", y="competitor", color="outcome", stripmode="overlay", hover_data=["competitor", "time_diff", "race"])
+    fig['layout']['xaxis']['autorange'] = "reversed"
+    fig.update_xaxes(title_text=f"{athlete_name}'s time compared to competitors")
+    fig.update_yaxes(title_text="Competitor")
+    fig.update(layout_xaxis_range=[-max_diff, max_diff])
+    fig.show()
+
+
+def compare_wr_num_races(ranking_date, comment=False, summary=False):
     start = time.time()
     global correct_predictions
     global total_tests
@@ -869,7 +924,6 @@ def compare_wr_num_races(ranking_date, comment=False, summary=False):
               f"includes {DEPRECIATION_PERIOD / 365} years of results)")
     plt.show()
 
-
     end = time.time()
 
     if summary:
@@ -883,7 +937,6 @@ def compare_wr_num_races(ranking_date, comment=False, summary=False):
 
 
 def optimization_test(year_start_value, year_end_value, increment):
-
     global DEPRECIATION_PERIOD
     global correct_predictions
     global total_tests
@@ -928,11 +981,11 @@ def optimization_test(year_start_value, year_end_value, increment):
 
     df = pd.DataFrame(opt_dict)
     print(df)
-    df.to_csv(f"{GENDER}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
+    df.to_csv(
+        f"{GENDER}/depreciation optimization {alpha_date(dates_to_test[0])} to {alpha_date(dates_to_test[-1])}.csv")
 
 
 def num_one_consec_days():
-
     names = []
     num_days = []
     start_dates = []
@@ -986,37 +1039,6 @@ def num_one_consec_days():
     print(df)
 
 
-def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes, date_for_weights=""):
-    """
-    :param date_for_weights:
-    :param dist: number or "all"
-    :param max_diff: in seconds, max/min shown on chart
-    :param athlete_name: athlete you are comparing to all others in comp_athletes
-    :param comp_athletes: athletes that athlete_name is being compared to
-    :return: chart
-    """
-
-
-    for comp_athlete in comp_athletes:
-        diffs = time_diffs2(dist, athlete_name, comp_athlete, date_for_weights=date_for_weights)
-        diffs["competitor"] = [comp_athlete for i in range(len(diffs))]
-        print(diffs)
-
-
-
-
-    # chart = sb.stripplot(y="Competitor", x=f"Time Difference: {athlete_name} compared to competitors",
-    #                      hue=f"Outcome for {athlete_name}", linewidth=1, size=7, data=df)
-    # if dist == "all":
-    #     dist_subtitle = "all race distances"
-    # else:
-    #     dist_subtitle = f"{dist}km races"
-    # chart.set(title=f"{athlete_name}'s time differential to various competitors\n{dist_subtitle}, +/- {max_diff}s")
-    # chart.set_xlim(-max_diff, max_diff)
-    # chart.invert_xaxis()
-    # plt.show()
-
-
 # G = nx.DiGraph()
 # total_tests = 0
 # correct_predictions = 0
@@ -1026,6 +1048,6 @@ def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes, date_for_weig
 # fig.show()
 
 
-plot_time_diffs2("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni", date_for_weights="04/01/2022")
+# time_diffs2("all", "Ana Marcela Cunha", "Leonie Beck")
 
-
+plot_time_diffs2("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni")

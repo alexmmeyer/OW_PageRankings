@@ -86,3 +86,15 @@ race_dates = ['03/13/2021', '05/12/2021', '05/13/2021', '08/04/2021', '09/25/202
 race_date_ranks = [5, 1, 1, 1, 2, 1, 1, 1, 2]
 race_labels = ['FINA World Cup Doha, QAT (10km)', 'European Championships Budapest, HUN (5km)', 'European Championships Budapest, HUN (10km)', 'Olympic Games Tokyo, JPN (10km)', 'LEN Cup Barcelona, ESP (10km)', 'LEN Cup Piombino, ITA (10km)', 'LEN Cup Alghero, ITA (10km)', 'LEN Cup Eilat, ISR (5km)', 'LEN Cup Eilat, ISR (10km)']
 
+
+dct = {
+    "race_date": race_dates,
+    "race_date_rank": race_date_ranks,
+    "race_label": race_labels
+}
+
+df = pd.DataFrame(dct)
+print(df)
+
+print(int(df.race_date_rank[df.race_label == "European Championships Budapest, HUN (5km)"]))
+
