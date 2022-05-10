@@ -3,7 +3,7 @@ import pandas
 GENDER = "women"
 
 event_weights = pandas.read_csv("event_points.csv")
-athlete_countries = pandas.read_csv("athlete_countries.csv")
+athlete_countries = pandas.read_csv(GENDER + "/athlete_countries.csv")
 RESULTS_DIRECTORY = GENDER + "/results"
 RANKINGS_DIRECTORY = GENDER + "/rankings_archive"
 RANKING_FILE_NAME = "PageRanking.csv"
