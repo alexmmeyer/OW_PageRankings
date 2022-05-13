@@ -582,70 +582,118 @@ def ranking_progression_multi(start_date, end_date, *athlete_names):
                   if i % increment == 0]
     fig = go.Figure()
 
+    # Empty lists for chart lines
+    ln_athlete_names = []
+    ln_dates = []
+    ln_ranks = []
+
+    # Empty lists for chart scatter points:
+    sp_athlete_names = []
+    sp_dates = []
+    sp_ranks = []
+    sp_events = []
+    sp_places = []
+    sp_field_sizes = []
+    sp_distances = []
+
     for athlete_name in athlete_names:
         # Loop through each of the dates in date_range and look up the ranking for that date in the archive. Add the date
         # to one list and add the athlete's rank to a separate list. Count loops to track progress.
         athlete_name = athlete_name.title()
-        dates = []
-        ranks = []
         loop_count = 0
 
-        # Empty lists for scatter points:
-        sp_athlete_names = []
-        sp_race_dates = []
-        sp_ranks = []
-        sp_labels = []
-
+        # get the data for the progression line:
         for date in date_range:
             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
             ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
             ranked_athletes = list(ranking_data.name)
             if athlete_name in ranked_athletes:
-                dates.append(date)
+                ln_athlete_names.append(athlete_name)
+                ln_dates.append(dt.strptime(date, "%m/%d/%Y"))
                 rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-                ranks.append(rank_on_date)
+                ln_ranks.append(rank_on_date)
             loop_count += 1
             progress = loop_count / len(date_range)
-            print("{:.0%}".format(progress))
+            # print("{:.0%}".format(progress))
 
+        # get the data for the scatter points representing performances:
         results_df = get_results(athlete_name)
         results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
         results_df = results_df[results_df.dt_date >= start_date]
         results_df = results_df[results_df.dt_date <= end_date]
         race_date_ranks = []
-        for rd in results_df.date:
-            file_name = f"{alpha_date(rd)}_{GENDER}_{RANK_DIST}km.csv"
+
+        for date in results_df.date:
+            file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
             ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
             rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
             race_date_ranks.append(rank_on_date)
+
         results_df["rank_after_race"] = race_date_ranks
-        print(results_df)
 
         sp_athlete_names.extend(results_df["athlete_name"])
-        sp_race_dates.extend(results_df["dt_date"])
+        sp_dates.extend(results_df["dt_date"])
         sp_ranks.extend(race_date_ranks)
-        sp_labels.extend(results_df["event"])
+        sp_events.extend(results_df["event"])
+        sp_places.extend(results_df["place"])
+        sp_field_sizes.extend(results_df["field_size"])
+        sp_places.extend(list(results_df["place"]))
+        dists = [str(dist) + "km" for dist in results_df["distance"]]
+        sp_distances.extend(dists)
 
-        # Plot progression dates and ranks in a step chart, plot races on top of that as singular scatter points.
-        dates = [dt.strptime(date, "%m/%d/%Y") for date in dates]
+        print(results_df)
+        print(list(results_df["place"]))
+        print(sp_athlete_names)
+        print(sp_dates)
+        print(sp_ranks)
+        print(sp_events)
+        print(sp_places)
+        print(sp_field_sizes)
+        print(sp_distances)
+        print(len(sp_athlete_names))
+        print(len(sp_dates))
+        print(len(sp_ranks))
+        print(len(sp_events))
+        print(len(sp_places))
+        print(len(sp_field_sizes))
+        print(len(sp_distances))
 
-        progress_dict = {
-            "athlete": [athlete_name for i in range(len(dates))],
-            "date": dates,
-            "rank": ranks
-        }
+    # Create a dataframe for the line traces:
+    progress_dict = {
+        "athlete_name": ln_athlete_names,
+        "date": ln_dates,
+        "rank": ln_ranks
+    }
+    progress_df = pd.DataFrame(progress_dict)
 
-        progress_df = pd.DataFrame(progress_dict)
+    # Create a dataframe for the scatter traces:
+    all_results_dict = {
+        "athlete_name": sp_athlete_names,
+        "date": sp_dates,
+        "rank": sp_ranks,
+        "event": sp_events,
+        "place": sp_places,
+        "field_size": sp_field_sizes,
+        "distance": sp_distances,
+    }
+    # all_results_df = pd.DataFrame(all_results_dict)
+    # print(all_results_df)
 
-        fig1 = px.line(progress_df, x="date", y="rank")
-        fig1['data'][0]["line"]["shape"] = 'hv'
-        fig2 = px.scatter(results_df, x="dt_date", y="rank_after_race", color="event", hover_name="athlete_name", hover_data=["location", "place", "field_size"])
-        fig3 = go.Figure(data=fig1.data + fig2.data)
-        fig3['layout']['yaxis']['autorange'] = "reversed"
-        fig = go.Figure(data=fig.data + fig3.data)
+    # sp_fig = px.scatter(all_results_df, x="date", y="rank", color="event", hover_name="athlete_name", hover_data=["date", "event", "place", "field_size", "distance"])
+    # ln_fig = px.line(progress_df, x="date", y="rank", color="athlete_name")
+    # # ln_fig['data'][0]["line"]["shape"] = 'hv'
+    # fig = go.Figure(data=sp_fig.data + ln_fig.data)
+    # fig['layout']['yaxis']['autorange'] = "reversed"
+    # fig.update_layout()
+    # fig.show()
 
-    fig['layout']['yaxis']['autorange'] = "reversed"
-    fig.show()
+    print(len(sp_athlete_names))
+    print(len(sp_dates))
+    print(len(sp_ranks))
+    print(len(sp_events))
+    print(len(sp_places))
+    print(len(sp_field_sizes))
+    print(len(sp_distances))
 
 
 def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
@@ -1240,7 +1288,7 @@ def num_one_consec_days():
 # plot_time_diffs2("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni")
 
 # ranking_progression2("Angelica Andre", "01/01/2021", "03/01/2022")
-ranking_progression_multi("01/01/2021", "03/01/2022", "Angelica Andre", "Leonie Beck")
+ranking_progression_multi("01/01/2021", "03/01/2022", "Angelica Andre", "Leonie Beck", "Ana Marcela Cunha")
 
 # df = pd.read_csv(RANKING_FILE_NAME).iloc[0:100]
 # fig = px.scatter(df, x="rank", y="pagerank", hover_data=["name"])

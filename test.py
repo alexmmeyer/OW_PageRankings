@@ -82,19 +82,19 @@ import variables
 #                2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9,
 #                3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
 
-race_dates = ['03/13/2021', '05/12/2021', '05/13/2021', '08/04/2021', '09/25/2021', '10/03/2021', '10/09/2021', '03/23/2022', '03/24/2022']
-race_date_ranks = [5, 1, 1, 1, 2, 1, 1, 1, 2]
-race_labels = ['FINA World Cup Doha, QAT (10km)', 'European Championships Budapest, HUN (5km)', 'European Championships Budapest, HUN (10km)', 'Olympic Games Tokyo, JPN (10km)', 'LEN Cup Barcelona, ESP (10km)', 'LEN Cup Piombino, ITA (10km)', 'LEN Cup Alghero, ITA (10km)', 'LEN Cup Eilat, ISR (5km)', 'LEN Cup Eilat, ISR (10km)']
+
+name = "alex"
+brother = "sam"
+lissst = []
 
 
-dct = {
-    "race_date": race_dates,
-    "race_date_rank": race_date_ranks,
-    "race_label": race_labels
-}
+for i in range(5):
+    lissst.append(name)
+for i in range(6):
+    lissst.append(brother)
 
-df = pd.DataFrame(dct)
-print(df)
+print(lissst)
 
-print(int(df.race_date_rank[df.race_label == "European Championships Budapest, HUN (5km)"]))
+
+
 
