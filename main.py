@@ -592,6 +592,7 @@ def ranking_progression_multi(start_date, end_date, *athlete_names):
     sp_dates = []
     sp_ranks = []
     sp_events = []
+    sp_locations = []
     sp_places = []
     sp_field_sizes = []
     sp_distances = []
@@ -635,28 +636,12 @@ def ranking_progression_multi(start_date, end_date, *athlete_names):
         sp_dates.extend(results_df["dt_date"])
         sp_ranks.extend(race_date_ranks)
         sp_events.extend(results_df["event"])
+        sp_locations.extend(results_df["location"])
         sp_places.extend(results_df["place"])
         sp_field_sizes.extend(results_df["field_size"])
-        sp_places.extend(list(results_df["place"]))
         dists = [str(dist) + "km" for dist in results_df["distance"]]
         sp_distances.extend(dists)
 
-        print(results_df)
-        print(list(results_df["place"]))
-        print(sp_athlete_names)
-        print(sp_dates)
-        print(sp_ranks)
-        print(sp_events)
-        print(sp_places)
-        print(sp_field_sizes)
-        print(sp_distances)
-        print(len(sp_athlete_names))
-        print(len(sp_dates))
-        print(len(sp_ranks))
-        print(len(sp_events))
-        print(len(sp_places))
-        print(len(sp_field_sizes))
-        print(len(sp_distances))
 
     # Create a dataframe for the line traces:
     progress_dict = {
@@ -672,28 +657,21 @@ def ranking_progression_multi(start_date, end_date, *athlete_names):
         "date": sp_dates,
         "rank": sp_ranks,
         "event": sp_events,
+        "location": sp_locations,
         "place": sp_places,
         "field_size": sp_field_sizes,
         "distance": sp_distances,
     }
-    # all_results_df = pd.DataFrame(all_results_dict)
-    # print(all_results_df)
+    all_results_df = pd.DataFrame(all_results_dict)
+    print(all_results_df)
 
-    # sp_fig = px.scatter(all_results_df, x="date", y="rank", color="event", hover_name="athlete_name", hover_data=["date", "event", "place", "field_size", "distance"])
-    # ln_fig = px.line(progress_df, x="date", y="rank", color="athlete_name")
-    # # ln_fig['data'][0]["line"]["shape"] = 'hv'
-    # fig = go.Figure(data=sp_fig.data + ln_fig.data)
-    # fig['layout']['yaxis']['autorange'] = "reversed"
-    # fig.update_layout()
-    # fig.show()
-
-    print(len(sp_athlete_names))
-    print(len(sp_dates))
-    print(len(sp_ranks))
-    print(len(sp_events))
-    print(len(sp_places))
-    print(len(sp_field_sizes))
-    print(len(sp_distances))
+    sp_fig = px.scatter(all_results_df, x="date", y="rank", color="event", hover_name="athlete_name", hover_data=["date", "event", "location", "place", "field_size", "distance"])
+    ln_fig = px.line(progress_df, x="date", y="rank", color="athlete_name")
+    # ln_fig['data'][0]["line"]["shape"] = 'hv'
+    fig = go.Figure(data=sp_fig.data + ln_fig.data)
+    fig['layout']['yaxis']['autorange'] = "reversed"
+    fig.update_layout()
+    fig.show()
 
 
 def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
@@ -1173,11 +1151,11 @@ def compare_wr_num_races(ranking_date, comment=False, summary=False):
         print(f"Depreciation model: {DEPRECIATION_MODEL}")
 
 
-def optimization_test(year_start_value, year_end_value, increment):
+def optimization_test(year_start_value, year_end_value, increment, dates_to_test):
     global DEPRECIATION_PERIOD
     global correct_predictions
     global total_tests
-    dates_to_test = ["04/30/2022"]
+    # dates_to_test = ["04/30/2022"]
 
     year_values = [year_start_value]
     keep_going = True
@@ -1276,19 +1254,10 @@ def num_one_consec_days():
     print(df)
 
 
-# G = nx.DiGraph()
-# total_tests = 0
-# correct_predictions = 0
+G = nx.DiGraph()
+total_tests = 0
+correct_predictions = 0
 
-# df = pd.read_csv(RANKING_FILE_NAME).iloc[(FROM_RANK - 1):TO_RANK]
-# fig = px.strip(df, x="rank", y="pagerank", hover_name="name")
-# fig.show()
-
-
-# plot_time_diffs2("all", 30, "Ana Marcela Cunha", "Leonie Beck", "Sharon Van Rouwendaal", "Anna Olasz", "Rachele Bruni")
-
-# ranking_progression2("Angelica Andre", "01/01/2021", "03/01/2022")
-ranking_progression_multi("01/01/2021", "03/01/2022", "Angelica Andre", "Leonie Beck", "Ana Marcela Cunha")
 
 # df = pd.read_csv(RANKING_FILE_NAME).iloc[0:100]
 # fig = px.scatter(df, x="rank", y="pagerank", hover_data=["name"])
@@ -1296,3 +1265,8 @@ ranking_progression_multi("01/01/2021", "03/01/2022", "Angelica Andre", "Leonie 
 
 # countries = [athlete_countries.country[athlete_countries.athlete_name == name] for name in df["name"]]
 # print(countries)
+
+# ranking_progression_multi("01/01/2021", "05/13/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Florian Wellbrock")
+
+
+print_race_labels()
