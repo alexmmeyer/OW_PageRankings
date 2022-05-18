@@ -1266,7 +1266,7 @@ correct_predictions = 0
 # countries = [athlete_countries.country[athlete_countries.athlete_name == name] for name in df["name"]]
 # print(countries)
 
-# ranking_progression_multi("01/01/2021", "05/13/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Florian Wellbrock")
+ranking_progression_multi("01/01/2021", "05/13/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Florian Wellbrock")
 
 
-print_race_labels()
+# print_race_labels()
