@@ -2,6 +2,10 @@ import os
 import pandas as pd
 import lxml
 import variables
+import seaborn as sb
+import plotly.express as px
+import matplotlib.pyplot as plt
+from datetime import datetime as dt
 
 # for file in os.listdir(variables.RESULTS_DIRECTORY):
 #     results_file_path = os.path.join(variables.RESULTS_DIRECTORY, file)
@@ -82,19 +86,8 @@ import variables
 #                2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9,
 #                3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
 
+# ranking_progression_multi("01/01/2022", "05/23/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Florian Wellbrock", "Domenico Acerenza")
+from datetime import timedelta
 
-name = "alex"
-brother = "sam"
-lissst = []
-
-
-for i in range(5):
-    lissst.append(name)
-for i in range(6):
-    lissst.append(brother)
-
-print(lissst)
-
-
-
-
+last_test_time = timedelta(seconds=110)
+print(last_test_time * 2)

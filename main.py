@@ -12,12 +12,14 @@ import math
 import seaborn as sb
 import plotly.express as px
 import plotly.graph_objs as go
+import numpy as np
 
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
 RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
 RANKING_FILE_NAME = variables.RANKING_FILE_NAME
 DEPRECIATION_PERIOD = variables.DEPRECIATION_PERIOD
 LAMBDA = variables.LAMBDA
+K = variables.K
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
 GENDER = variables.GENDER
 RANK_DIST = variables.RANK_DIST
@@ -41,10 +43,19 @@ def get_age_weight(race_date_text, ranking_date):
         weight = (DEPRECIATION_PERIOD - days_old) / DEPRECIATION_PERIOD
         return weight
     elif DEPRECIATION_MODEL == "exponential":
-        e = 2.71828
         days_old = (rank_date.date() - race_date.date()).days
         years_old = days_old / 365
-        weight = e ** (LAMBDA * years_old)
+        weight = math.exp(LAMBDA * years_old)
+        return weight
+    elif DEPRECIATION_MODEL == "sigmoid":
+        days_old = (rank_date.date() - race_date.date()).days
+        if days_old == 0:
+            weight = 1
+        elif DEPRECIATION_PERIOD - days_old == 0:
+            weight = 0
+        else:
+            f = math.log((DEPRECIATION_PERIOD - days_old) / days_old)
+            weight = 1 / (1 + math.exp(-K * f))
         return weight
 
 
@@ -76,12 +87,19 @@ def get_distance_weight(race_dist):
     # return weight
 
 
-def label(race_result_file, *args):
+def custom_label(race_result_file, *args):
     race_data = pd.read_csv(race_result_file)
     race_label = ""
     for arg in args:
         race_label = race_label + str(race_data[arg][0]) + " "
     return race_label.strip()
+
+
+def label(results_file_path):
+    race_data = pd.read_csv(results_file_path)
+    race_label = f"{race_data.event[0]} {race_data.location[0]} {str(race_data.distance[0])}km " \
+                 f"{race_data.location[0]} {race_data.date[0]}"
+    return race_label
 
 
 def update_graph(race_result_file, ranking_date):
@@ -99,7 +117,7 @@ def update_graph(race_result_file, ranking_date):
     comp_weight = get_comp_weight(race_data.event[0])
     dist_weight = get_distance_weight(race_data.distance[0])
     total_weight = age_weight * comp_weight * dist_weight
-    race_label = label(race_result_file, "event", "location", "distance", "date")
+    race_label = custom_label(race_result_file, "event", "location", "distance", "date")
 
     combos = list(combinations(name_list, 2))
     combos = [tuple(reversed(combo)) for combo in combos]
@@ -108,15 +126,16 @@ def update_graph(race_result_file, ranking_date):
         loser = combo[0]
         winner = combo[1]
         # check for a tie
-        # if int(race_data.place[race_data.athlete_name == loser]) \
-        #         == int(race_data.place[race_data.athlete_name == winner]):
+        # print(race_result_file)
+        # print(f"loser place: {race_data.place[race_data.athlete_name == loser]}")
+        # print(f"winner place: {race_data.place[race_data.athlete_name == winner]}")
+        # if int(race_data.place[race_data.athlete_name == loser]) == int(race_data.place[race_data.athlete_name == winner]):
         #     pass
         if combo in G.edges:
             current_weight = G[loser][winner]["weight"]
             new_weight = current_weight + total_weight
             G[loser][winner]["weight"] = new_weight
             G[loser][winner]["race_weights"][race_label] = total_weight
-
         else:
             label_dict = {
                 race_label: total_weight
@@ -278,6 +297,10 @@ def create_ranking(ranking_date, test=False, comment=False, summary=False, displ
         print(f"Distance: {RANK_DIST}km")
         print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
         print(f"Depreciation model: {DEPRECIATION_MODEL}")
+        if DEPRECIATION_MODEL == "sigmoid":
+            print(f"K value: {K}")
+        elif DEPRECIATION_MODEL == "exponential":
+            print(f"Lambda: {LAMBDA}")
         if test:
             predictability = correct_predictions / total_tests
             # predictability = "{:.0%}".format(predictability)
@@ -781,7 +804,7 @@ def show_edges(graph, athlete1, athlete2):
 def print_race_labels():
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
-        print(label(results_file_path, "event", "location", "date", "distance"), "km")
+        print(custom_label(results_file_path, "event", "location", "date", "distance"), "km")
 
 
 def compare_place_wr(results_file_path):
@@ -822,7 +845,7 @@ def compare_place_wr(results_file_path):
     plt.plot(graph_ranks, graph_places, "o")
     plt.xlabel("World Ranking")
     plt.ylabel("Place")
-    title = label(results_file_path, "event", "location", "date", "distance") + "km"
+    title = custom_label(results_file_path, "event", "location", "date", "distance") + "km"
     plt.title(f"{title}")
     plt.show()
 
@@ -935,7 +958,7 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
                 main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
                 comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
                 diff = round(main_time - comp_to_time, 2)
-                race = label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance")
+                race = custom_label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance")
                 event = race_data.event[0]
                 field_size = race_data.field_size[0]
                 athlete_place = int(race_data.place[race_data.athlete_name == athlete])
@@ -1155,7 +1178,7 @@ def optimization_test(year_start_value, year_end_value, increment, dates_to_test
     global DEPRECIATION_PERIOD
     global correct_predictions
     global total_tests
-    # dates_to_test = ["04/30/2022"]
+    dates_to_test = ["04/30/2022"]
 
     year_values = [year_start_value]
     keep_going = True
@@ -1254,19 +1277,166 @@ def num_one_consec_days():
     print(df)
 
 
+def country_ranks(lowest_rank, as_of):
+    create_ranking(as_of)
+    df = pd.read_csv(RANKING_FILE_NAME).iloc[0:lowest_rank]
+    ranking_names = list(df.name)
+    ranking_ranks = list(df["rank"])
+    ac_names = list(athlete_countries.athlete_name)
+    ac_countries = list(athlete_countries.country)
+    ranking_countries = []
+
+    for name in ranking_names:
+        i = ac_names.index(name)
+        country = ac_countries[i]
+        ranking_countries.append(country)
+
+    dct = {
+        "name": ranking_names,
+        "country": ranking_countries,
+        "rank": ranking_ranks
+    }
+
+    df = pd.DataFrame(dct)
+    print(df)
+
+    fig = px.strip(df, x="country", y="rank", hover_name="name")
+    fig['layout']['yaxis']['autorange'] = "reversed"
+    fig.update_layout(
+        title={
+            'text': f"Federations with {GENDER} athletes in the world top {lowest_rank}\nas of {as_of}",
+            'y': 0.95,
+            'x': 0.5},
+        xaxis_title="Federation",
+        yaxis_title=f"World Ranking (as of {as_of})",
+    )
+    fig.show()
+
+
+def predicttest():
+
+    start = time.time()
+    global total_tests
+    global correct_predictions
+    global last_test_time
+    global DEPRECIATION_PERIOD
+    global K
+    total_tests = 0
+    correct_predictions = 0
+
+    oldest_race_file = os.listdir(RESULTS_DIRECTORY)[0]
+    oldest_race_date = unalpha_date(oldest_race_file[:10])
+    oldest_race_date = dt.strptime(oldest_race_date, "%m/%d/%Y")
+
+    for file in os.listdir(RESULTS_DIRECTORY):
+        instance_total_tests = 0
+        instance_correct_predictions = 0
+        race_name = label(os.path.join(RESULTS_DIRECTORY, file))
+        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        race_data = pd.read_csv(results_file_path)
+        race_date = race_data.date[0]
+        race_dist = race_data.distance[0]
+        race_dt_date = dt.strptime(race_date, "%m/%d/%Y")
+        if (race_dt_date.date() - oldest_race_date.date()).days < (DEPRECIATION_PERIOD + 1) \
+                or race_dist != RANK_DIST:
+            pass
+        else:
+            day_before = race_dt_date - timedelta(days=1)
+            create_ranking(dt.strftime(day_before, "%m/%d/%Y"))
+            ranking_data = pd.read_csv(RANKING_FILE_NAME).iloc[(FROM_RANK - 1):TO_RANK]
+            race_data = pd.read_csv(results_file_path)
+            name_list = race_data.athlete_name.tolist()
+            combos = list(combinations(name_list, 2))
+
+            for matchup in combos:
+                winner_name = matchup[0].title()
+                loser_name = matchup[1].title()
+                if winner_name in list(ranking_data.name) and loser_name in list(ranking_data.name):
+                    winner_rank = int(ranking_data["rank"][ranking_data.name == winner_name])
+                    loser_rank = int(ranking_data["rank"][ranking_data.name == loser_name])
+                    total_tests += 1
+                    instance_total_tests += 1
+                    if winner_rank < loser_rank:
+                        correct_predictions += 1
+                        instance_correct_predictions += 1
+
+            try:
+                instance_predictability = instance_correct_predictions / instance_total_tests
+            except ZeroDivisionError:
+                # print(f"cannot calculate predictability for {race_name} -- cannot divide by 0")
+                pass
+            else:
+                instance_predictability = "{:.0%}".format(instance_predictability)
+                # print(f"Ranking predictability at {race_name}: {instance_predictability} ({instance_correct_predictions}/{instance_total_tests})")
+
+    print(f"Correct predictions: {correct_predictions}")
+    print(f"Total tests: {total_tests}")
+    predictability = correct_predictions / total_tests
+    predictability_txt = "{:.0%}".format(predictability)
+    print(f"Predictability: {predictability_txt}")
+    print(f"Gender: {GENDER}")
+    print(f"Distance: {RANK_DIST}km")
+    print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
+    print(f"Depreciation model: {DEPRECIATION_MODEL}")
+    if DEPRECIATION_MODEL == "sigmoid":
+        print(f"K value: {K}")
+    elif DEPRECIATION_MODEL == "exponential":
+        print(f"Lambda: {LAMBDA}")
+    end = time.time()
+    secs = round(end - start, 0)
+    last_test_time = timedelta(seconds=secs)
+    print(f"Single-test run time: {timedelta(seconds=secs)}")
+    return predictability
+
+
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
+last_test_time = timedelta(seconds=110)
 
+def opttest(dp_start, dp_stop, k_start, k_stop, num=10):
+    start = time.time()
+    dps = []
+    ks = []
+    pvs = []
+    global last_test_time
+    global DEPRECIATION_PERIOD
+    global K
 
-# df = pd.read_csv(RANKING_FILE_NAME).iloc[0:100]
-# fig = px.scatter(df, x="rank", y="pagerank", hover_data=["name"])
-# fig.show()
+    dps_to_test = list(np.linspace(dp_start, dp_stop, num))
+    print(f"dp values: {dps_to_test}")
+    ks_to_test = list(np.linspace(k_start, k_stop, num))
+    print(f"k values: {ks_to_test}")
 
-# countries = [athlete_countries.country[athlete_countries.athlete_name == name] for name in df["name"]]
-# print(countries)
+    max_reps = len(dps_to_test) * len(ks_to_test)
+    reps_done = 0
 
-ranking_progression_multi("01/01/2021", "05/13/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Florian Wellbrock")
+    for dp in dps_to_test:
+        DEPRECIATION_PERIOD = dp * 365
+        for k in ks_to_test:
+            K = k
+            ks.append(k)
+            dps.append(dp)
+            pvs.append(predicttest())
+            reps_done += 1
+            time_remaining = last_test_time * (max_reps - reps_done)
+            print("{:.0%}".format(reps_done / max_reps) + " complete")
+            print(f"estimated time remaining: {time_remaining}\n---------")
 
+    dct = {
+        "depreciation_period": dps,
+        "k_value": ks,
+        "predictability": pvs
+    }
 
-# print_race_labels()
+    df = pd.DataFrame(dct)
+    df.to_csv(f"{GENDER} dp_k optimization.csv")
+
+    end = time.time()
+    secs = round(end - start, 0)
+    print(f"Total run time: {timedelta(seconds=secs)}")
+
+    pivotted = df.pivot("k_value", "depreciation_period", "predictability").sort_values(by="k_value", ascending=False)
+    fig = px.imshow(pivotted)
+    fig.show()
+
