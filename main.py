@@ -1373,7 +1373,8 @@ def predicttest():
     print(f"Total tests: {total_tests}")
     predictability = correct_predictions / total_tests
     predictability_txt = "{:.0%}".format(predictability)
-    print(f"Predictability: {predictability_txt}")
+    # print(f"Predictability: {predictability_txt}")
+    print(f"predictability: {predictability}")
     print(f"Gender: {GENDER}")
     print(f"Distance: {RANK_DIST}km")
     print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
@@ -1389,12 +1390,7 @@ def predicttest():
     return predictability
 
 
-G = nx.DiGraph()
-total_tests = 0
-correct_predictions = 0
-last_test_time = timedelta(seconds=110)
-
-def opttest(dp_start, dp_stop, k_start, k_stop, num=10):
+def opttest(dp_start, dp_stop, k_start, k_stop, num):
     start = time.time()
     dps = []
     ks = []
@@ -1404,9 +1400,9 @@ def opttest(dp_start, dp_stop, k_start, k_stop, num=10):
     global K
 
     dps_to_test = list(np.linspace(dp_start, dp_stop, num))
-    print(f"dp values: {dps_to_test}")
+    print(f"depreciation_period values (in years): {[round(num, 2) for num in dps_to_test]}")
     ks_to_test = list(np.linspace(k_start, k_stop, num))
-    print(f"k values: {ks_to_test}")
+    print(f"k values: {[round(num, 2) for num in ks_to_test]}")
 
     max_reps = len(dps_to_test) * len(ks_to_test)
     reps_done = 0
@@ -1430,13 +1426,31 @@ def opttest(dp_start, dp_stop, k_start, k_stop, num=10):
     }
 
     df = pd.DataFrame(dct)
-    df.to_csv(f"{GENDER} dp_k optimization.csv")
+    df.to_csv(f"{GENDER} opttest {dt.now().strftime('%m-%d-%Y at %H-%M-%S')}.csv")
 
     end = time.time()
     secs = round(end - start, 0)
     print(f"Total run time: {timedelta(seconds=secs)}")
 
     pivotted = df.pivot("k_value", "depreciation_period", "predictability").sort_values(by="k_value", ascending=False)
-    fig = px.imshow(pivotted)
+    fig = px.imshow(pivotted, origin="lower")
     fig.show()
+
+
+def opttest_vis(file_path):
+    df = pd.read_csv(file_path)
+    pivotted = df.pivot("k_value", "depreciation_period", "predictability").sort_values(by="k_value", ascending=False)
+    fig = px.imshow(pivotted, origin="lower")
+    fig.show()
+
+
+G = nx.DiGraph()
+total_tests = 0
+correct_predictions = 0
+last_test_time = timedelta(seconds=110)
+
+
+opttest(1.25, 4, 1, 4, 25)
+
+# opttest_vis("men opttest 05-26-2022 at 07-37-16.csv")
 
