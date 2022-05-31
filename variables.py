@@ -9,13 +9,18 @@ RANKINGS_DIRECTORY = GENDER + "/rankings_archive"
 RANKING_FILE_NAME = "PageRanking.csv"
 
 # Depreciation Period: time period in days over which a depreciation is applied to the initial weight of a result.
-DEPRECIATION_PERIOD = 365 * 2
+DEPRECIATION_PERIOD = 365 * 3.427083333
+# men = 3.65625
+# women = 3.427083333
+
 # Choose age_weight depreciation curve type: "linear", "exponential", or "sigmoid"
 DEPRECIATION_MODEL = "sigmoid"
 # Drives age_weight_exp() exponential decay function. The more negative, the quicker the decline in age_weight.
 LAMBDA = -1.4
 # Steepness of sigmoid depreciation curve. 1 = linear, > 1 increases steepness. Cannot be < 1.
-K = 1
+K = 1.25
+# men = 2.5
+# women = 1.25
 
 # Tune ranking for the following distance in km. 0 for no preference, or best "overall" regardless of dist.
 RANK_DIST = 10

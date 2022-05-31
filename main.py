@@ -673,6 +673,7 @@ def ranking_progression_multi(start_date, end_date, *athlete_names):
         "rank": ln_ranks
     }
     progress_df = pd.DataFrame(progress_dict)
+    xticks = [ln_date for ln_date in ln_dates if ln_date.day == 1]
 
     # Create a dataframe for the scatter traces:
     all_results_dict = {
@@ -688,12 +689,16 @@ def ranking_progression_multi(start_date, end_date, *athlete_names):
     all_results_df = pd.DataFrame(all_results_dict)
     print(all_results_df)
 
-    sp_fig = px.scatter(all_results_df, x="date", y="rank", color="event", hover_name="athlete_name", hover_data=["date", "event", "location", "place", "field_size", "distance"])
+    sp_fig = px.scatter(all_results_df, x="date", y="rank", color="event", hover_name="athlete_name", 
+                        hover_data=["date", "event", "location", "place", "field_size", "distance"])
     ln_fig = px.line(progress_df, x="date", y="rank", color="athlete_name")
     # ln_fig['data'][0]["line"]["shape"] = 'hv'
     fig = go.Figure(data=sp_fig.data + ln_fig.data)
     fig['layout']['yaxis']['autorange'] = "reversed"
-    fig.update_layout()
+    fig.update_layout(xaxis_title="Date", yaxis_title="World Ranking",
+                      title=f"World Ranking Progression: {GENDER.title()}'s current top 5",
+                      yaxis=dict(dtick=1),
+                      xaxis=dict(tickmode="array", tickvals=xticks))
     fig.show()
 
 
@@ -1304,11 +1309,11 @@ def country_ranks(lowest_rank, as_of):
     fig['layout']['yaxis']['autorange'] = "reversed"
     fig.update_layout(
         title={
-            'text': f"Federations with {GENDER} athletes in the world top {lowest_rank}\nas of {as_of}",
+            'text': f"Federations with {GENDER} athletes in the world top {lowest_rank}\n(as of {as_of})",
             'y': 0.95,
             'x': 0.5},
         xaxis_title="Federation",
-        yaxis_title=f"World Ranking (as of {as_of})",
+        yaxis_title=f"World Ranking",
     )
     fig.show()
 
@@ -1447,10 +1452,11 @@ def opttest_vis(file_path):
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
-last_test_time = timedelta(seconds=110)
+last_test_time = timedelta(seconds=60)
 
-
-opttest(1.25, 4, 1, 4, 25)
 
 # opttest_vis("men opttest 05-26-2022 at 07-37-16.csv")
 
+ranking_progression_multi("01/01/2022", "05/28/2022", "Leonie Beck", "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Giulia Gabbrielleschi", "Anna Olasz")
+# ranking_progression_multi("03/20/2022", "05/28/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Domenico Acerenza", "Florian Wellbrock")
+# country_ranks(100, "05/28/2022")
