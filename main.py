@@ -17,11 +17,15 @@ import numpy as np
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
 RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
 RANKING_FILE_NAME = variables.RANKING_FILE_NAME
-DEPRECIATION_PERIOD = variables.DEPRECIATION_PERIOD
 LAMBDA = variables.LAMBDA
-K = variables.K
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
 GENDER = variables.GENDER
+if GENDER == "men":
+    DEPRECIATION_PERIOD = variables.M_DEPRECIATION_PERIOD
+    K = variables.M_K
+elif GENDER == "women":
+    DEPRECIATION_PERIOD = variables.W_DEPRECIATION_PERIOD
+    K = variables.W_K
 RANK_DIST = variables.RANK_DIST
 FROM_RANK = variables.FROM_RANK
 TO_RANK = variables.TO_RANK
@@ -698,6 +702,120 @@ def ranking_progression_multi(start_date, end_date, *athlete_names):
     fig.update_layout(xaxis_title="Date", yaxis_title="World Ranking",
                       title=f"World Ranking Progression: {GENDER.title()}'s current top 5",
                       yaxis=dict(dtick=1),
+                      xaxis=dict(tickmode="array", tickvals=xticks))
+    fig.show()
+
+
+def pageranking_progression_multi(start_date, end_date, *athlete_names):
+    """
+    :param athlete_name:
+    :param start_date:
+    :param end_date:
+    :return: graph showing athlete's ranking on every day between (inclusive) start_date and end_date
+    :param increment:
+    """
+
+    start_date = dt.strptime(start_date, "%m/%d/%Y")
+    end_date = dt.strptime(end_date, "%m/%d/%Y")
+    # Get a list of dates called date_range within the start and end range
+    increment = 1
+    date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
+                  if i % increment == 0]
+    fig = go.Figure()
+
+    # Empty lists for chart lines
+    ln_athlete_names = []
+    ln_dates = []
+    ln_pageranks = []
+
+    # Empty lists for chart scatter points:
+    sp_athlete_names = []
+    sp_dates = []
+    sp_pageranks = []
+    sp_events = []
+    sp_locations = []
+    sp_places = []
+    sp_field_sizes = []
+    sp_distances = []
+
+    for athlete_name in athlete_names:
+        # Loop through each of the dates in date_range and look up the ranking for that date in the archive. Add the date
+        # to one list and add the athlete's rank to a separate list. Count loops to track progress.
+        athlete_name = athlete_name.title()
+        loop_count = 0
+
+        # get the data for the progression line:
+        for date in date_range:
+            file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            ranked_athletes = list(ranking_data.name)
+            if athlete_name in ranked_athletes:
+                ln_athlete_names.append(athlete_name)
+                ln_dates.append(dt.strptime(date, "%m/%d/%Y"))
+                pagerank_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
+                ln_pageranks.append(pagerank_on_date)
+            loop_count += 1
+            progress = loop_count / len(date_range)
+            print("{:.0%}".format(progress))
+
+        # get the data for the scatter points representing performances:
+        results_df = get_results(athlete_name)
+        results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
+        results_df = results_df[results_df.dt_date >= start_date]
+        results_df = results_df[results_df.dt_date <= end_date]
+        race_date_pageranks = []
+
+        for date in results_df.date:
+            file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            pagerank_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
+            race_date_pageranks.append(pagerank_on_date)
+
+        results_df["pagerank_after_race"] = race_date_pageranks
+
+        sp_athlete_names.extend(results_df["athlete_name"])
+        sp_dates.extend(results_df["dt_date"])
+        sp_pageranks.extend(race_date_pageranks)
+        sp_events.extend(results_df["event"])
+        sp_locations.extend(results_df["location"])
+        sp_places.extend(results_df["place"])
+        sp_field_sizes.extend(results_df["field_size"])
+        dists = [str(dist) + "km" for dist in results_df["distance"]]
+        sp_distances.extend(dists)
+
+
+    # Create a dataframe for the line traces:
+    progress_dict = {
+        "athlete_name": ln_athlete_names,
+        "date": ln_dates,
+        "pagerank": ln_pageranks
+    }
+    progress_df = pd.DataFrame(progress_dict)
+    xticks = [ln_date for ln_date in ln_dates if ln_date.day == 1]
+
+    # Create a dataframe for the scatter traces:
+    all_results_dict = {
+        "athlete_name": sp_athlete_names,
+        "date": sp_dates,
+        "pagerank": sp_pageranks,
+        "event": sp_events,
+        "location": sp_locations,
+        "place": sp_places,
+        "field_size": sp_field_sizes,
+        "distance": sp_distances,
+    }
+    all_results_df = pd.DataFrame(all_results_dict)
+    print(all_results_df)
+
+    sp_fig = px.scatter(all_results_df, x="date", y="pagerank", color="event", hover_name="athlete_name",
+                        hover_data=["date", "event", "location", "place", "field_size", "distance"])
+    ln_fig = px.line(progress_df, x="date", y="pagerank", color="athlete_name")
+    # ln_fig['data'][0]["line"]["shape"] = 'hv'
+    fig = go.Figure(data=sp_fig.data + ln_fig.data)
+    # fig['layout']['yaxis']['autorange'] = "reversed"
+    fig.update_layout(xaxis_title="Date", yaxis_title="Pagerank Value",
+                      title=f"World Ranking Progression: {GENDER.title()}'s current top 5",
+                      yaxis=dict(dtick=.01),
                       xaxis=dict(tickmode="array", tickvals=xticks))
     fig.show()
 
@@ -1457,6 +1575,9 @@ last_test_time = timedelta(seconds=60)
 
 # opttest_vis("men opttest 05-26-2022 at 07-37-16.csv")
 
-ranking_progression_multi("01/01/2022", "05/28/2022", "Leonie Beck", "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Giulia Gabbrielleschi", "Anna Olasz")
-# ranking_progression_multi("03/20/2022", "05/28/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Domenico Acerenza", "Florian Wellbrock")
+# pageranking_progression_multi("01/01/2021", "05/28/2022", "Leonie Beck", "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Giulia Gabbrielleschi", "Anna Olasz")
+# pageranking_progression_multi("01/01/2021", "05/28/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Domenico Acerenza", "Florian Wellbrock")
 # country_ranks(100, "05/28/2022")
+
+archive_rankings_range("11/04/2018", "05/31/2022")
+# create_ranking("05/31/2022", comment=True, summary=True)
