@@ -1,11 +1,11 @@
-event,max_points,weight
-Olympic Games,2000,1
-FINA World Championships,2000,1
-FINA World Cup,1500,0.75
-FINA Grand Prix,1200,0.6
-LEN Cup,1500,0.75
-European Championships,2000,1
-Pan Pacific Championships,2000,1
-Pan American Games,1200,0.6
-World University Games,1000,0.5
-FINA Olympic Qualifier,2000,1
+event,weight
+Olympic Games,1
+FINA World Championships,1
+FINA World Cup,0.75
+FINA Grand Prix,0.5
+LEN Cup,0.6
+European Championships,1
+Pan Pacific Championships,1
+Pan American Games,0.6
+World University Games,0.5
+FINA Olympic Qualifier,1

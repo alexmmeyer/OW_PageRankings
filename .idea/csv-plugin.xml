@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\women\rankings_archive\2022_05_31_women_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
