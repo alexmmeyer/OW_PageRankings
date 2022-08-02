@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men dp 1.25-4.0, k 1.0-3.0 optimization_2.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\men\rankings_archive\2022_05_29_men_10km.csv">
           <value>
             <Attribute>
@@ -17,7 +24,56 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men\rankings_archive\2022_05_31_men_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\rankings_archive\2022_06_30_men_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2018_11_09_AbuDhabi_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_05_28_Setubal_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\rankings_archive\2022_05_28_women_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\women\rankings_archive\2022_05_31_women_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\rankings_archive\2022_07_31_women_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\results\2021_10_09_Alghero_10km_W.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

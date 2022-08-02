@@ -760,7 +760,7 @@ def pageranking_progression_multi(start_date, end_date, *athlete_names):
                 ln_ranks.append(rank_on_date)
             loop_count += 1
             progress = loop_count / len(date_range)
-            print("{:.0%}".format(progress))
+            print(athlete_name + ": " + "{:.0%}".format(progress))
 
         # get the data for the scatter points representing performances:
         results_df = get_results(athlete_name)
@@ -826,7 +826,6 @@ def pageranking_progression_multi(start_date, end_date, *athlete_names):
     ln_fig = px.line(progress_df, x="date", y="pagerank", color="athlete_name", hover_data=["rank"])
     # ln_fig['data'][0]["line"]["shape"] = 'hv'
     fig = go.Figure(data=sp_fig.data + ln_fig.data)
-    # fig['layout']['yaxis']['autorange'] = "reversed"
     fig.update_layout(xaxis_title="Date", yaxis_title="Pagerank Value",
                       title=f"World Ranking Progression: {GENDER.title()}'s current top 5",
                       yaxis=dict(dtick=.01),
@@ -939,9 +938,16 @@ def show_edges(graph, athlete1, athlete2):
 
 
 def print_race_labels():
+
+    race_list = []
+
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
-        print(custom_label(results_file_path, "event", "location", "date", "distance"), "km")
+        race_list.append(custom_label(results_file_path, "event", "location", "date", "distance") + "km")
+
+    race_list.reverse()
+    for race_label in race_list:
+        print(race_label)
 
 
 def compare_place_wr(results_file_path):
@@ -1095,16 +1101,17 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
                 main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
                 comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
                 diff = round(main_time - comp_to_time, 2)
-                race = custom_label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance")
+                race = custom_label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance") + "km"
                 event = race_data.event[0]
                 field_size = race_data.field_size[0]
                 athlete_place = int(race_data.place[race_data.athlete_name == athlete])
                 comp_athlete_place = int(race_data.place[race_data.athlete_name == comp_to_athlete])
                 if athlete_place < comp_athlete_place:
                     outcome = "win"
-                else:
+                elif athlete_place > comp_athlete_place:
                     outcome = "lose"
-                outcomes.append(outcome)
+                else:
+                    outcome = "tie"
                 if date_for_weights != "":
                     age_weight = max(0, get_age_weight(race_data.date[0], date_for_weights))
                     comp_weight = get_comp_weight(race_data.event[0])
@@ -1116,6 +1123,7 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
                     races.append(race)
                     events.append(event)
                     field_sizes.append(field_size)
+                    outcomes.append(outcome)
 
     diff_dict = {
         "competitor": [comp_to_athlete for i in range(len(time_diffs))],
@@ -1224,7 +1232,6 @@ def plot_time_diffs2(dist, max_diff, athlete_name, *comp_athletes, date_for_weig
     fig.update_xaxes(title_text=f"{athlete_name}'s time compared to competitors")
     fig.update_yaxes(title_text="Competitor")
     fig.update(layout_xaxis_range=[-max_diff, max_diff])
-    print(fig)
     fig.show()
 
 
@@ -1587,11 +1594,17 @@ correct_predictions = 0
 last_test_time = timedelta(seconds=60)
 
 
-# opttest_vis("men opttest 05-26-2022 at 07-37-16.csv")
+# pageranking_progression_multi("01/01/2022", "07/31/2022", "Leonie Beck", "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Giulia Gabbrielleschi", "Anna Olasz", "Aurelie Muller")
+# pageranking_progression_multi("01/01/2022", "07/31/2022", "Lea Boy", "Barbara Pozzobon", "Caroline Laure Jouisse", "Rachele Bruni", "Oceane Cassignol")
+# pageranking_progression_multi("01/01/2022", "07/31/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Domenico Acerenza", "Florian Wellbrock", "Marcello Guidi", "Andrea Manzi")
 
-pageranking_progression_multi("01/01/2021", "05/28/2022", "Leonie Beck", "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Giulia Gabbrielleschi", "Anna Olasz")
-# pageranking_progression_multi("01/01/2021", "05/28/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Domenico Acerenza", "Florian Wellbrock")
-# country_ranks(100, "05/28/2022")
 
-# archive_rankings_range("11/04/2018", "05/31/2022")
-# create_ranking("05/31/2022", comment=True, summary=True)
+# print(time_diffs2("all", "Florian Wellbrock", "Gregorio Paltrinieri"))
+# plot_time_diffs2(10, 30, "Florian Wellbrock", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Marcello Guidi")
+
+# archive_rankings_range("10/09/2021", "07/31/2022")
+print_race_labels()
+
+
+
+
