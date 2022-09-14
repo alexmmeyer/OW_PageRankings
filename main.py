@@ -163,10 +163,6 @@ def test_predictability(race_result_file):
     instance_total_tests = 0
     # race_label = label(race_result_file, "event", "location", "date", "distance")
 
-    # # Optimize test for a subset of the overall ranking.
-    # FROM_RANK = 1
-    # TO_RANK = 100
-
     ranking_data = pd.read_csv(RANKING_FILE_NAME).iloc[(FROM_RANK - 1):TO_RANK]
     race_data = pd.read_csv(race_result_file)
     name_list = race_data.athlete_name.tolist()
@@ -1376,6 +1372,42 @@ def opttest_vis(file_path):
     fig.show()
 
 
+def outcome_table(athlete_name, dist=10):
+
+    wins = 0
+    podiums = 0
+    top25pct = 0
+    total_races = 0
+
+    for file in os.listdir(RESULTS_DIRECTORY):
+        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        race_data = pd.read_csv(results_file_path)
+        if athlete_name in list(race_data.athlete_name):
+            race_dist = race_data.distance[0]
+            finishers = len(race_data.athlete_name)
+            if race_dist == dist or dist == "all":
+                total_races += 1
+                athlete_place = int(race_data.place[race_data.athlete_name == athlete_name])
+                if athlete_place == 1:
+                    wins += 1
+                if athlete_place <= 3:
+                    podiums += 1
+                if athlete_place / finishers <= 0.25:
+                    top25pct += 1
+
+    tiers = [wins, podiums, top25pct]
+
+    dct = {
+        'Outcome': ['Win', 'Podium', 'Top 25%'],
+        'Quantity': [str(tier) + ' / ' + str(total_races) for tier in tiers],
+        'Percentage': ["{:.0%}".format(num / total_races) for num in tiers]
+    }
+
+    df = pd.DataFrame(dct)
+    print(athlete_name)
+    print(df)
+
+
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
@@ -1384,12 +1416,15 @@ last_test_time = timedelta(seconds=60)
 
 # rating_progression_multi("01/01/2022", "07/31/2022", "Leonie Beck", "Ana Marcela Cunha", "Sharon Van Rouwendaal", "Giulia Gabbrielleschi", "Anna Olasz")
 # ranking_progression_multi("01/01/2022", "07/31/2022", "Lea Boy", "Barbara Pozzobon", "Caroline Laure Jouisse", "Rachele Bruni", "Oceane Cassignol")
-# rating_progression_multi("01/01/2022", "07/31/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Domenico Acerenza", "Florian Wellbrock", "Marcello Guidi")
-plot_time_diffs2("all", "Lea Boy", "Barbara Pozzobon", "Caroline Laure Jouisse", "Rachele Bruni", "Oceane Cassignol", "07/31/2022")
+# rating_progression_multi("01/01/2022", "08/31/2022", "Leonie Beck", "Sharon Van Rouwendaal", "Ana Marcela Cunha")
+# ranking_progression_multi("01/01/2022", "08/31/2022", "Gregorio Paltrinieri", "Kristof Rasovszky", "Marc-Antoine Olivier", "Domenico Acerenza", "Florian Wellbrock")
+# plot_time_diffs2("all", "Lea Boy", "Barbara Pozzobon", "Caroline Laure Jouisse", "Rachele Bruni", "Oceane Cassignol", "07/31/2022")
 
 
-# country_ranks(50, "07/31/2022")
-
-
+# outcome_table("Gregorio Paltrinieri", 'all')
+# outcome_table("Domenico Acerenza", 'all')
+# outcome_table("Kristof Rasovszky", 'all')
+# outcome_table("Marc-Antoine Olivier", 'all')
+# outcome_table("Florian Wellbrock", 'all')
 
 

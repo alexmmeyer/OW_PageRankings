@@ -38,6 +38,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men\rankings_archive\2022_07_31_men_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2016_06_30_Roberval_32km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\men\results\2018_11_09_AbuDhabi_10km_M.csv">
           <value>
             <Attribute>
@@ -45,7 +59,56 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men\results\2021_08_04_Tokyo_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_05_13_Piombino_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\men\results\2022_05_28_Setubal_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_06_29_Budapest_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_07_09_Paris_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_08_20_Ostia_5km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_08_21_Ostia_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_08_26_Kiel_10km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -74,6 +137,13 @@
           </value>
         </entry>
         <entry key="\women\results\2021_10_09_Alghero_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\results\2022_08_27_LacMegantic_10km_W.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
