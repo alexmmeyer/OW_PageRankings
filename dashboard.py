@@ -2,23 +2,17 @@ import pandas as pd
 import os
 from datetime import datetime as dt
 from datetime import timedelta
-from datetime import date
-from itertools import combinations
 import variables
-import networkx as nx
-import time
-import matplotlib.pyplot as plt
-import math
-import seaborn as sb
-import plotly.express as px
 import plotly.graph_objs as go
 import plotly.offline as pyo
-import numpy as np
+from dash import Dash, html, dcc
+from dash.dependencies import Input, Output
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
+
 
 def alpha_date(date):
     """
@@ -47,50 +41,61 @@ def get_results(athlete_name):
 
     return pd.concat(rows, ignore_index=True)
 
+
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
 RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
-RANKING_FILE_NAME = variables.RANKING_FILE_NAME
-LAMBDA = variables.LAMBDA
-DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
 GENDER = variables.GENDER
-if GENDER == "men":
-    DEPRECIATION_PERIOD = variables.M_DEPRECIATION_PERIOD
-    K = variables.M_K
-elif GENDER == "women":
-    DEPRECIATION_PERIOD = variables.W_DEPRECIATION_PERIOD
-    K = variables.W_K
 RANK_DIST = variables.RANK_DIST
-FROM_RANK = variables.FROM_RANK
-TO_RANK = variables.TO_RANK
-event_type_weights = variables.event_weights
 athlete_countries = variables.athlete_countries
 
-def ranking_progression_multi(start_date, end_date, athlete_names):
-    """
-    :param athlete_name:
-    :param start_date:
-    :param end_date:
-    :return: graph showing athlete's ranking on every day between (inclusive) start_date and end_date
-    :param increment:
-    """
+app = Dash()
 
+# athlete_options = athlete_countries['athlete_name']
+athlete_options = ["Lea Boy", "Barbara Pozzobon", "Caroline Laure Jouisse", "Rachele Bruni", "Oceane Cassignol"]
+
+layout = go.Layout(
+            xaxis={'title': 'Date'},
+            yaxis={'title': 'World Ranking'},
+            hovermode='closest')
+
+
+traces = [
+    go.Scatter(x=[1,2,3,4],
+               y=[1,4,9,16],
+               mode='lines'),
+    go.Scatter(x=[2, 4],
+               y=[4, 16],
+               mode='markers'),
+]
+
+app.layout = html.Div([
+    dcc.Input(id='start-date', value='01/01/2022'),
+    dcc.Input(id='end-date', value='08/31/2022'),
+    dcc.Checklist(id='athlete_names', value=["Lea Boy"], options=[{'label': i, 'value': i} for i in athlete_options]),
+    dcc.Graph(id='progression-graph', figure={'data': traces,
+                                            'layout': layout})
+])
+
+@app.callback(
+    Output('progression-graph', 'figure'),
+    [Input('start-date', 'value'),
+     Input('end-date', 'value'),
+     Input('athlete-names', 'value')])
+def ranking_progression_multi(start_date, end_date, athlete_names):
     start_date = dt.strptime(start_date, "%m/%d/%Y")
     end_date = dt.strptime(end_date, "%m/%d/%Y")
-    # Get a list of dates called date_range within the start and end range
     increment = 1
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
     traces = []
+    scatter_df = pd.DataFrame()
 
     for athlete_name in athlete_names:
-        # Loop through each of the dates in date_range and look up the ranking for that date in the archive. Add the date
-        # to one list and add the athlete's rank to a separate list. Count loops to track progress.
         athlete_name = athlete_name.title()
         rank_dates = []
         ranks = []
 
-        # get the data for the progression line:
         for date in date_range:
             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
             ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
@@ -99,7 +104,6 @@ def ranking_progression_multi(start_date, end_date, athlete_names):
                 rank_dates.append(dt.strptime(date, "%m/%d/%Y"))
                 rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
                 ranks.append(rank_on_date)
-                # print(f'{athlete_name} was ranked {rank_on_date} on {date}')
         line_trace = go.Scatter(x=rank_dates,
                            y=ranks,
                            mode='lines',
@@ -119,13 +123,16 @@ def ranking_progression_multi(start_date, end_date, athlete_names):
             race_date_ranks.append(rank_on_date)
         results_df['rank'] = race_date_ranks
         print(results_df)
+        scatter_df = pd.concat([scatter_df, results_df])
+        print(scatter_df)
 
-        scatter_trace = go.Scatter(x=results_df['dt_date'],
-                                   y=results_df['rank'],
+    for event_type in scatter_df['event'].unique():
+        df = scatter_df[scatter_df['event'] == event_type]
+        scatter_trace = go.Scatter(x=df['dt_date'],
+                                   y=df['rank'],
                                    mode='markers',
-                                   marker={'size': 10},
-                                   name=athlete_name)
-
+                                   marker={'size': 10, 'line': {'width': 0.5, 'color': 'black'}},
+                                   name=event_type)
         traces.append(scatter_trace)
 
     layout = go.Layout(
@@ -133,17 +140,14 @@ def ranking_progression_multi(start_date, end_date, athlete_names):
             yaxis={'title': 'World Ranking'},
             hovermode='closest')
 
-    fig = go.Figure(data=traces, layout=layout)
-    pyo.plot(fig)
+    # fig = go.Figure(data=traces, layout=layout)
+    # pyo.plot(fig)
 
-    # return {
-    #     'data': traces,
-    #     'layout': go.Layout(
-    #         xaxis={'type': 'log', 'title': 'GDP Per Capita'},
-    #         yaxis={'title': 'Life Expectancy'},
-    #         hovermode='closest'
-    #     )
-    # }
+    return {
+        'data': traces,
+        'layout': layout
+    }
 
-# print('hello')
-ranking_progression_multi("01/01/2022", "07/31/2022", ["Lea Boy", "Barbara Pozzobon", "Caroline Laure Jouisse"])
+if __name__ == '__main__':
+    app.run_server()
+
