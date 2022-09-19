@@ -2,10 +2,9 @@ import pandas as pd
 import os
 from datetime import datetime as dt
 from datetime import timedelta
-import variables
 import plotly.graph_objs as go
 import plotly.offline as pyo
-from dash import Dash, html, dcc
+from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
 
 
@@ -19,47 +18,22 @@ def alpha_date(date):
     return alphadate
 
 
-def get_results(athlete_name):
-    rows = []
-
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
-        race_data = pd.read_csv(results_file_path)
-        names_list = list(race_data.athlete_name)
-        names_list = [name.title() for name in names_list]
-        race_data.athlete_name = names_list
-        if athlete_name.title() in names_list:
-            row = race_data[race_data.athlete_name == athlete_name.title()]
-            rows.append(row)
-            # print(file)
-            # print(row)
-
-    return pd.concat(rows, ignore_index=True)
-
-
-RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
-RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
-RANK_DIST = variables.RANK_DIST
-athlete_countries = variables.athlete_countries
-GENDER = variables.GENDER
-
 # Style dictionaries for dashboard elements:
-input_dates_style = {'fontFamily':'helvetica', 'fontSize':18}
-dropdown_div_style = {'width':'30%', 'float':'left'}
+input_dates_style = {'fontFamily': 'helvetica', 'fontSize': 18, 'display': 'block'}
+dropdown_div_style = {'width': '30%', 'float': 'left', 'height': 50, 'display': 'block'}
+graph_style = {'width': '30%', 'display': 'block'}
 
 app = Dash()
 
-athlete_options = athlete_countries['athlete_name'].unique()
-# athlete_options = ["Lea Boy", "Barbara Pozzobon", "Caroline Laure Jouisse", "Rachele Bruni", "Oceane Cassignol"]
-
 app.layout = html.Div([
-    dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value=GENDER),
+    dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value='women'),
     dcc.Input(id='start-date', value='01/01/2022'),
     dcc.Input(id='end-date', value='08/31/2022'),
-    html.Div(dcc.Dropdown(id='name-dropdown', value='Lea Boy', options=[{'label': i, 'value': i} for i in athlete_options]),
+    html.Div(dcc.Dropdown(id='name-dropdown', value='Lea Boy', options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]),
              style=dropdown_div_style),
     html.Div(id='output-text', children='starter text'),
-    dcc.Graph(id='progression-graph')
+    dcc.Graph(id='progression-graph'),
+    html.Div(id='results-table', children='hello world')
 ])
 
 
@@ -74,7 +48,9 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
     start_date = dt.strptime(start_date, "%m/%d/%Y")
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     increment = 1
-    print(f"first callback gender_choice is {gender_choice}")
+    rank_dist = 10
+    rankings_directory = gender_choice + "/rankings_archive"
+    results_directory = gender_choice + "/results"
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
@@ -87,8 +63,8 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
         ranks = []
 
         for date in date_range:
-            file_name = f"{alpha_date(date)}_{gender_choice}_{RANK_DIST}km.csv"
-            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            file_name = f"{alpha_date(date)}_{gender_choice}_{rank_dist}km.csv"
+            ranking_data = pd.read_csv(f"{rankings_directory}/{file_name}")
             ranked_athletes = list(ranking_data.name)
             if athlete_name in ranked_athletes:
                 rank_dates.append(dt.strptime(date, "%m/%d/%Y"))
@@ -101,14 +77,26 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
                                 name=athlete_name)
         traces.append(line_trace)
 
-        results_df = get_results(athlete_name)
+        # this block is the get_results function
+        rows = []
+        for file in os.listdir(results_directory):
+            results_file_path = os.path.join(results_directory, file)
+            race_data = pd.read_csv(results_file_path)
+            names_list = list(race_data.athlete_name)
+            names_list = [name.title() for name in names_list]
+            race_data.athlete_name = names_list
+            if athlete_name.title() in names_list:
+                row = race_data[race_data.athlete_name == athlete_name.title()]
+                rows.append(row)
+        results_df = pd.concat(rows, ignore_index=True)
+
         results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
         results_df = results_df[results_df.dt_date >= start_date]
         results_df = results_df[results_df.dt_date <= end_date]
         race_date_ranks = []
         for date in results_df.date:
-            file_name = f"{alpha_date(date)}_{gender_choice}_{RANK_DIST}km.csv"
-            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            file_name = f"{alpha_date(date)}_{gender_choice}_{rank_dist}km.csv"
+            ranking_data = pd.read_csv(f"{rankings_directory}/{file_name}")
             rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
             race_date_ranks.append(rank_on_date)
         results_df['rank'] = race_date_ranks
@@ -132,23 +120,42 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
     }
 
 
-@app.callback(Output('output-text', 'children'),
-              [Input('name-dropdown', 'value'),
-               Input('gender-picker', 'value')])
-def print_selections(names, gender_choice):
-    print(f"first callback gender_choice is {gender_choice}")
-    return f"you've selected {gender_choice} and {names}"
-
-
+# Update names in dropdown list when a different gender is selected:
 @app.callback(Output('name-dropdown', 'options'),
               [Input('gender-picker', 'value')])
 def list_names(gender_choice):
     df = pd.read_csv(gender_choice + "/athlete_countries.csv")
     names = df['athlete_name'].unique()
-    print(f"first callback gender_choice is {gender_choice}")
     return [{'label': i, 'value': i} for i in names]
+
+
+# Display results in data table:
+@app.callback(Output('results-table', 'children'),
+              [Input('name-dropdown', 'value'),
+               Input('gender-picker', 'value')])
+def display_results(athlete_name, gender_choice):
+    print('display results callback triggering')
+    results_directory = gender_choice + "/results"
+    rows = []
+    for file in os.listdir(results_directory):
+        results_file_path = os.path.join(results_directory, file)
+        race_data = pd.read_csv(results_file_path)
+        names_list = list(race_data.athlete_name)
+        names_list = [name.title() for name in names_list]
+        race_data.athlete_name = names_list
+        if athlete_name.title() in names_list:
+            row = race_data[race_data.athlete_name == athlete_name.title()]
+            rows.append(row)
+    results_df = pd.concat(rows, ignore_index=True)
+    results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
+    # results_df = results_df[results_df.dt_date >= start_date]
+    # results_df = results_df[results_df.dt_date <= end_date]
+    data = results_df.to_dict('rows')
+    columns = [{"name": i, "id": i, } for i in results_df.columns]
+    print(results_df)
+    return athlete_name
+    # return dash_table.DataTable(data=data, columns=columns)
 
 
 if __name__ == '__main__':
     app.run_server()
-
