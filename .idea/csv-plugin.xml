@@ -66,6 +66,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men\results\2021_08_21_OhridLake_25km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2021_09_25_Barcelona_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\men\results\2022_05_13_Piombino_10km_M.csv">
           <value>
             <Attribute>

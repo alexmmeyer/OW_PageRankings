@@ -992,6 +992,65 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
     return diff_dict
 
 
+def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
+
+    time_diffs = []
+    outcomes = []
+    races = []
+    events = []
+    field_sizes = []
+    weights = []
+
+    for file in os.listdir(RESULTS_DIRECTORY):
+        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        race_data = pd.read_csv(results_file_path)
+        race_dist = race_data.distance[0]
+        if athlete in list(race_data.athlete_name) and comp_to_athlete in list(race_data.athlete_name):
+            if race_dist == dist or dist == "all":
+                main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
+                comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
+                diff = round(main_time - comp_to_time, 2)
+                race = custom_label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance") + "km"
+                event = race_data.event[0]
+                field_size = race_data.field_size[0]
+                athlete_place = int(race_data.place[race_data.athlete_name == athlete])
+                comp_athlete_place = int(race_data.place[race_data.athlete_name == comp_to_athlete])
+                if athlete_place < comp_athlete_place:
+                    outcome = "win"
+                elif athlete_place > comp_athlete_place:
+                    outcome = "lose"
+                else:
+                    outcome = "tie"
+                if date_for_weights != "":
+                    age_weight = max(0, get_age_weight(race_data.date[0], date_for_weights))
+                    comp_weight = get_comp_weight(race_data.event[0])
+                    dist_weight = get_distance_weight(race_data.distance[0])
+                    total_weight = age_weight * comp_weight * dist_weight
+                    weights.append(total_weight)
+                if not (math.isnan(diff)):
+                    time_diffs.append(diff)
+                    races.append(race)
+                    events.append(event)
+                    field_sizes.append(field_size)
+                    outcomes.append(outcome)
+
+    diff_dict = {
+        "competitor": [comp_to_athlete for i in range(len(time_diffs))],
+        "time_diff": time_diffs,
+        "outcome": outcomes,
+        "race": races,
+        "event": events,
+        "field_size": field_sizes,
+    }
+
+    if date_for_weights != "":
+        diff_dict["weight"] = weights
+
+    # df = pd.DataFrame(diff_dict)
+    # print(df)
+    return diff_dict
+
+
 def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
     """
     :param dist: number or "all"
@@ -1437,7 +1496,7 @@ def opttest_vis(file_path):
     fig.show()
 
 
-def outcome_table(athlete_name, dist=10):
+def outcome_table(athlete_name, dist='all'):
 
     wins = 0
     podiums = 0
@@ -1479,5 +1538,60 @@ correct_predictions = 0
 last_test_time = timedelta(seconds=60)
 
 
-ranking_progression_multi("01/01/2022", "07/31/2022", ["Lea Boy"])
+def update_diff_graph(name1, name2, gender_choice):
+    dist = 'all'
+    results_directory = gender_choice + "/results"
+    winners = []
+    winner_places = []
+    loser_places = []
+    diffs = []
+    races = []
 
+    for file in os.listdir(results_directory):
+        results_file_path = os.path.join(results_directory, file)
+        race_data = pd.read_csv(results_file_path)
+        race_dist = race_data.distance[0]
+        if name1 in list(race_data.athlete_name) and name2 in list(race_data.athlete_name):
+            if race_dist == dist or dist == "all":
+                races.append(file)
+                name1time = float(race_data["time"][race_data["athlete_name"] == name1])
+                name2time = float(race_data["time"][race_data["athlete_name"] == name2])
+                diff = round(name1time - name2time, 2)
+                name1place = int(race_data.place[race_data.athlete_name == name1])
+                name2place = int(race_data.place[race_data.athlete_name == name2])
+                if name1place < name2place:
+                    winners.append(name1)
+                    winner_places.append(name1place)
+                    loser_places.append(name2place)
+                elif name1place > name2place:
+                    winners.append(name2)
+                    winner_places.append(name2place)
+                    loser_places.append(name1place)
+                else:
+                    winners.append("Tie")
+                    winner_places.append(name1place)
+                    loser_places.append(name2place)
+                if not math.isnan(diff):
+                    diffs.append(abs(diff))
+                else:
+                    diffs.append('N/A')
+
+    print(winners)
+    print(winner_places)
+    print(loser_places)
+    print(diffs)
+    print(races)
+
+
+    diff_dict = {
+        'winner': winners,
+        'winner_place': winner_places,
+        'loser_place': loser_places,
+        'time_diff': diffs,
+        'race': races
+    }
+
+    df = pd.DataFrame(diff_dict)
+    print(df)
+
+update_diff_graph('Gregorio Paltrinieri', 'Florian Wellbrock', 'men')
