@@ -52,7 +52,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men\results\2017_07_21_Budapest_25km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\men\results\2018_11_09_AbuDhabi_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2021_05_16_Budapest_25km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -95,6 +109,13 @@
           </value>
         </entry>
         <entry key="\men\results\2022_06_29_Budapest_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\results\2022_06_30_Budapest_25km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

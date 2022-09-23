@@ -10,7 +10,7 @@ from dash.dependencies import Input, Output
 
 app = Dash()
 
-stats_style = {'fontFamily': 'helvetica', 'fontSize': 48, 'float': 'center'}
+score_style = {'fontFamily': 'helvetica', 'fontSize': 96, 'textAlign': 'center'}
 
 dropdown_div_style = {'width': '50%', 'float': 'left', 'display': 'block'}
 
@@ -21,7 +21,8 @@ app.layout = html.Div([
                      options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]), style=dropdown_div_style),
         html.Div(dcc.Dropdown(id='name-dropdown2', value='Caroline Laure Jouisse',
                      options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]), style=dropdown_div_style)]),
-        html.H1(id='score', children='12 - 8'),
+        html.H1(id='score', style=score_style),
+        dcc.Graph(id='diff-graph'),
         html.Div(id='table')
     ])
 
@@ -38,7 +39,8 @@ def list_names(gender_choice):
 
 
 @app.callback([Output('table', 'children'),
-               Output('score', 'children')],
+               Output('score', 'children'),
+               Output('diff-graph', 'figure')],
               [Input('name-dropdown1', 'value'),
                Input('name-dropdown2', 'value'),
                Input('gender-picker', 'value')])
@@ -92,6 +94,7 @@ def update(name1, name2, gender_choice):
     }
 
     df = pd.DataFrame(diff_dict)
+    print(df)
     data = df.to_dict('rows')
     columns = [{"name": i, "id": i, } for i in df.columns]
     score = f"{str(winners.count(name1))} - {str(winners.count(name2))}"
@@ -100,23 +103,26 @@ def update(name1, name2, gender_choice):
 
     # create the data and layout for output to figure parameter in graph:
 
-    # data = go.Scatter(
-    #     x=chart_diffs,
-    #     y=[1 for i in chart_diffs],
-    #     mode='markers'
-    # )
-    #
-    # layout = go.Layout(
-    #     xaxis={'title': 'Finish Time Difference (s)'}
-    # )
-    #
-    # fig = {
-    #     'data': data,
-    #     'layout': layout
-    # }
+    chart_data = [go.Scatter(
+        x=chart_diffs,
+        y=['str' for i in chart_diffs],
+        mode='markers',
+        marker={'size': 20, 'line': {'width': 0.5, 'color': 'black'}, 'opacity': 0.5}
+    )]
+
+    rangemax = max([abs(i) for i in chart_diffs]) * 1.1
+
+    layout = go.Layout(
+        xaxis={'title': 'Finish Time Difference (s)', 'range': [-rangemax, rangemax]}
+    )
 
 
-    return [dash_table.DataTable(data=data, columns=columns)], score
+    fig = {
+        'data': chart_data,
+        'layout': layout
+    }
+
+    return [dash_table.DataTable(data=data, columns=columns)], score, fig
 
 
 if __name__ == '__main__':

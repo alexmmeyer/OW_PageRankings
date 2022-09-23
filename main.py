@@ -1143,87 +1143,34 @@ def plot_time_diffs2(dist, athlete_name, *comp_athletes, date_for_weights=""):
     pyo.plot(fig, filename='plots/plot_time_diffs2.html')
 
 
-def compare_wr_num_races(ranking_date, comment=False, summary=False):
-    start = time.time()
-    global correct_predictions
-    global total_tests
-    global G
-    global RANKING_FILE_NAME
-    G = nx.DiGraph()
-    race_count = 0
+def plot_wr_num_races(date, max_rank):
+
     athlete_list = []
 
-    # first remove the ranking file that may exist from past function calls
-    if os.path.exists(RANKING_FILE_NAME):
-        os.remove(RANKING_FILE_NAME)
+    ranking_file = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+    df = pd.read_csv(f"{RANKINGS_DIRECTORY}/{ranking_file}")
 
-    # Loop through each race result file. If it's in the date range, update global G with that race's results by
-    # calling update_rankings()
+
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
-        rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
+        rank_date = dt.strptime(date, "%m/%d/%Y")
         if (rank_date.date() - race_date.date()).days > DEPRECIATION_PERIOD or rank_date.date() < race_date.date():
-            if comment:
-                print(f"Excluding {file}, race is not in date range.")
-            else:
-                pass
-        elif os.path.exists(RANKING_FILE_NAME):
-            if comment:
-                print(f"Loading {file}")
-            update_graph(results_file_path, ranking_date)
-            athlete_list.extend(list(race_data.athlete_name))
-            race_count += 1
-            pr_dict = nx.pagerank(G)
-            ranking_dict = {
-                "name": list(pr_dict.keys()),
-                "pagerank": list(pr_dict.values())
-            }
-            ranking_df = pd.DataFrame(ranking_dict)
-            ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
-            ranking_df["rank"] = range(1, len(pr_dict) + 1)
-            ranking_df["qty_races"] = [athlete_list.count(name) for name in list(ranking_df["name"])]
-            ranking_df.to_csv(RANKING_FILE_NAME, index=False)
+            print(f"{file} not in range")
         else:
-            if comment:
-                print(f"Loading {file}")
-            update_graph(results_file_path, ranking_date)
+            print(f"{file} names added")
             athlete_list.extend(list(race_data.athlete_name))
-            race_count += 1
-            pr_dict = nx.pagerank(G)
-            ranking_dict = {
-                "name": list(pr_dict.keys()),
-                "pagerank": list(pr_dict.values())
-            }
-            ranking_df = pd.DataFrame(ranking_dict)
-            ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
-            ranking_df["rank"] = range(1, len(pr_dict) + 1)
-            ranking_df["qty_races"] = [athlete_list.count(name) for name in list(ranking_df["name"])]
-            ranking_df.to_csv(RANKING_FILE_NAME, index=False)
 
-    df = pd.read_csv(RANKING_FILE_NAME)
-    ranks = list(df["rank"])
-    qty_races = list(df["qty_races"])
-    plt.plot(qty_races, ranks, "o")
-    plt.gca().invert_yaxis()
-    # plt.xlim(xmin=9.5)
-    plt.xlabel("Quantity of races in ranking")
-    plt.ylabel("World Ranking")
-    plt.title(f"Does Racing More Improve Your World Ranking?\n(ranking as of {ranking_date}, "
-              f"includes {DEPRECIATION_PERIOD / 365} years of results)")
-    plt.show()
+    race_counts = [athlete_list.count(athlete) for athlete in df.name]
+    race_counts_per_yr = [num / DEPRECIATION_PERIOD * 365 for num in race_counts]
+    df['race_count_per_year'] = race_counts_per_yr
 
-    end = time.time()
+    df = df.iloc[:max_rank]
 
-    if summary:
-        print(f"New ranking file created: {RANKING_FILE_NAME}")
-        print(f"Time to execute: {round((end - start), 2)}s")
-        print(f"Races included in ranking: {race_count}")
-        print(f"Gender: {GENDER}")
-        print(f"Distance: {RANK_DIST}km")
-        print(f"Depreciation period: {DEPRECIATION_PERIOD / 365} years")
-        print(f"Depreciation model: {DEPRECIATION_MODEL}")
+    fig = px.scatter(df, x="race_count_per_year", y="rank", hover_name="name")
+    fig['layout']['yaxis']['autorange'] = "reversed"
+    pyo.plot(fig)
 
 
 def optimization_test(year_start_value, year_end_value, increment, dates_to_test):
@@ -1537,61 +1484,7 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=60)
 
-
-def update_diff_graph(name1, name2, gender_choice):
-    dist = 'all'
-    results_directory = gender_choice + "/results"
-    winners = []
-    winner_places = []
-    loser_places = []
-    diffs = []
-    races = []
-
-    for file in os.listdir(results_directory):
-        results_file_path = os.path.join(results_directory, file)
-        race_data = pd.read_csv(results_file_path)
-        race_dist = race_data.distance[0]
-        if name1 in list(race_data.athlete_name) and name2 in list(race_data.athlete_name):
-            if race_dist == dist or dist == "all":
-                races.append(file)
-                name1time = float(race_data["time"][race_data["athlete_name"] == name1])
-                name2time = float(race_data["time"][race_data["athlete_name"] == name2])
-                diff = round(name1time - name2time, 2)
-                name1place = int(race_data.place[race_data.athlete_name == name1])
-                name2place = int(race_data.place[race_data.athlete_name == name2])
-                if name1place < name2place:
-                    winners.append(name1)
-                    winner_places.append(name1place)
-                    loser_places.append(name2place)
-                elif name1place > name2place:
-                    winners.append(name2)
-                    winner_places.append(name2place)
-                    loser_places.append(name1place)
-                else:
-                    winners.append("Tie")
-                    winner_places.append(name1place)
-                    loser_places.append(name2place)
-                if not math.isnan(diff):
-                    diffs.append(abs(diff))
-                else:
-                    diffs.append('N/A')
-
-    print(winners)
-    print(winner_places)
-    print(loser_places)
-    print(diffs)
-    print(races)
+# compare_wr_num_races("08/31/2022")
 
 
-    diff_dict = {
-        'winner': winners,
-        'winner_place': winner_places,
-        'loser_place': loser_places,
-        'time_diff': diffs,
-        'race': races
-    }
-
-    df = pd.DataFrame(diff_dict)
-    print(df)
-
-update_diff_graph('Gregorio Paltrinieri', 'Florian Wellbrock', 'men')
+new_wr_num_races('08/31/2022', 75)
