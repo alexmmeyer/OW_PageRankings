@@ -103,12 +103,23 @@ def update(name1, name2, gender_choice):
 
     # create the data and layout for output to figure parameter in graph:
 
-    chart_data = [go.Scatter(
-        x=chart_diffs,
-        y=['str' for i in chart_diffs],
-        mode='markers',
-        marker={'size': 20, 'line': {'width': 0.5, 'color': 'black'}, 'opacity': 0.5}
-    )]
+    df['time_diff'] = chart_diffs
+    df2 = df[df.time_diff != 'N/A'].reset_index(drop=True)
+
+    chart_data = []
+    colors = ['blue', 'green', 'orange']
+    unique_winners = list(df2['winner'].unique())
+
+    for i in unique_winners:
+        colorindex = unique_winners.index(i)
+        df3 = df2[df2['winner'] == i]
+        trace = go.Scatter(
+                    x=df3['time_diff'],
+                    y=['str' for i in df3['time_diff']],
+                    mode='markers',
+                    marker={'size': 20, 'line': {'width': 0.5, 'color': 'black'}, 'opacity': 0.5, 'color': colors[colorindex]}
+    )
+        chart_data.append(trace)
 
     rangemax = max([abs(i) for i in chart_diffs]) * 1.1
 
