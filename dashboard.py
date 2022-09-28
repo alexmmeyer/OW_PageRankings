@@ -56,6 +56,7 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
     rank_dist = 10
     rankings_directory = gender_choice + "/rankings_archive"
     results_directory = gender_choice + "/results"
+    athlete_data_directory = gender_choice + "/athlete_data"
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
@@ -64,24 +65,42 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
 
     for athlete_name in athlete_names:
         athlete_name = athlete_name.title()
-        rank_dates = []
-        ranks = []
+        if os.path.exists(f"{athlete_data_directory}/{athlete_name}.csv"):
+            # Grab athlete's progression csv. Create a dataframe, add a datetime format date column, and filter it
+            # to include only rows in the selected date range.
+            df = pd.read_csv(f"{athlete_data_directory}/{athlete_name}.csv")
+            df['dt_date'] = [dt.strptime(d, "%m/%d/%Y") for d in df['date']]
+            df = df[df['dt_date'] >= start_date]
+            df = df[df['dt_date'] <= end_date]
 
-        for date in date_range:
-            file_name = f"{alpha_date(date)}_{gender_choice}_{rank_dist}km.csv"
-            ranking_data = pd.read_csv(f"{rankings_directory}/{file_name}")
-            ranked_athletes = list(ranking_data.name)
-            if athlete_name in ranked_athletes:
-                rank_dates.append(dt.strptime(date, "%m/%d/%Y"))
-                rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-                ranks.append(rank_on_date)
-        line_trace = go.Scatter(x=rank_dates,
-                                y=ranks,
-                                mode='lines',
-                                opacity=0.8,
-                                name=athlete_name)
-        traces.append(line_trace)
+            # Use the columns of the modified dataframe to construct a trace for the rank line and the rating line.
+            # Add the traces to the list that gets passed into the figure data parameter and returned to the graph.
+            line_trace = go.Scatter(x=df['dt_date'],
+                                         y=df['rank'],
+                                         mode='lines',
+                                         opacity=0.8,
+                                         name=athlete_name)
+            traces.append(line_trace)
+        else:
+            rank_dates = []
+            ranks = []
 
+            for date in date_range:
+                file_name = f"{alpha_date(date)}_{gender_choice}_{rank_dist}km.csv"
+                ranking_data = pd.read_csv(f"{rankings_directory}/{file_name}")
+                ranked_athletes = list(ranking_data.name)
+                if athlete_name in ranked_athletes:
+                    rank_dates.append(dt.strptime(date, "%m/%d/%Y"))
+                    rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
+                    ranks.append(rank_on_date)
+            line_trace = go.Scatter(x=rank_dates,
+                                    y=ranks,
+                                    mode='lines',
+                                    opacity=0.8,
+                                    name=athlete_name)
+            traces.append(line_trace)
+
+        # Create the scatter trace:
         # this block is the get_results function
         rows = []
         for file in os.listdir(results_directory):

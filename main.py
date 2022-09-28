@@ -17,6 +17,7 @@ import numpy as np
 
 RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
 RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
+ATHLETE_DATA_DIRECTORY = variables.ATHLETE_DATA_DIRECTORY
 RANKING_FILE_NAME = variables.RANKING_FILE_NAME
 LAMBDA = variables.LAMBDA
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
@@ -1484,7 +1485,39 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=60)
 
-plot_wr_num_races('08/31/2022', 100)
+# plot_wr_num_races('08/31/2022', 100)
+
+def archive_athlete_rankings(athlete_name, start_date, end_date, increment=1):
+    start_date = dt.strptime(start_date, "%m/%d/%Y")
+    end_date = dt.strptime(end_date, "%m/%d/%Y")
+    date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
+                  if i % increment == 0]
+
+    dates = []
+    ranks = []
+    ratings = []
+
+    for d in date_range:
+        file_name = f"{alpha_date(d)}_{GENDER}_{RANK_DIST}km.csv"
+        print(file_name)
+        ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+        ranked_athletes = list(ranking_data.name)
+        if athlete_name in ranked_athletes:
+            dates.append(d)
+            rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
+            rating_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
+            ranks.append(rank_on_date)
+            ratings.append(rating_on_date)
+        else:
+            print('nope')
+
+    df = pd.DataFrame(dict(date=dates, rank=ranks, rating=ratings))
+    print(df)
+    df.to_csv(f"{ATHLETE_DATA_DIRECTORY}/{athlete_name}.csv")
+
+
+for name in pd.read_csv('women/rankings_archive/2022_08_31_women_10km.csv')['name'].iloc[0:100]:
+    archive_athlete_rankings(name, '01/01/2017', '08/31/2022')
 
 
 

@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men\athlete_data\Pasquale Sanzullo.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\men\consolidated results\Complete Results men.csv">
           <value>
             <Attribute>
@@ -88,6 +95,13 @@
           </value>
         </entry>
         <entry key="\men\optimization 2019_01_31 to 2019_12_31.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\rankings_archive\2021_05_01_men_10km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -1054,6 +1068,13 @@
           </value>
         </entry>
         <entry key="\women\rankings_archive\2022_07_31_women_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\rankings_archive\2022_08_31_women_10km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

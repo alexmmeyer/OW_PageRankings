@@ -27,7 +27,6 @@ def age_opacity(race_date, oldest_date):
 app = Dash()
 
 score_style = {'fontFamily': 'helvetica', 'fontSize': 96, 'textAlign': 'center'}
-
 dropdown_div_style = {'width': '50%', 'float': 'left', 'display': 'block'}
 
 app.layout = html.Div([
@@ -66,7 +65,7 @@ def update(name1, name2, gender_choice):
     winners = []
     winner_places = []
     loser_places = []
-    table_diffs = []
+    diffs = []
     races = []
     dates = []
     distances = []
@@ -104,40 +103,35 @@ def update(name1, name2, gender_choice):
                     winner_places.append(name1place)
                     loser_places.append(name2place)
                 if not math.isnan(diff):
-                    table_diffs.append(str(timedelta(seconds=abs(diff))))
-                    chart_diffs.append(diff)
-                    dt_diffs.append(str(timedelta(seconds=diff)))
+                    diffs.append(diff)
                 else:
-                    table_diffs.append('N/A')
-                    chart_diffs.append('N/A')
-                    dt_diffs.append('N/A')
+                    diffs.append('N/A')
 
     diff_dict = {
         'winner': winners,
         'winner_place': winner_places,
         'loser_place': loser_places,
-        'time_diff': table_diffs,
+        'time_diff': diffs,
         'race': races,
         'date': dates,
         'distance (km)': distances,
-        'dt_diff': dt_diffs
     }
 
-    df = pd.DataFrame(diff_dict)
-    print(df)
-    data = df.to_dict('rows')
-    columns = [{"name": i, "id": i, } for i in df.columns]
+    table_df = pd.DataFrame(diff_dict)
+    table_df['time_diff'] = [str(timedelta(seconds=abs(i))) for i in table_df['time_diff']]
+    print(table_df)
+    data = table_df.to_dict('rows')
+    columns = [{"name": i, "id": i, } for i in table_df.columns]
     score = f"{str(winners.count(name1))} - {str(winners.count(name2))}"
     if winners.count("Tie") > 0:
         score = score + f" - {str(winners.count('Tie'))}"
 
     # create the data and layout for output to figure parameter in graph:
 
-    df['time_diff'] = chart_diffs
-    df2 = df[df.time_diff != 'N/A'].reset_index(drop=True)
-    df2['dt_date'] = [dt.strptime(i, "%m/%d/%Y") for i in df2['date']]
-    # df2['time_diff'] = [timedelta(seconds=i) for i in df2['time_diff']]
-    print(df2)
+    fig_df = pd.DataFrame(diff_dict)
+    fig_df = fig_df[fig_df.time_diff != 'N/A'].reset_index(drop=True)
+    fig_df['dt_date'] = [dt.strptime(i, "%m/%d/%Y") for i in fig_df['date']]
+    print(fig_df)
 
     chart_data = []
     colors = {
@@ -145,23 +139,23 @@ def update(name1, name2, gender_choice):
         name2: 'green',
         "Tie": 'orange'
     }
-    unique_winners = list(df2['winner'].unique())
-    oldest_date = min(df2['dt_date'])
-    opacities = [age_opacity(i, oldest_date) for i in df2['dt_date']]
-    # think i should try plotly.express for this because for loop below is based on traces (unique winners / tie), not rows of df2
+    unique_winners = list(fig_df['winner'].unique())
+    oldest_date = min(fig_df['dt_date'])
+    opacities = [age_opacity(i, oldest_date) for i in fig_df['dt_date']]
+    # think i should try plotly.express for this because for loop below is based on traces (unique winners / tie), not rows of fig_df
 
     for i in unique_winners:
-        df3 = df2[df2['winner'] == i]
+        df = fig_df[fig_df['winner'] == i]
         trace = go.Scatter(
-                    x=df3['time_diff'],
-                    y=['str' for i in df3['time_diff']],
+                    x=df['time_diff'],
+                    y=['str' for i in df['time_diff']],
                     mode='markers',
-                    marker={'size': 20, 'line': {'width': 0.5, 'color': 'black'}, 'opacity': 0.5, 'color': colors[i]},
+                    marker={'size': 20, 'line': {'width': 2, 'color': 'black'}, 'opacity': 0.4, 'color': colors[i]},
                     name=i
     )
         chart_data.append(trace)
 
-    rangemax = max([abs(i) for i in chart_diffs if i != 'N/A']) * 1.1
+    rangemax = max([abs(i) for i in fig_df['time_diff'] if i != 'N/A']) * 1.1
 
     layout = go.Layout(
         xaxis={'title': 'Finish Time Difference (s)', 'range': [-rangemax, rangemax]},
