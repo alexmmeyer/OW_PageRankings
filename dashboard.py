@@ -23,18 +23,24 @@ dropdown_div_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
+default_start_date = '01/01/2022'
+default_end_date = '09/30/2022'
+default_gender = 'women'
+default_athlete = 'Lea Boy'
+default_names_list = pd.read_csv(f"{default_gender}/athlete_countries.csv").sort_values('athlete_name')
+
 app = Dash()
 
 app.layout = html.Div([
-    dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value='women'),
-    html.Div(dcc.Dropdown(id='name-dropdown', value='Lea Boy',
-                          options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]),
+    dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value=default_gender),
+    html.Div(dcc.Dropdown(id='name-dropdown', value=default_athlete,
+                          options=[{'label': i, 'value': i} for i in default_names_list]),
                           style=dropdown_div_style),
     html.Div([
             html.Label('Start Date (MM/DD/YYYY)'),
-            dcc.Input(id='start-date', value='01/01/2022'),
+            dcc.Input(id='start-date', value=default_start_date),
             html.Label('End Date (MM/DD/YYYY)'),
-            dcc.Input(id='end-date', value='08/31/2022'),
+            dcc.Input(id='end-date', value=default_end_date),
             ], style=input_dates_style),
     dcc.Graph(id='progression-graph'),
     html.Div(id='stats-table', style=stats_style),
@@ -149,7 +155,8 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
               [Input('gender-picker', 'value')])
 def list_names(gender_choice):
     df = pd.read_csv(gender_choice + "/athlete_countries.csv")
-    names = df['athlete_name'].unique()
+    names = df.sort_values('athlete_name')
+    names = names['athlete_name'].unique()
     return [{'label': i, 'value': i} for i in names]
 
 

@@ -23,6 +23,9 @@ dropdown_div_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
+default_start_date = '01/01/2022'
+default_end_date = '09/30/2022'
+
 app = Dash()
 
 app.layout = html.Div([
@@ -32,9 +35,9 @@ app.layout = html.Div([
                           style=dropdown_div_style),
     html.Div([
             html.Label('Start Date (MM/DD/YYYY)'),
-            dcc.Input(id='start-date', value='01/01/2022'),
+            dcc.Input(id='start-date', value=default_start_date),
             html.Label('End Date (MM/DD/YYYY)'),
-            dcc.Input(id='end-date', value='08/31/2022'),
+            dcc.Input(id='end-date', value=default_end_date),
             ], style=input_dates_style),
     dcc.Graph(id='rank-progression-graph'),
     dcc.Graph(id='rating-progression-graph')

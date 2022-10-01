@@ -17,6 +17,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\men\athlete_data\Akos Kalmar.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\athlete_data\Alexis Vandevelde.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\men\athlete_data\Pasquale Sanzullo.csv">
           <value>
             <Attribute>
@@ -130,6 +144,13 @@
           </value>
         </entry>
         <entry key="\men\rankings_archive\2022_07_31_men_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\men\rankings_archive\2022_09_30_men_10km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -1004,6 +1025,41 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\women\athlete_data\Danielle Huskisson.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\athlete_data\David Betlehem.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\athlete_data\David Farinango.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\athlete_data\Leonie Beck.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\athlete_data\Madelon Catteau.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\women\consolidated results\Complete Results women.csv">
           <value>
             <Attribute>
@@ -1075,6 +1131,13 @@
           </value>
         </entry>
         <entry key="\women\rankings_archive\2022_08_31_women_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\women\rankings_archive\2022_09_30_women_10km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

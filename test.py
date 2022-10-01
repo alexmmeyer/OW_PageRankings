@@ -6,14 +6,15 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
+import csv
 
-app = Dash()
+df = pd.read_csv('musicians.csv')
+print(df)
+newrow = ['Pink Floyd', 'David Gilmour', 'Guitar']
 
-df = pd.read_csv('../Plotly-Dashboards-with-Dash-master/Data/mpg.csv')
+with open('musicians.csv', 'a') as file:
+    writer = csv.writer(file)
+    writer.writerow(newrow)
 
-features = df.columns
-
-name = 'alex'
-names = ['john', 'paul', 'george', 'ringo']
-print(names)
-print(list(names))
+df = pd.read_csv('musicians.csv')
+print(df)

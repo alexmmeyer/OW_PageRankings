@@ -42,7 +42,7 @@ app.layout = html.Div([
     ])
 
 
-# Update names in dropdown list 1 when a different gender is selected:
+# Update names in both dropdown lists when a different gender is selected:
 @app.callback([Output('name-dropdown1', 'options'),
                Output('name-dropdown2', 'options')],
               [Input('gender-picker', 'value')])
@@ -101,7 +101,7 @@ def update(name1, name2, gender_choice):
                 else:
                     winners.append("Tie")
                     winner_places.append(name1place)
-                    loser_places.append(name2place)
+                    loser_places.append('N/A')
                 if not math.isnan(diff):
                     diffs.append(diff)
                 else:
@@ -117,8 +117,12 @@ def update(name1, name2, gender_choice):
         'distance (km)': distances,
     }
 
+    print(diffs)
+    print(races)
+    print([type(i) for i in diffs])
+
     table_df = pd.DataFrame(diff_dict)
-    table_df['time_diff'] = [str(timedelta(seconds=abs(i))) for i in table_df['time_diff']]
+    table_df['time_diff'] = [str(timedelta(seconds=abs(i))) if i != 'N/A' else 'N/A' for i in table_df['time_diff']]
     print(table_df)
     data = table_df.to_dict('rows')
     columns = [{"name": i, "id": i, } for i in table_df.columns]

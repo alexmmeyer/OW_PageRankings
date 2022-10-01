@@ -378,119 +378,6 @@ def archive_rankings_range(start_date, end_date, increment=1):
         print("{:.0%}".format(progress))
 
 
-# def ranking_progression_multi(start_date, end_date, *athlete_names):
-#     """
-#     :param athlete_name:
-#     :param start_date:
-#     :param end_date:
-#     :return: graph showing athlete's ranking on every day between (inclusive) start_date and end_date
-#     :param increment:
-#     """
-#
-#     start_date = dt.strptime(start_date, "%m/%d/%Y")
-#     end_date = dt.strptime(end_date, "%m/%d/%Y")
-#     # Get a list of dates called date_range within the start and end range
-#     increment = 1
-#     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
-#                   if i % increment == 0]
-#     fig = go.Figure()
-#
-#     # Empty lists for chart lines
-#     ln_athlete_names = []
-#     ln_dates = []
-#     ln_ranks = []
-#
-#     # Empty lists for chart scatter points:
-#     sp_athlete_names = []
-#     sp_dates = []
-#     sp_ranks = []
-#     sp_events = []
-#     sp_locations = []
-#     sp_places = []
-#     sp_field_sizes = []
-#     sp_distances = []
-#
-#     for athlete_name in athlete_names:
-#         # Loop through each of the dates in date_range and look up the ranking for that date in the archive. Add the date
-#         # to one list and add the athlete's rank to a separate list. Count loops to track progress.
-#         athlete_name = athlete_name.title()
-#         loop_count = 0
-#
-#         # get the data for the progression line:
-#         for date in date_range:
-#             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-#             ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
-#             ranked_athletes = list(ranking_data.name)
-#             if athlete_name in ranked_athletes:
-#                 ln_athlete_names.append(athlete_name)
-#                 ln_dates.append(dt.strptime(date, "%m/%d/%Y"))
-#                 rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-#                 ln_ranks.append(rank_on_date)
-#             loop_count += 1
-#             progress = loop_count / len(date_range)
-#             # print("{:.0%}".format(progress))
-#
-#         # get the data for the scatter points representing performances:
-#         results_df = get_results(athlete_name)
-#         results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
-#         results_df = results_df[results_df.dt_date >= start_date]
-#         results_df = results_df[results_df.dt_date <= end_date]
-#         race_date_ranks = []
-#
-#         for date in results_df.date:
-#             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-#             ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
-#             rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-#             race_date_ranks.append(rank_on_date)
-#
-#         results_df["rank_after_race"] = race_date_ranks
-#
-#         sp_athlete_names.extend(results_df["athlete_name"])
-#         sp_dates.extend(results_df["dt_date"])
-#         sp_ranks.extend(race_date_ranks)
-#         sp_events.extend(results_df["event"])
-#         sp_locations.extend(results_df["location"])
-#         sp_places.extend(results_df["place"])
-#         sp_field_sizes.extend(results_df["field_size"])
-#         dists = [str(dist) + "km" for dist in results_df["distance"]]
-#         sp_distances.extend(dists)
-#
-#
-#     # Create a dataframe for the line traces:
-#     progress_dict = {
-#         "athlete_name": ln_athlete_names,
-#         "date": ln_dates,
-#         "rank": ln_ranks
-#     }
-#     progress_df = pd.DataFrame(progress_dict)
-#     xticks = [ln_date for ln_date in ln_dates if ln_date.day == 1]
-#
-#     # Create a dataframe for the scatter traces:
-#     all_results_dict = {
-#         "athlete_name": sp_athlete_names,
-#         "date": sp_dates,
-#         "rank": sp_ranks,
-#         "event": sp_events,
-#         "location": sp_locations,
-#         "place": sp_places,
-#         "field_size": sp_field_sizes,
-#         "distance": sp_distances,
-#     }
-#     all_results_df = pd.DataFrame(all_results_dict)
-#     print(all_results_df)
-#
-#     sp_fig = px.scatter(all_results_df, x="date", y="rank", color="event", hover_name="athlete_name",
-#                         hover_data=["date", "event", "location", "place", "field_size", "distance"])
-#     ln_fig = px.line(progress_df, x="date", y="rank", color="athlete_name")
-#     # ln_fig['data'][0]["line"]["shape"] = 'hv'
-#     fig = go.Figure(data=sp_fig.data + ln_fig.data)
-#     fig['layout']['yaxis']['autorange'] = "reversed"
-#     fig.update_layout(xaxis_title="Date", yaxis_title="World Ranking",
-#                       title=f"World Ranking Progression",
-#                       yaxis=dict(dtick=1),
-#                       xaxis=dict(tickmode="array", tickvals=xticks))
-#     pyo.plot(fig, filename="plots/ranking_progression_multi.html")
-
 def ranking_progression_multi(start_date, end_date, athlete_names):
     start_date = dt.strptime(start_date, "%m/%d/%Y")
     end_date = dt.strptime(end_date, "%m/%d/%Y")
@@ -993,65 +880,6 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
     return diff_dict
 
 
-def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
-
-    time_diffs = []
-    outcomes = []
-    races = []
-    events = []
-    field_sizes = []
-    weights = []
-
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
-        race_data = pd.read_csv(results_file_path)
-        race_dist = race_data.distance[0]
-        if athlete in list(race_data.athlete_name) and comp_to_athlete in list(race_data.athlete_name):
-            if race_dist == dist or dist == "all":
-                main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
-                comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
-                diff = round(main_time - comp_to_time, 2)
-                race = custom_label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance") + "km"
-                event = race_data.event[0]
-                field_size = race_data.field_size[0]
-                athlete_place = int(race_data.place[race_data.athlete_name == athlete])
-                comp_athlete_place = int(race_data.place[race_data.athlete_name == comp_to_athlete])
-                if athlete_place < comp_athlete_place:
-                    outcome = "win"
-                elif athlete_place > comp_athlete_place:
-                    outcome = "lose"
-                else:
-                    outcome = "tie"
-                if date_for_weights != "":
-                    age_weight = max(0, get_age_weight(race_data.date[0], date_for_weights))
-                    comp_weight = get_comp_weight(race_data.event[0])
-                    dist_weight = get_distance_weight(race_data.distance[0])
-                    total_weight = age_weight * comp_weight * dist_weight
-                    weights.append(total_weight)
-                if not (math.isnan(diff)):
-                    time_diffs.append(diff)
-                    races.append(race)
-                    events.append(event)
-                    field_sizes.append(field_size)
-                    outcomes.append(outcome)
-
-    diff_dict = {
-        "competitor": [comp_to_athlete for i in range(len(time_diffs))],
-        "time_diff": time_diffs,
-        "outcome": outcomes,
-        "race": races,
-        "event": events,
-        "field_size": field_sizes,
-    }
-
-    if date_for_weights != "":
-        diff_dict["weight"] = weights
-
-    # df = pd.DataFrame(diff_dict)
-    # print(df)
-    return diff_dict
-
-
 def plot_time_diffs(dist, max_diff, athlete_name, *comp_athletes):
     """
     :param dist: number or "all"
@@ -1480,18 +1308,12 @@ def outcome_table(athlete_name, dist='all'):
     print(df)
 
 
-G = nx.DiGraph()
-total_tests = 0
-correct_predictions = 0
-last_test_time = timedelta(seconds=60)
-
-# plot_wr_num_races('08/31/2022', 100)
-
-def archive_athlete_rankings(athlete_name, start_date, end_date, increment=1):
+def archive_athlete_data(athlete_name, start_date, end_date, increment=1, mode='append'):
     start_date = dt.strptime(start_date, "%m/%d/%Y")
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
+    csv_path = f"{ATHLETE_DATA_DIRECTORY}/{athlete_name}.csv"
 
     dates = []
     ranks = []
@@ -1499,7 +1321,6 @@ def archive_athlete_rankings(athlete_name, start_date, end_date, increment=1):
 
     for d in date_range:
         file_name = f"{alpha_date(d)}_{GENDER}_{RANK_DIST}km.csv"
-        print(file_name)
         ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
         ranked_athletes = list(ranking_data.name)
         if athlete_name in ranked_athletes:
@@ -1508,17 +1329,34 @@ def archive_athlete_rankings(athlete_name, start_date, end_date, increment=1):
             rating_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
             ranks.append(rank_on_date)
             ratings.append(rating_on_date)
-        else:
-            print('nope')
 
     df = pd.DataFrame(dict(date=dates, rank=ranks, rating=ratings))
-    print(df)
-    df.to_csv(f"{ATHLETE_DATA_DIRECTORY}/{athlete_name}.csv")
+
+    if os.path.exists(csv_path) and mode == 'rewrite':
+        df.to_csv(csv_path, index=False)
+    elif os.path.exists(csv_path) and mode == 'append':
+        df.to_csv(csv_path, mode='a', index=False, header=False)
+    else:
+        df.to_csv(csv_path, index=False)
 
 
-for name in pd.read_csv('women/rankings_archive/2022_08_31_women_10km.csv')['name'].iloc[0:100]:
-    archive_athlete_rankings(name, '01/01/2017', '08/31/2022')
+def top(n):
+    most_recent_ranking = os.listdir(RANKINGS_DIRECTORY)[-1]
+    df = pd.read_csv(RANKINGS_DIRECTORY + "/" + most_recent_ranking).iloc[0:n]
+    return df['name']
 
 
+
+G = nx.DiGraph()
+total_tests = 0
+correct_predictions = 0
+last_test_time = timedelta(seconds=60)
+
+# archive_rankings_range('09/01/2022', '09/30/2022')
+
+
+for athlete in top(100):
+    print(athlete)
+    archive_athlete_data(athlete, '01/01/2017', '09/30/2022', mode='rewrite')
 
 
