@@ -1355,8 +1355,5 @@ last_test_time = timedelta(seconds=60)
 # archive_rankings_range('09/01/2022', '09/30/2022')
 
 
-for athlete in top(100):
-    print(athlete)
-    archive_athlete_data(athlete, '01/01/2017', '09/30/2022', mode='rewrite')
 
 

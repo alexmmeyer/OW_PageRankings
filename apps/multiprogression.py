@@ -3,9 +3,9 @@ import os
 from datetime import datetime as dt
 from datetime import timedelta
 import plotly.graph_objs as go
-from dash import Dash, html, dcc, dash_table
+from dash import html, dcc
 from dash.dependencies import Input, Output
-
+from app import app
 
 def alpha_date(date):
     """
@@ -26,13 +26,12 @@ stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 default_start_date = '01/01/2022'
 default_end_date = '09/30/2022'
 
-app = Dash()
 
-app.layout = html.Div([
+layout = html.Div([
     dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value='women'),
     html.Div(dcc.Dropdown(id='name-dropdown', value=['Lea Boy'], multi=True,
                           options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]),
-                          style=dropdown_div_style),
+             style=dropdown_div_style),
     html.Div([
             html.Label('Start Date (MM/DD/YYYY)'),
             dcc.Input(id='start-date', value=default_start_date),
@@ -58,9 +57,9 @@ def ranking_progression(start_date, end_date, athlete_names, gender_choice):
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     increment = 1
     rank_dist = 10
-    rankings_directory = gender_choice + "/rankings_archive"
-    results_directory = gender_choice + "/results"
-    athlete_data_directory = gender_choice + "/athlete_data"
+    rankings_directory = f"{gender_choice}/rankings_archive"
+    results_directory = f"{gender_choice}/results"
+    athlete_data_directory = f"{gender_choice}/athlete_data"
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
@@ -195,7 +194,7 @@ def ranking_progression(start_date, end_date, athlete_names, gender_choice):
 @app.callback(Output('name-dropdown', 'options'),
               [Input('gender-picker', 'value')])
 def list_names(gender_choice):
-    df = pd.read_csv(gender_choice + "/athlete_countries.csv")
+    df = pd.read_csv(f"{gender_choice}/athlete_countries.csv")
     names = df['athlete_name'].unique()
     return [{'label': i, 'value': i} for i in names]
 

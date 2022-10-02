@@ -5,7 +5,7 @@ from datetime import timedelta
 import plotly.graph_objs as go
 from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
-
+from app import app
 
 def alpha_date(date):
     """
@@ -29,9 +29,7 @@ default_gender = 'women'
 default_athlete = 'Lea Boy'
 default_names_list = pd.read_csv(f"{default_gender}/athlete_countries.csv").sort_values('athlete_name')
 
-app = Dash()
-
-app.layout = html.Div([
+layout = html.Div([
     dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value=default_gender),
     html.Div(dcc.Dropdown(id='name-dropdown', value=default_athlete,
                           options=[{'label': i, 'value': i} for i in default_names_list]),
@@ -60,9 +58,9 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     increment = 1
     rank_dist = 10
-    rankings_directory = gender_choice + "/rankings_archive"
-    results_directory = gender_choice + "/results"
-    athlete_data_directory = gender_choice + "/athlete_data"
+    rankings_directory = f"{gender_choice}/rankings_archive"
+    results_directory = f"{gender_choice}/results"
+    athlete_data_directory = f"{gender_choice}/athlete_data"
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
@@ -107,7 +105,7 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
             traces.append(line_trace)
 
         # Create the scatter trace:
-        # this block is the get_results function
+        # this block is the get_results function from main.py
         rows = []
         for file in os.listdir(results_directory):
             results_file_path = os.path.join(results_directory, file)
@@ -154,7 +152,7 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
 @app.callback(Output('name-dropdown', 'options'),
               [Input('gender-picker', 'value')])
 def list_names(gender_choice):
-    df = pd.read_csv(gender_choice + "/athlete_countries.csv")
+    df = pd.read_csv(f"{gender_choice}/athlete_countries.csv")
     names = df.sort_values('athlete_name')
     names = names['athlete_name'].unique()
     return [{'label': i, 'value': i} for i in names]
@@ -171,7 +169,7 @@ def stats(athlete_name, gender_choice):
     top25pct = 0
     total_races = 0
     dist = 'all'
-    results_directory = gender_choice + "/results"
+    results_directory = f"{gender_choice}/results"
 
     for file in os.listdir(results_directory):
         results_file_path = os.path.join(results_directory, file)
@@ -211,8 +209,7 @@ def stats(athlete_name, gender_choice):
                Input('end-date', 'value')
                ])
 def display_results(athlete_name, gender_choice, start_date, end_date):
-    print('display results callback triggering')
-    results_directory = gender_choice + "/results"
+    results_directory = f"{gender_choice}/results"
     rows = []
     for file in os.listdir(results_directory):
         results_file_path = os.path.join(results_directory, file)
