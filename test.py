@@ -8,13 +8,7 @@ import plotly.graph_objs as go
 import pandas as pd
 import csv
 
-df = pd.read_csv('musicians.csv')
-print(df)
-newrow = ['Pink Floyd', 'David Gilmour', 'Guitar']
 
-with open('musicians.csv', 'a') as file:
-    writer = csv.writer(file)
-    writer.writerow(newrow)
-
-df = pd.read_csv('musicians.csv')
-print(df)
+df = pd.read_csv('women/beatles.csv')
+instrument = list(df['instrument'][df['name'] == 'Paul'])[0]
+print(str(instrument))

@@ -1346,17 +1346,12 @@ def top(n):
     return df['name']
 
 
-
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=60)
 
-# archive_rankings_range('09/01/2022', '09/30/2022')
+# archive_rankings_range('10/01/2022', '10/31/2022')
 
-
-for athlete in top(100):
-    print(athlete)
-    archive_athlete_data(athlete, '01/01/2017', '09/30/2022', mode='rewrite')
-
-
+for name in top(100):
+    archive_athlete_data(name, '10/01/2022', '10/31/2022')

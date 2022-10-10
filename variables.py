@@ -1,6 +1,6 @@
 import pandas
 
-GENDER = "women"
+GENDER = "men"
 
 event_weights = pandas.read_csv("event_weights.csv")
 athlete_countries = pandas.read_csv(GENDER + "/athlete_countries.csv")
@@ -28,4 +28,4 @@ RANK_DIST = 10
 
 # Predictability settings: optimize test for a subset of the overall ranking.
 FROM_RANK = 1
-TO_RANK = 100
+TO_RANK = 2000
