@@ -38,7 +38,7 @@ summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': '
 
 layout = html.Div([
     dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value=default_gender),
-    html.Div(dcc.Dropdown(id='name-dropdown', value=default_athlete,
+    html.Div(dcc.Dropdown(id='name-dropdown',persistence=True, persistence_type='session', value=default_athlete,
                           options=[{'label': i, 'value': i} for i in default_names_list]),
                           style=dropdown_div_style),
     html.Div([
@@ -245,7 +245,6 @@ def stats_table(athlete_name, gender_choice):
                Input('end-date', 'value')
                ])
 def results_table(athlete_name, gender_choice, start_date, end_date):
-    print('display results callback triggering')
     results_directory = gender_choice + "/results"
     rows = []
     for file in os.listdir(results_directory):
