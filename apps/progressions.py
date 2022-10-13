@@ -26,12 +26,12 @@ stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
 
 default_start_date = '01/01/2022'
-default_end_date = '09/30/2022'
+default_end_date = '08/30/2022'
 
 layout = html.Div([
     dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value='women'),
     html.Div(dcc.Dropdown(id='name-dropdown', value=['Lea Boy'], multi=True,
-                          options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]),
+                          options=[{'label': i, 'value': i} for i in ['Lea Boy', 'Leonie Beck', 'Ana Marcela Cunha']]),
                           style=dropdown_div_style),
     html.Div([
             html.Label('Start Date (MM/DD/YYYY)'),
@@ -199,8 +199,3 @@ def list_names(gender_choice):
     df = pd.read_csv(gender_choice + "/athlete_countries.csv")
     names = df['athlete_name'].unique()
     return [{'label': i, 'value': i} for i in names]
-
-
-
-if __name__ == '__main__':
-    app.run_server()

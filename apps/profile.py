@@ -265,7 +265,3 @@ def results_table(athlete_name, gender_choice, start_date, end_date):
     columns = [{"name": i, "id": i, } for i in results_df.columns]
     table = dash_table.DataTable(data=data, columns=columns)
     return [table]
-
-
-if __name__ == '__main__':
-    app.run_server()

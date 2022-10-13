@@ -179,7 +179,3 @@ def update(name1, name2, gender_choice):
     }
 
     return [dash_table.DataTable(data=data, columns=columns)], score, fig
-
-
-if __name__ == '__main__':
-    app.run_server()
