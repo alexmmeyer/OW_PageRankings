@@ -4,7 +4,7 @@ import math
 from datetime import datetime as dt
 from datetime import timedelta, date
 import plotly.graph_objs as go
-from dash import html, dcc, dash_table
+from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
 from app import app
 
@@ -25,7 +25,6 @@ def age_opacity(race_date, oldest_date):
     opacity = max_opacity - depreciation*(max_opacity - min_opacity)
     return opacity
 
-
 score_style = {'fontFamily': 'helvetica', 'fontSize': 96, 'textAlign': 'center'}
 dropdown_div_style = {'width': '50%', 'float': 'left', 'display': 'block'}
 
@@ -33,11 +32,9 @@ layout = html.Div([
     dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value='women'),
     html.Div([
         html.Div(dcc.Dropdown(id='name-dropdown1', value='Lea Boy',
-                              options=[{'label': i, 'value': i} for i in pd.read_csv(
-                                  "women/athlete_countries.csv")]), style=dropdown_div_style),
+                     options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]), style=dropdown_div_style),
         html.Div(dcc.Dropdown(id='name-dropdown2', value='Caroline Laure Jouisse',
-                              options=[{'label': i, 'value': i} for i in pd.read_csv(
-                                  "women/athlete_countries.csv")]), style=dropdown_div_style)]),
+                     options=[{'label': i, 'value': i} for i in pd.read_csv("women/athlete_countries.csv")]), style=dropdown_div_style)]),
         html.H1(id='score', style=score_style),
         dcc.Graph(id='diff-graph'),
         html.Div(id='table')
@@ -49,12 +46,13 @@ layout = html.Div([
                Output('name-dropdown2', 'options')],
               [Input('gender-picker', 'value')])
 def list_names(gender_choice):
-    df = pd.read_csv(f"{gender_choice}/athlete_countries.csv")
+    df = pd.read_csv(gender_choice + "/athlete_countries.csv")
     names = df['athlete_name'].unique()
     names_list = [{'label': i, 'value': i} for i in names]
     return names_list, names_list
 
 
+# Update the figure:
 @app.callback([Output('table', 'children'),
                Output('score', 'children'),
                Output('diff-graph', 'figure')],
@@ -63,7 +61,7 @@ def list_names(gender_choice):
                Input('gender-picker', 'value')])
 def update(name1, name2, gender_choice):
     dist = 'all'
-    results_directory = f"{gender_choice}/results"
+    results_directory = gender_choice + "/results"
     winners = []
     winner_places = []
     loser_places = []
@@ -71,7 +69,6 @@ def update(name1, name2, gender_choice):
     races = []
     dates = []
     distances = []
-
 
     for file in os.listdir(results_directory):
         results_file_path = os.path.join(results_directory, file)
