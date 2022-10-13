@@ -27,7 +27,7 @@ def display_page(pathname):
     if pathname == '/apps/head2head':
         return head2head.layout
     if pathname == '/apps/multiprogression':
-        return profile.layout
+        return head2head.layout
     if pathname == '/apps/profile':
         return profile.layout
     else:
