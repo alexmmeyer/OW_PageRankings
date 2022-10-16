@@ -37,7 +37,9 @@ name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
 
 layout = html.Div([
-    dcc.RadioItems(id='gender-picker', options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value=default_gender),
+    dcc.RadioItems(id='gender-picker', value=default_gender,
+                   options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
+                   persistence=True, persistence_type='session'),
     html.Div(dcc.Dropdown(id='name-dropdown',persistence=True, persistence_type='session', value=default_athlete,
                           options=[{'label': i, 'value': i} for i in default_names_list]),
                           style=dropdown_div_style),
@@ -47,9 +49,9 @@ layout = html.Div([
                 ], style=summary_style),
     html.Div([
             html.Label('Start Date (MM/DD/YYYY)'),
-            dcc.Input(id='start-date', value=default_start_date),
+            dcc.Input(id='start-date', value=default_start_date, persistence=True, persistence_type='session'),
             html.Label('End Date (MM/DD/YYYY)'),
-            dcc.Input(id='end-date', value=default_end_date),
+            dcc.Input(id='end-date', value=default_end_date, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
     dcc.Graph(id='progression-graph'),
     html.Div(id='outcome-stats-table', style=outcome_stats_style),

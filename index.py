@@ -26,6 +26,7 @@ def display_page(pathname):
     if pathname == '/apps/head2head':
         return head2head.layout
     if pathname == '/apps/progressions':
+        print("CHECK 1")
         return progressions.layout
     if pathname == '/apps/profile':
         return profile.layout
