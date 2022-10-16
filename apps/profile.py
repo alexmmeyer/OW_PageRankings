@@ -177,7 +177,7 @@ def list_names(gender_choice):
               [Input('name-dropdown', 'value'),
                Input('gender-picker', 'value')
                ])
-def stats_table(athlete_name, gender_choice):
+def stats_tables(athlete_name, gender_choice):
 
     # OUTCOMES SUMMARY
     wins = 0
@@ -209,12 +209,12 @@ def stats_table(athlete_name, gender_choice):
                 if athlete_place / finishers <= 0.25:
                     top25pct += 1
 
-    tiers = [wins, podiums, top25pct]
+    tier_counts = [wins, podiums, top25pct]
 
     outcome_tiers = {
         'Outcome': ['Win', 'Podium', 'Top 25%'],
-        'Count (all time)': [str(tier) + ' / ' + str(total_races) for tier in tiers],
-        'Percentage': ["{:.0%}".format(num / total_races) for num in tiers]
+        'Count (all time)': [str(num) + ' / ' + str(total_races) for num in tier_counts],
+        'Percentage': ["{:.0%}".format(num / total_races) for num in tier_counts]
     }
 
     outcomes_df = pd.DataFrame(outcome_tiers)
@@ -229,12 +229,17 @@ def stats_table(athlete_name, gender_choice):
         current_wr = list(outcomes_df['rank'][outcomes_df['date'] == today])[0]
         highest_wr = min(outcomes_df['rank'])
         first_race_date = dt.strftime(min([dt.strptime(date, "%m/%d/%Y") for date in outcomes_df['date']]),"%m/%d/%Y")
+    # else:
+    #     rankings_directory = gender_choice + "/rankings_archive"
+    #     for file in os.listdir(rankings_directory):
+    #
+    #     current_wr = []
+    #     highest_wr = []
+    #     first_race_date = []
+
 
         summary_text = html.P([f"Current WR: {current_wr}", html.Br(), f"Highest WR: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
 
-    # print(f"current wr: {current_wr}")
-    # print(f"highest wr: {highest_wr}")
-    # print(f"first race: {first_race_date}")
 
     return summary_text, stats_datatable, header
 
@@ -264,5 +269,5 @@ def results_table(athlete_name, gender_choice, start_date, end_date):
     # results_df = results_df[results_df.dt_date <= end_date]
     data = results_df.to_dict('rows')
     columns = [{"name": i, "id": i, } for i in results_df.columns]
-    table = dash_table.DataTable(data=data, columns=columns)
-    return [table]
+    table = [dash_table.DataTable(data=data, columns=columns)]
+    return table
