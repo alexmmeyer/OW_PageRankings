@@ -8,6 +8,7 @@ from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
 from app import app
 
+# MM/DD/YYYY string format of today's date
 today = dt.strftime(date.today(), "%m/%d/%Y")
 
 def alpha_date(date):
@@ -73,7 +74,7 @@ def ranking_progression(start_date, end_date, athlete_name, gender_choice):
     rank_dist = 10
     rankings_directory = gender_choice + "/rankings_archive"
     results_directory = gender_choice + "/results"
-    athlete_data_directory = gender_choice + "/athlete_data"
+    athlete_data_directory = 'app_data/' + gender_choice + "/athlete_data"
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
@@ -186,17 +187,23 @@ def stats_tables(athlete_name, gender_choice):
     total_races = 0
     dist = 'all'
     results_directory = gender_choice + "/results"
+    rankings_directory = gender_choice + "/rankings_archive"
     athlete_countries = pd.read_csv(gender_choice + "/athlete_countries.csv")
     country = list(athlete_countries['country'][athlete_countries['athlete_name'] == athlete_name])[0]
     header = f"{athlete_name} ({country})"
-    print(header)
 
     # loop through the results directory and if the athlete is in the results figure out what tier they ended up in in
     # that race and add to the corresponding list.
+
+    first_race_date = dt.strptime(today, "%m/%d/%Y")
+
     for file in os.listdir(results_directory):
         results_file_path = os.path.join(results_directory, file)
         race_data = pd.read_csv(results_file_path)
+        race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         if athlete_name in list(race_data.athlete_name):
+            if race_date < first_race_date:
+                first_race_date = race_date
             race_dist = race_data.distance[0]
             finishers = len(race_data.athlete_name)
             if race_dist == dist or dist == "all":
@@ -223,23 +230,42 @@ def stats_tables(athlete_name, gender_choice):
     stats_datatable = [dash_table.DataTable(data=data, columns=columns)]
 
     # ATHLETE SUMMARY
-    athlete_data_directory = gender_choice + "/athlete_data"
+    athlete_data_directory ='app_data/' + gender_choice + "/athlete_data"
     if os.path.exists(f"{athlete_data_directory}/{athlete_name}.csv"):
-        outcomes_df = pd.read_csv(f"{athlete_data_directory}/{athlete_name}.csv")
-        current_wr = list(outcomes_df['rank'][outcomes_df['date'] == today])[0]
-        highest_wr = min(outcomes_df['rank'])
-        first_race_date = dt.strftime(min([dt.strptime(date, "%m/%d/%Y") for date in outcomes_df['date']]),"%m/%d/%Y")
-    # else:
-    #     rankings_directory = gender_choice + "/rankings_archive"
-    #     for file in os.listdir(rankings_directory):
-    #
-    #     current_wr = []
-    #     highest_wr = []
-    #     first_race_date = []
+        summary_df = pd.read_csv(f"{athlete_data_directory}/{athlete_name}.csv")
+    else:
+        start_date = dt.strptime('01/01/2017', "%m/%d/%Y")
+        end_date = dt.strptime(today, "%m/%d/%Y")
+        increment = 1
+        date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in
+                      range((end_date - start_date).days + 1)
+                      if i % increment == 0]
 
+        dates = []
+        ranks = []
+        ratings = []
 
-        summary_text = html.P([f"Current WR: {current_wr}", html.Br(), f"Highest WR: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
+        for d in date_range:
+            file_name = f"{alpha_date(d)}_{gender_choice}_10km.csv"
+            ranking_data = pd.read_csv(f"{rankings_directory}/{file_name}")
+            ranked_athletes = list(ranking_data.name)
+            if athlete_name in ranked_athletes:
+                dates.append(d)
+                rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
+                rating_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
+                ranks.append(rank_on_date)
+                ratings.append(rating_on_date)
 
+        summary_df = pd.DataFrame(dict(date=dates, rank=ranks, rating=ratings))
+
+    try:
+        current_wr = list(summary_df['rank'][summary_df['date'] == today])[0]
+    except IndexError:
+        current_wr = 'Unranked'
+    highest_wr = min(summary_df['rank'])
+    first_race_date = dt.strftime(first_race_date, "%m/%d/%Y")
+
+    summary_text = html.P([f"Current WR: {current_wr}", html.Br(), f"Highest WR: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
 
     return summary_text, stats_datatable, header
 
