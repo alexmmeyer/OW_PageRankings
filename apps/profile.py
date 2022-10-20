@@ -9,7 +9,8 @@ from dash.dependencies import Input, Output
 from app import app
 
 # MM/DD/YYYY string format of today's date
-today = dt.strftime(date.today(), "%m/%d/%Y")
+# today = dt.strftime(date.today(), "%m/%d/%Y")
+today = '09/30/2022'
 
 def alpha_date(date):
     """
@@ -66,7 +67,7 @@ layout = html.Div([
      Input('end-date', 'value'),
      Input('name-dropdown', 'value'),
      Input('gender-picker', 'value')])
-def ranking_progression(start_date, end_date, athlete_name, gender_choice):
+def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
     start_date = dt.strptime(start_date, "%m/%d/%Y")
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     global today

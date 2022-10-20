@@ -2544,6 +2544,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\women\rankings_archive\2022_10_19_women_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\women\results\2015_11_07_Madeira_10km_W.csv">
           <value>
             <Attribute>

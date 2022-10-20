@@ -1346,13 +1346,41 @@ def top(n):
     return df['name']
 
 
+def lastrace(athlete_name):
+
+    first_race_date = dt.strptime('01/01/2017', "%m/%d/%Y")
+
+    for file in os.listdir(RESULTS_DIRECTORY):
+        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        race_data = pd.read_csv(results_file_path)
+        race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
+        if athlete_name in list(race_data.athlete_name):
+            if race_date > first_race_date:
+                first_race_date = race_date
+
+    print(first_race_date)
+
 
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=60)
 
-# archive_rankings_range('09/01/2022', '09/30/2022')
+# archive_rankings_range('09/09/2018', '09/30/2022')
+
+
+# count = 0
+# for athlete in athlete_countries.athlete_name.unique():
+#     count += 1
+#     ttl_count = len(athlete_countries.athlete_name.unique())
+#     archive_athlete_data(athlete, '01/01/2017', '09/30/2022', mode='rewrite')
+#     print(f'{athlete} file saved')
+#     print(count / ttl_count)
+
+# lastrace('Ferry Weertman')
+
+archive_athlete_data('Linda Ungerboeck', '01/01/2017', '09/30/2022', mode='rewrite')
+
 
 
 

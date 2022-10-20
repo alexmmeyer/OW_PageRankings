@@ -63,7 +63,7 @@ def ranking_progression(start_date, end_date, athlete_names, gender_choice):
     rank_dist = 10
     rankings_directory = gender_choice + "/rankings_archive"
     results_directory = gender_choice + "/results"
-    athlete_data_directory = gender_choice + "/athlete_data"
+    athlete_data_directory = 'app_data/' + gender_choice + "/athlete_data"
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
@@ -115,6 +115,7 @@ def ranking_progression(start_date, end_date, athlete_names, gender_choice):
                     rating_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
                     ranks.append(rank_on_date)
                     ratings.append(rating_on_date)
+            ratings = [i * rating_multiplier for i in ratings]
             rank_line_trace = go.Scatter(x=rank_dates,
                                          y=ranks,
                                          mode='lines',
