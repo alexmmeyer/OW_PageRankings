@@ -12,10 +12,10 @@ from apps import profile, head2head, progressions, rankings
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div([
-        dcc.Link('PROFILE |', href='/apps/profile'),
+        dcc.Link('RANKINGS |', href='/apps/rankings'),
+        dcc.Link(' PROFILE |', href='/apps/profile'),
         dcc.Link(' PROGRESSIONS |', href='/apps/progressions'),
-        dcc.Link(' HEAD-TO-HEAD |', href='/apps/head2head'),
-        dcc.Link(' RANKINGS', href='/apps/rankings')
+        dcc.Link(' HEAD-TO-HEAD', href='/apps/head2head')
     ], className="row"),
     html.Div(id='page-content', children=[])
 ])

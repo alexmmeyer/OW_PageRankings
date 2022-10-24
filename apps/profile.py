@@ -33,7 +33,7 @@ default_start_date = '01/01/2022'
 default_end_date = '09/30/2022'
 default_gender = 'women'
 default_athlete = 'Lea Boy'
-default_names_list = pd.read_csv(f"{default_gender}/athlete_countries.csv").sort_values('athlete_name')
+default_names_list = pd.read_csv('app_data/' + default_gender + "/athlete_countries.csv").sort_values('athlete_name')
 
 name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
@@ -55,7 +55,7 @@ layout = html.Div([
             html.Label('End Date (MM/DD/YYYY)'),
             dcc.Input(id='end-date', value=default_end_date, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
-    dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=False),
+    dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
     html.Div(id='outcome-stats-table', style=outcome_stats_style),
     html.Div(id='results-table')
 ])
@@ -73,8 +73,8 @@ def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
     global today
     increment = 1
     rank_dist = 10
-    rankings_directory = gender_choice + "/rankings_archive"
-    results_directory = gender_choice + "/results"
+    rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
+    results_directory = 'app_data/' + gender_choice + "/results"
     athlete_data_directory = 'app_data/' + gender_choice + "/athlete_data"
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
@@ -166,7 +166,7 @@ def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
 @app.callback(Output('name-dropdown', 'options'),
               [Input('gender-picker', 'value')])
 def list_names(gender_choice):
-    df = pd.read_csv(gender_choice + "/athlete_countries.csv")
+    df = pd.read_csv('app_data/' + gender_choice + "/athlete_countries.csv")
     names = df.sort_values('athlete_name')
     names = names['athlete_name'].unique()
     return [{'label': i, 'value': i} for i in names]
@@ -187,9 +187,9 @@ def stats_tables(athlete_name, gender_choice):
     top25pct = 0
     total_races = 0
     dist = 'all'
-    results_directory = gender_choice + "/results"
-    rankings_directory = gender_choice + "/rankings_archive"
-    athlete_countries = pd.read_csv(gender_choice + "/athlete_countries.csv")
+    rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
+    results_directory = 'app_data/' + gender_choice + "/results"
+    athlete_countries = pd.read_csv('app_data/' + gender_choice + "/athlete_countries.csv")
     country = list(athlete_countries['country'][athlete_countries['athlete_name'] == athlete_name])[0]
     header = f"{athlete_name} ({country})"
 
@@ -279,7 +279,7 @@ def stats_tables(athlete_name, gender_choice):
                Input('end-date', 'value')
                ])
 def results_table(athlete_name, gender_choice, start_date, end_date):
-    results_directory = gender_choice + "/results"
+    results_directory = 'app_data/' + gender_choice + "/results"
     rows = []
     for file in os.listdir(results_directory):
         results_file_path = os.path.join(results_directory, file)

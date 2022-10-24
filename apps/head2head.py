@@ -49,7 +49,7 @@ layout = html.Div([
                Output('name-dropdown2', 'options')],
               [Input('gender-picker', 'value')])
 def list_names(gender_choice):
-    df = pd.read_csv(gender_choice + "/athlete_countries.csv")
+    df = pd.read_csv('app_data/' + gender_choice + "/athlete_countries.csv")
     names = df['athlete_name'].unique()
     names_list = [{'label': i, 'value': i} for i in names]
     return names_list, names_list
@@ -64,7 +64,7 @@ def list_names(gender_choice):
                Input('gender-picker', 'value')])
 def update(name1, name2, gender_choice):
     dist = 'all'
-    results_directory = gender_choice + "/results"
+    results_directory = 'app_data/' + gender_choice + "/results"
     winners = []
     winner_places = []
     loser_places = []
