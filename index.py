@@ -6,7 +6,7 @@ from app import app
 from app import server
 
 # Connect to your app pages
-from apps import profile, head2head, progressions
+from apps import profile, head2head, progressions, rankings
 
 
 app.layout = html.Div([
@@ -14,24 +14,25 @@ app.layout = html.Div([
     html.Div([
         dcc.Link('PROFILE |', href='/apps/profile'),
         dcc.Link(' PROGRESSIONS |', href='/apps/progressions'),
-        dcc.Link(' HEAD-TO-HEAD', href='/apps/head2head')
+        dcc.Link(' HEAD-TO-HEAD |', href='/apps/head2head'),
+        dcc.Link(' RANKINGS', href='/apps/rankings')
     ], className="row"),
     html.Div(id='page-content', children=[])
 ])
+
+layouts = {
+    '/apps/head2head': head2head.layout,
+    '/apps/progressions': progressions.layout,
+    '/apps/profile': profile.layout,
+    '/apps/rankings': rankings.layout
+}
 
 
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/apps/head2head':
-        return head2head.layout
-    if pathname == '/apps/progressions':
-        print("CHECK 1")
-        return progressions.layout
-    if pathname == '/apps/profile':
-        return profile.layout
-    else:
-        return "Please choose a link"
+
+    return layouts[pathname]
 
 
 if __name__ == '__main__':

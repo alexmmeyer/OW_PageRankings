@@ -1308,7 +1308,7 @@ def outcome_table(athlete_name, dist='all'):
     print(df)
 
 
-def archive_athlete_data(athlete_name, start_date, end_date, increment=1, mode='append'):
+def archive_athlete_data(athlete_name, start_date, end_date, mode, increment=1):
     start_date = dt.strptime(start_date, "%m/%d/%Y")
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
@@ -1319,6 +1319,8 @@ def archive_athlete_data(athlete_name, start_date, end_date, increment=1, mode='
     ranks = []
     ratings = []
 
+    # loop through the ranking files and if the athlete is ranked, add the date, rating, and rank to separate lists,
+    # then create a df to be written to csv.
     for d in date_range:
         file_name = f"{alpha_date(d)}_{GENDER}_{RANK_DIST}km.csv"
         ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
@@ -1332,8 +1334,17 @@ def archive_athlete_data(athlete_name, start_date, end_date, increment=1, mode='
 
     df = pd.DataFrame(dict(date=dates, rank=ranks, rating=ratings))
 
-    if os.path.exists(csv_path) and mode == 'rewrite':
+    if os.path.exists(csv_path) and mode == 'new':
         df.to_csv(csv_path, index=False)
+    elif os.path.exists(csv_path) and mode == 'overwrite':
+        existing_df = pd.read_csv(csv_path)
+        existing_df['dt_date'] = [dt.strptime(d, "%m/%d/%Y") for d in existing_df.date]
+        filtered_df = existing_df[(existing_df.dt_date < start_date) | (existing_df.dt_date > end_date)]
+        df['dt_date'] = [dt.strptime(d, "%m/%d/%Y") for d in df.date]
+        df2 = pd.concat([filtered_df, df])
+        df2 = df2.sort_values(by="dt_date", ascending=True).reset_index(drop=True)
+        df2 = df2.drop('dt_date', axis='columns')
+        df2.to_csv(csv_path, index=False)
     elif os.path.exists(csv_path) and mode == 'append':
         df.to_csv(csv_path, mode='a', index=False, header=False)
     else:
@@ -1346,19 +1357,23 @@ def top(n):
     return df['name']
 
 
-def lastrace(athlete_name):
+def lastracedate(athlete_name):
+    """
+    :param athlete_name:
+    :return: datetime format of the date of the athlete's last (most recent) race
+    """
 
-    first_race_date = dt.strptime('01/01/2017', "%m/%d/%Y")
+    last_race_date = dt.strptime('01/01/2015', "%m/%d/%Y")
 
     for file in os.listdir(RESULTS_DIRECTORY):
         results_file_path = os.path.join(RESULTS_DIRECTORY, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         if athlete_name in list(race_data.athlete_name):
-            if race_date > first_race_date:
-                first_race_date = race_date
+            if race_date > last_race_date:
+                last_race_date = race_date
 
-    print(first_race_date)
+    return last_race_date
 
 
 G = nx.DiGraph()
@@ -1369,17 +1384,17 @@ last_test_time = timedelta(seconds=60)
 # archive_rankings_range('09/09/2018', '09/30/2022')
 
 
-# count = 0
-# for athlete in athlete_countries.athlete_name.unique():
-#     count += 1
-#     ttl_count = len(athlete_countries.athlete_name.unique())
-#     archive_athlete_data(athlete, '01/01/2017', '09/30/2022', mode='rewrite')
-#     print(f'{athlete} file saved')
-#     print(count / ttl_count)
+count = 0
+athlete_countries = athlete_countries.iloc[415:]
+for athlete in athlete_countries.athlete_name.unique():
+    count += 1
+    ttl_count = len(athlete_countries.athlete_name.unique())
+    archive_athlete_data(athlete, '09/09/2018', '09/30/2022', mode='overwrite')
+    print(f'{athlete} file saved')
+    print(count / ttl_count)
 
-# lastrace('Ferry Weertman')
 
-archive_athlete_data('Linda Ungerboeck', '01/01/2017', '09/30/2022', mode='rewrite')
+
 
 
 

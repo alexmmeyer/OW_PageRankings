@@ -55,7 +55,7 @@ layout = html.Div([
             html.Label('End Date (MM/DD/YYYY)'),
             dcc.Input(id='end-date', value=default_end_date, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
-    dcc.Graph(id='progression-graph'),
+    dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=False),
     html.Div(id='outcome-stats-table', style=outcome_stats_style),
     html.Div(id='results-table')
 ])
@@ -118,7 +118,7 @@ def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
         ln_fig = px.line(df, x='date', y='rank')
 
     # Create the scatter trace:
-    # this block is the get_results function
+    # this block is the get_results function (get a df of all races for this athlete)
     rows = []
     for file in os.listdir(results_directory):
         results_file_path = os.path.join(results_directory, file)
@@ -181,7 +181,7 @@ def list_names(gender_choice):
                ])
 def stats_tables(athlete_name, gender_choice):
 
-    # OUTCOMES SUMMARY
+    # -------------------- OUTCOME TIERS TABLE --------------------
     wins = 0
     podiums = 0
     top25pct = 0
@@ -193,7 +193,7 @@ def stats_tables(athlete_name, gender_choice):
     country = list(athlete_countries['country'][athlete_countries['athlete_name'] == athlete_name])[0]
     header = f"{athlete_name} ({country})"
 
-    # loop through the results directory and if the athlete is in the results figure out what tier they ended up in in
+    # loop through the results directory and if the athlete is in the results, figure out what tier they ended up in in
     # that race and add to the corresponding list.
 
     first_race_date = dt.strptime(today, "%m/%d/%Y")
@@ -230,7 +230,8 @@ def stats_tables(athlete_name, gender_choice):
     columns = [{"name": i, "id": i, } for i in outcomes_df.columns]
     stats_datatable = [dash_table.DataTable(data=data, columns=columns)]
 
-    # ATHLETE SUMMARY
+    # --------------------ATHLETE SUMMARY--------------------
+
     athlete_data_directory ='app_data/' + gender_choice + "/athlete_data"
     if os.path.exists(f"{athlete_data_directory}/{athlete_name}.csv"):
         summary_df = pd.read_csv(f"{athlete_data_directory}/{athlete_name}.csv")
@@ -238,9 +239,9 @@ def stats_tables(athlete_name, gender_choice):
         start_date = dt.strptime('01/01/2017', "%m/%d/%Y")
         end_date = dt.strptime(today, "%m/%d/%Y")
         increment = 1
+        # get mm/dd/yyyy string format list of dates to use for the ranking progression line
         date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in
-                      range((end_date - start_date).days + 1)
-                      if i % increment == 0]
+                      range((end_date - start_date).days + 1) if i % increment == 0]
 
         dates = []
         ranks = []
@@ -265,7 +266,6 @@ def stats_tables(athlete_name, gender_choice):
         current_wr = 'Unranked'
     highest_wr = min(summary_df['rank'])
     first_race_date = dt.strftime(first_race_date, "%m/%d/%Y")
-
     summary_text = html.P([f"Current WR: {current_wr}", html.Br(), f"Highest WR: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
 
     return summary_text, stats_datatable, header
