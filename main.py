@@ -1385,7 +1385,7 @@ last_test_time = timedelta(seconds=60)
 
 
 count = 0
-athlete_countries = athlete_countries.iloc[415:]
+# athlete_countries = athlete_countries.iloc[415:]
 for athlete in athlete_countries.athlete_name.unique():
     count += 1
     ttl_count = len(athlete_countries.athlete_name.unique())

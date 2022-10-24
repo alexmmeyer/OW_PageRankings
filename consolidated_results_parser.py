@@ -4,7 +4,7 @@ import variables
 
 gender = variables.GENDER
 
-consolidated_file_path = f"{gender}/consolidated results/Complete Results {gender}.csv"
+consolidated_file_path = f"consolidated results/{gender}/Complete Results {gender}.csv"
 race_dict = {
     "athlete_name": [],
     "country": [],

@@ -12,20 +12,12 @@ from app import app
 # today = dt.strftime(date.today(), "%m/%d/%Y")
 today = '09/30/2022'
 
-def alpha_date(date):
-    """
-    :param date: MM/DD/YYYY
-    :return: YYYY_MM_DD
-    """
-    date = date.replace("/", "_")
-    alphadate = date[6:] + "_" + date[:5]
-    return alphadate
-
 
 # Style dictionaries for dashboard elements:
 input_dates_style = {'fontFamily': 'helvetica', 'fontSize': 12, 'display': 'block'}
 title_style = {'width': '35%', 'float': 'left', 'display': 'block', 'fontFamily': 'helvetica', 'textAlign': 'center'}
 table_div_style = {'width': '35%', 'float': 'center', 'display': 'block'}
+date_display_format = 'Y-M-D'
 
 table_formatting = (
             [
@@ -57,10 +49,10 @@ layout = html.Div([
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
     html.Div([
-            html.Label('Ranking Date (MM/DD/YYYY)'),
-            dcc.Input(id='ranking-date', value=default_ranking_date, persistence=True, persistence_type='session'),
-            html.Label('Comparison Date (MM/DD/YYYY)'),
-            dcc.Input(id='comparison-date', value=default_comparison_date, persistence=True, persistence_type='session'),
+            html.Label('Ranking Date'),
+            dcc.DatePickerSingle(id='ranking-date', date=date.today(), display_format=date_display_format, clearable=False),
+            html.Label('Comparison Date'),
+            dcc.DatePickerSingle(id='comparison-date', display_format=date_display_format, clearable=True),
             ], style=input_dates_style),
     html.Div([
             html.H2(id='title-main'),
@@ -74,13 +66,13 @@ layout = html.Div([
 @app.callback(
     Output('rankings-table', 'children'),
     [Input('rankings-gender-picker', 'value'),
-     Input('ranking-date', 'value'),
-     Input('comparison-date', 'value')])
+     Input('ranking-date', 'date'),
+     Input('comparison-date', 'date')])
 def update_ranking(gender_choice, rank_date, comp_date):
     athlete_countries = pd.read_csv('app_data/' + gender_choice + "/athlete_countries.csv")
-    if comp_date == '':
+    if comp_date is None:
         rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
-        rank_file = f"{rankings_directory}/{alpha_date(rank_date)}_{gender_choice}_10km.csv"
+        rank_file = f"{rankings_directory}/{rank_date.replace('-', '_')}_{gender_choice}_10km.csv"
         rank_df = pd.read_csv(rank_file)
         rank_df["country"] = [athlete_countries['country'][athlete_countries['athlete_name'] == athlete_name]
                               for athlete_name in rank_df['name']]
@@ -88,15 +80,15 @@ def update_ranking(gender_choice, rank_date, comp_date):
         data = table_df.to_dict('rows')
         columns = [{"name": i.title(), "id": i, } for i in table_df.columns]
         table = [dash_table.DataTable(data=data, columns=columns)]
-    elif dt.strptime(comp_date, "%m/%d/%Y") > dt.strptime(rank_date, "%m/%d/%Y"):
+    elif dt.strptime(comp_date, "%Y-%m-%d") > dt.strptime(rank_date, "%Y-%m-%d"):
         table = "Please choose a comparison date that is prior to the ranking date chosen!"
     else:
         rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
-        rank_file = f"{rankings_directory}/{alpha_date(rank_date)}_{gender_choice}_10km.csv"
+        rank_file = f"{rankings_directory}/{rank_date.replace('-', '_')}_{gender_choice}_10km.csv"
         rank_df = pd.read_csv(rank_file)
         rank_df["country"] = [athlete_countries['country'][athlete_countries['athlete_name'] == athlete_name]
                               for athlete_name in rank_df['name']]
-        comp_file = f"{rankings_directory}/{alpha_date(comp_date)}_{gender_choice}_10km.csv"
+        comp_file = f"{rankings_directory}/{comp_date.replace('-', '_')}_{gender_choice}_10km.csv"
         comp_df = pd.read_csv(comp_file)
 
         changes = []
@@ -130,16 +122,23 @@ def update_ranking(gender_choice, rank_date, comp_date):
      Output('title-date', 'children'),
      Output('title-change', 'children')],
     [Input('rankings-gender-picker', 'value'),
-     Input('ranking-date', 'value'),
-     Input('comparison-date', 'value')])
+     Input('ranking-date', 'date'),
+     Input('comparison-date', 'date')])
 def update_title(gender_choice, rank_date, comp_date):
 
-    title_main = f"{gender_choice}'s 10km Marathon Swimming World Rankings"
-    title_main = title_main.upper()
-    title_date = rank_date
-    if comp_date == '':
+    if comp_date is None:
+        title_main = f"{gender_choice}'s 10km Marathon Swimming World Rankings"
+        title_main = title_main.upper()
+        title_date = dt.strftime(dt.strptime(rank_date, "%Y-%m-%d"), "%d %B, %Y")
+        title_change = ''
+    elif dt.strptime(comp_date, "%Y-%m-%d") > dt.strptime(rank_date, "%Y-%m-%d"):
+        title_main = ''
+        title_date = ''
         title_change = ''
     else:
+        title_main = f"{gender_choice}'s 10km Marathon Swimming World Rankings"
+        title_main = title_main.upper()
+        title_date = dt.strftime(dt.strptime(rank_date, "%Y-%m-%d"), "%d %B, %Y")
         title_change = f"(change since {comp_date})"
 
     return title_main, title_date, title_change
