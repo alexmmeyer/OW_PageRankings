@@ -27,9 +27,29 @@ input_dates_style = {'fontFamily': 'helvetica', 'fontSize': 12, 'display': 'bloc
 title_style = {'width': '35%', 'float': 'left', 'display': 'block', 'fontFamily': 'helvetica', 'textAlign': 'center'}
 table_div_style = {'width': '35%', 'float': 'center', 'display': 'block'}
 
+table_formatting = (
+            [
+                {'if': {
+                        'filter_query': '{change} contains "▲"',
+                        'column_id': 'change'
+                    },
+                    'color': 'green'
+                },
+                {'if': {
+                        'filter_query': '{change} contains "▼"',
+                        'column_id': 'change'
+                    },
+                    'color': 'red'
+                }
+            ]
+)
+
 default_ranking_date = '09/30/2022'
-default_comparison_date = '08/31/2022'
+default_comparison_date = ''
 default_gender = 'women'
+
+up_arrow = '▲'
+down_arrow = '▼'
 
 
 layout = html.Div([
@@ -57,12 +77,25 @@ layout = html.Div([
      Input('ranking-date', 'value'),
      Input('comparison-date', 'value')])
 def update_ranking(gender_choice, rank_date, comp_date):
-    if dt.strptime(comp_date, "%m/%d/%Y") > dt.strptime(rank_date, "%m/%d/%Y"):
+    athlete_countries = pd.read_csv('app_data/' + gender_choice + "/athlete_countries.csv")
+    if comp_date == '':
+        rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
+        rank_file = f"{rankings_directory}/{alpha_date(rank_date)}_{gender_choice}_10km.csv"
+        rank_df = pd.read_csv(rank_file)
+        rank_df["country"] = [athlete_countries['country'][athlete_countries['athlete_name'] == athlete_name]
+                              for athlete_name in rank_df['name']]
+        table_df = rank_df[['rank', 'name', 'country']]
+        data = table_df.to_dict('rows')
+        columns = [{"name": i.title(), "id": i, } for i in table_df.columns]
+        table = [dash_table.DataTable(data=data, columns=columns)]
+    elif dt.strptime(comp_date, "%m/%d/%Y") > dt.strptime(rank_date, "%m/%d/%Y"):
         table = "Please choose a comparison date that is prior to the ranking date chosen!"
     else:
         rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
         rank_file = f"{rankings_directory}/{alpha_date(rank_date)}_{gender_choice}_10km.csv"
         rank_df = pd.read_csv(rank_file)
+        rank_df["country"] = [athlete_countries['country'][athlete_countries['athlete_name'] == athlete_name]
+                              for athlete_name in rank_df['name']]
         comp_file = f"{rankings_directory}/{alpha_date(comp_date)}_{gender_choice}_10km.csv"
         comp_df = pd.read_csv(comp_file)
 
@@ -75,16 +108,19 @@ def update_ranking(gender_choice, rank_date, comp_date):
                 rank_change = prev_rank - rank
                 if rank_change == 0:
                     rank_change = '-'
+                elif rank_change > 0:
+                    rank_change = f"{up_arrow}{rank_change}"
+                else:
+                    rank_change = f"{down_arrow}{abs(rank_change)}"
             else:
                 rank_change = '-'
             changes.append(rank_change)
 
-        table_df = rank_df
-        table_df['change'] = changes
-        table_df = table_df.drop('pagerank', axis='columns')
+        rank_df['change'] = changes
+        table_df = rank_df[['rank', 'name', 'country', 'change']]
         data = table_df.to_dict('rows')
-        columns = [{"name": i, "id": i, } for i in table_df.columns]
-        table = [dash_table.DataTable(data=data, columns=columns)]
+        columns = [{"name": i.title(), "id": i, } for i in table_df.columns]
+        table = [dash_table.DataTable(data=data, columns=columns, page_size=100, style_data_conditional=table_formatting)]
 
     return table
 
@@ -101,6 +137,9 @@ def update_title(gender_choice, rank_date, comp_date):
     title_main = f"{gender_choice}'s 10km Marathon Swimming World Rankings"
     title_main = title_main.upper()
     title_date = rank_date
-    title_change = f"(change since {comp_date})"
+    if comp_date == '':
+        title_change = ''
+    else:
+        title_change = f"(change since {comp_date})"
 
     return title_main, title_date, title_change
