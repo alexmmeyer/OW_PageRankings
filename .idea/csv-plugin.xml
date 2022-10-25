@@ -472,6 +472,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\results\2019_08_04_Lima_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\results\2019_08_18_OhridLake_10km_M.csv">
           <value>
             <Attribute>
@@ -711,6 +718,13 @@
           </value>
         </entry>
         <entry key="\app_data\men\results\2022_09_24_Barcelona_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\athlete_countries.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -1410,6 +1424,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\beatles.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\country_codes.csv">
           <value>
             <Attribute>
@@ -1586,6 +1607,13 @@
           </value>
         </entry>
         <entry key="\men\show_results\Zoltã¡N Drigan.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\other stuff\musicians.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

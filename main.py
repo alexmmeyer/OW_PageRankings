@@ -1110,8 +1110,8 @@ def country_ranks(lowest_rank, as_of):
     df = pd.read_csv(RANKING_FILE_NAME).iloc[0:lowest_rank]
     ranking_names = list(df.name)
     ranking_ranks = list(df["rank"])
-    ac_names = list(athlete_countries.athlete_name)
-    ac_countries = list(athlete_countries.country)
+    ac_names = list(df.athlete_name)
+    ac_countries = list(df.country)
     ranking_countries = []
 
     for name in ranking_names:
@@ -1308,7 +1308,7 @@ def outcome_table(athlete_name, dist='all'):
     print(df)
 
 
-def archive_athlete_data(athlete_name, start_date, end_date, mode, increment=1):
+def archive_athlete_data(athlete_name, start_date, end_date, mode='overwrite', increment=1):
     start_date = dt.strptime(start_date, "%m/%d/%Y")
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
@@ -1379,23 +1379,45 @@ def lastracedate(athlete_name):
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
-last_test_time = timedelta(seconds=60)
+last_test_time = timedelta(seconds=3117)
 
 # archive_rankings_range('09/09/2018', '09/30/2022')
 
 
-count = 0
-# athlete_countries = athlete_countries.iloc[415:]
-for athlete in athlete_countries.athlete_name.unique():
-    count += 1
-    ttl_count = len(athlete_countries.athlete_name.unique())
-    archive_athlete_data(athlete, '09/09/2018', '09/30/2022', mode='overwrite')
-    print(f'{athlete} file saved')
-    print(count / ttl_count)
+def archive_athlete_data_range(athlete_names, start_date, end_date, mode='overwrite', increment=1):
+    count = 0
+    if athlete_names == 'all':
+        athlete_list = athlete_countries.athlete_name.unique()
+    else:
+        athlete_list = [athlete_names]
+
+    for athlete in athlete_list:
+        count += 1
+        ttl_count = len(athlete_countries.athlete_name.unique())
+        archive_athlete_data(athlete, start_date, end_date, mode=mode, increment=increment)
+        print(f'{athlete} file saved ({count} / {ttl_count})')
+        print(count / ttl_count)
+
+# athlete_name = "Cecilia Biagioli"
+#
+# df = pd.read_csv('app_data/' + 'women' + "/athlete_countries.csv").set_index('athlete_name')
+# print(df)
+# country = df[0]
+# print(country)
 
 
+def system_update(start_date, end_date=''):
+    if end_date == '':
+        end_date = start_date
+    start = time.time()
+    archive_rankings_range(start_date, end_date)
+    archive_athlete_data_range('all', start_date, end_date, mode='overwrite', increment=1)
+    end = time.time()
+    ttl_time = str(end - start)
+    print(f"Time to execute: {ttl_time}")
 
 
+system_update('10/31/2022')
 
 
 

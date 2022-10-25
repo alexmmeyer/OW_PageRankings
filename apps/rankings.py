@@ -40,6 +40,7 @@ default_ranking_date = '09/30/2022'
 default_comparison_date = ''
 default_gender = 'women'
 
+# if you change these, also
 up_arrow = '▲'
 down_arrow = '▼'
 
@@ -50,16 +51,18 @@ layout = html.Div([
                    persistence=True, persistence_type='session'),
     html.Div([
             html.Label('Ranking Date'),
-            dcc.DatePickerSingle(id='ranking-date', date=date.today(), display_format=date_display_format, clearable=False),
+            dcc.DatePickerSingle(id='ranking-date', date=date.today(), display_format=date_display_format,
+                                 clearable=False, persistence=True, persistence_type='session'),
             html.Label('Comparison Date'),
-            dcc.DatePickerSingle(id='comparison-date', display_format=date_display_format, clearable=True),
+            dcc.DatePickerSingle(id='comparison-date', display_format=date_display_format, clearable=True,
+                                 persistence=True, persistence_type='session'),
             ], style=input_dates_style),
     html.Div([
             html.H2(id='title-main'),
             html.H3(id='title-date'),
             html.P(id='title-change')
             ], style=title_style),
-    html.Div(id='rankings-table', children='hello world!', style=table_div_style)
+    html.Div(id='rankings-table', style=table_div_style)
 ])
 
 
@@ -79,8 +82,8 @@ def update_ranking(gender_choice, rank_date, comp_date):
         table_df = rank_df[['rank', 'name', 'country']]
         data = table_df.to_dict('rows')
         columns = [{"name": i.title(), "id": i, } for i in table_df.columns]
-        table = [dash_table.DataTable(data=data, columns=columns)]
-    elif dt.strptime(comp_date, "%Y-%m-%d") > dt.strptime(rank_date, "%Y-%m-%d"):
+        table = [dash_table.DataTable(data=data, columns=columns, page_size=100)]
+    elif dt.strptime(comp_date, "%Y-%m-%d") >= dt.strptime(rank_date, "%Y-%m-%d"):
         table = "Please choose a comparison date that is prior to the ranking date chosen!"
     else:
         rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
@@ -139,6 +142,7 @@ def update_title(gender_choice, rank_date, comp_date):
         title_main = f"{gender_choice}'s 10km Marathon Swimming World Rankings"
         title_main = title_main.upper()
         title_date = dt.strftime(dt.strptime(rank_date, "%Y-%m-%d"), "%d %B, %Y")
-        title_change = f"(change since {comp_date})"
+        formatted_comp_date = dt.strftime(dt.strptime(comp_date, "%Y-%m-%d"), "%d %B, %Y")
+        title_change = f"(change since {formatted_comp_date})"
 
     return title_main, title_date, title_change

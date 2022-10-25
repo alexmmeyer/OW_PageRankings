@@ -9,8 +9,8 @@ from dash.dependencies import Input, Output
 from app import app
 
 # MM/DD/YYYY string format of today's date
-# today = dt.strftime(date.today(), "%m/%d/%Y")
-today = '09/30/2022'
+today = dt.strftime(date.today(), "%m/%d/%Y")
+# today = '09/30/2022'
 
 def alpha_date(date):
     """
@@ -266,6 +266,7 @@ def stats_tables(athlete_name, gender_choice):
         current_wr = 'Unranked'
     highest_wr = min(summary_df['rank'])
     first_race_date = dt.strftime(first_race_date, "%m/%d/%Y")
+    athlete_status = athlete_countries['status'][athlete_countries['athlete_name'] == athlete_name]
     summary_text = html.P([f"Current WR: {current_wr}", html.Br(), f"Highest WR: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
 
     return summary_text, stats_datatable, header

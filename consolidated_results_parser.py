@@ -27,7 +27,7 @@ for (index, row) in consolidated_data.iterrows():
     elif row.athlete_name == "end":
         file_name = row.event
         df = pandas.DataFrame(race_dict)
-        df.to_csv(f"{gender}/results/{file_name}.csv", index=False)
+        df.to_csv(f"app_data/{gender}/results/{file_name}.csv", index=False)
         print(f"{file_name}.csv created")
         race_dict["athlete_name"] = []
         race_dict["country"] = []
