@@ -15,9 +15,10 @@ import plotly.graph_objs as go
 import plotly.offline as pyo
 import numpy as np
 
-RESULTS_DIRECTORY = variables.RESULTS_DIRECTORY
-RANKINGS_DIRECTORY = variables.RANKINGS_DIRECTORY
-ATHLETE_DATA_DIRECTORY = variables.ATHLETE_DATA_DIRECTORY
+RESULTS_DIR = variables.RESULTS_DIRECTORY
+SPLITS_DIR = variables.SPLITS_DIRECTORY
+RANKINGS_DIR = variables.RANKINGS_DIRECTORY
+ATHLETE_DATA_DIR = variables.ATHLETE_DATA_DIRECTORY
 RANKING_FILE_NAME = variables.RANKING_FILE_NAME
 LAMBDA = variables.LAMBDA
 DEPRECIATION_MODEL = variables.DEPRECIATION_MODEL
@@ -207,8 +208,8 @@ def create_ranking(ranking_date, test=False, comment=False, summary=False, displ
 
     # Loop through each race result file. If it's in the date range, update global G with that race's results by
     # calling update_rankings()
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
@@ -337,8 +338,8 @@ def archive_ranking(ranking_date):
     global G
     G = nx.DiGraph()
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         rank_date = dt.strptime(ranking_date, "%m/%d/%Y")
@@ -358,8 +359,8 @@ def archive_ranking(ranking_date):
     ranking_df = ranking_df.sort_values(by="pagerank", ascending=False).reset_index(drop=True)
     ranking_df["rank"] = range(1, len(pr_dict) + 1)
     file_name = f"{alpha_date(ranking_date)}_{GENDER}_{RANK_DIST}km.csv"
-    ranking_df.to_csv(f"{RANKINGS_DIRECTORY}/{file_name}", index=False)
-    print(f"{RANKINGS_DIRECTORY}/{file_name} archived")
+    ranking_df.to_csv(f"{RANKINGS_DIR}/{file_name}", index=False)
+    print(f"{RANKINGS_DIR}/{file_name} archived")
 
 
 def archive_rankings_range(start_date, end_date, increment=1):
@@ -395,7 +396,7 @@ def ranking_progression_multi(start_date, end_date, athlete_names):
 
         for date in date_range:
             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            ranking_data = pd.read_csv(f"{RANKINGS_DIR}/{file_name}")
             ranked_athletes = list(ranking_data.name)
             if athlete_name in ranked_athletes:
                 rank_dates.append(dt.strptime(date, "%m/%d/%Y"))
@@ -415,7 +416,7 @@ def ranking_progression_multi(start_date, end_date, athlete_names):
         race_date_ranks = []
         for date in results_df.date:
             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            ranking_data = pd.read_csv(f"{RANKINGS_DIR}/{file_name}")
             rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
             race_date_ranks.append(rank_on_date)
         results_df['rank'] = race_date_ranks
@@ -487,7 +488,7 @@ def rating_progression_multi(start_date, end_date, *athlete_names):
         # get the data for the progression line:
         for date in date_range:
             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            ranking_data = pd.read_csv(f"{RANKINGS_DIR}/{file_name}")
             ranked_athletes = list(ranking_data.name)
             if athlete_name in ranked_athletes:
                 ln_athlete_names.append(athlete_name)
@@ -510,7 +511,7 @@ def rating_progression_multi(start_date, end_date, *athlete_names):
 
         for date in results_df.date:
             file_name = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-            ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+            ranking_data = pd.read_csv(f"{RANKINGS_DIR}/{file_name}")
             pagerank_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
             rank_on_date = float(ranking_data["rank"][ranking_data.name == athlete_name])
             race_date_pageranks.append(pagerank_on_date)
@@ -574,8 +575,8 @@ def rating_progression_multi(start_date, end_date, *athlete_names):
 def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
     rows = []
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         names_list = list(race_data.athlete_name)
         names_list = [name.title() for name in names_list]
@@ -590,7 +591,7 @@ def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
             row["weight"] = total_weight
             # calculate the WR of the top 10 finishers, average it, and add it to the row:
             top_ten = names_list[0:min(10, len(names_list))]
-            rank_file = f"{RANKINGS_DIRECTORY}/{alpha_date(as_of)}_{GENDER}_{RANK_DIST}km.csv"
+            rank_file = f"{RANKINGS_DIR}/{alpha_date(as_of)}_{GENDER}_{RANK_DIST}km.csv"
             rank_df = pd.read_csv(rank_file)
             # top_ten_ranks = [int(rank_df["rank"][rank_df["name"] == name]) for name in top_ten
             #                  if name in list(rank_file["name"])]
@@ -619,8 +620,8 @@ def show_results(athlete_name, as_of=dt.strftime(date.today(), "%m/%d/%Y")):
 def get_results(athlete_name):
     rows = []
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         names_list = list(race_data.athlete_name)
         names_list = [name.title() for name in names_list]
@@ -679,8 +680,8 @@ def print_race_labels():
 
     race_list = []
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_list.append(custom_label(results_file_path, "event", "location", "date", "distance") + "km")
 
     race_list.reverse()
@@ -769,7 +770,7 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
     athlete_list = []
 
     for date in date_range:
-        file_path = f"{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+        file_path = f"{RANKINGS_DIR}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
         df = pd.read_csv(file_path)
         all_athletes = list(df.name)
         selected_athletes = all_athletes[0:num_athletes + 1]
@@ -783,7 +784,7 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
 
     for date in date_range:
         chart_values = []
-        file_path = f"{RANKINGS_DIRECTORY}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
+        file_path = f"{RANKINGS_DIR}/{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
         df = pd.read_csv(file_path)
         print(file_path)
         for athlete in athlete_list:
@@ -807,8 +808,8 @@ def horse_race_rank(start_date, end_date, num_athletes, increment, type="rank"):
 def time_diffs(dist, athlete, comp_to_athlete):
     diffs = []
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         race_dist = race_data.distance[0]
         if athlete in list(race_data.athlete_name) and comp_to_athlete in list(race_data.athlete_name):
@@ -830,8 +831,8 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
     field_sizes = []
     weights = []
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         race_dist = race_data.distance[0]
         if athlete in list(race_data.athlete_name) and comp_to_athlete in list(race_data.athlete_name):
@@ -839,7 +840,7 @@ def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
                 main_time = float(race_data["time"][race_data["athlete_name"] == athlete])
                 comp_to_time = float(race_data["time"][race_data["athlete_name"] == comp_to_athlete])
                 diff = round(main_time - comp_to_time, 2)
-                race = custom_label(f"{RESULTS_DIRECTORY}/{file}", "location", "event", "date", "distance") + "km"
+                race = custom_label(f"{RESULTS_DIR}/{file}", "location", "event", "date", "distance") + "km"
                 event = race_data.event[0]
                 field_size = race_data.field_size[0]
                 athlete_place = int(race_data.place[race_data.athlete_name == athlete])
@@ -977,11 +978,11 @@ def plot_wr_num_races(date, max_rank):
     athlete_list = []
 
     ranking_file = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
-    df = pd.read_csv(f"{RANKINGS_DIRECTORY}/{ranking_file}")
+    df = pd.read_csv(f"{RANKINGS_DIR}/{ranking_file}")
 
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         rank_date = dt.strptime(date, "%m/%d/%Y")
@@ -1059,9 +1060,9 @@ def num_one_consec_days():
     day_count = 0
     prev_date = ""
 
-    for file in os.listdir(RANKINGS_DIRECTORY):
+    for file in os.listdir(RANKINGS_DIR):
         print(file)
-        results_file_path = os.path.join(RANKINGS_DIRECTORY, file)
+        results_file_path = os.path.join(RANKINGS_DIR, file)
         ranking_data = pd.read_csv(results_file_path)
         num_one = ranking_data.name[0]
         ranking_date = unalpha_date(file[:10])
@@ -1081,7 +1082,7 @@ def num_one_consec_days():
             names.append(num_one)
             day_count = 1
             start_dates.append(ranking_date)
-        if file == os.listdir(RANKINGS_DIRECTORY)[-1]:
+        if file == os.listdir(RANKINGS_DIR)[-1]:
             # check if the last file in ranking archive
             num_days.append(day_count)
             end_dates.append(ranking_date)
@@ -1152,15 +1153,15 @@ def predicttest():
     total_tests = 0
     correct_predictions = 0
 
-    oldest_race_file = os.listdir(RESULTS_DIRECTORY)[0]
+    oldest_race_file = os.listdir(RESULTS_DIR)[0]
     oldest_race_date = unalpha_date(oldest_race_file[:10])
     oldest_race_date = dt.strptime(oldest_race_date, "%m/%d/%Y")
 
-    for file in os.listdir(RESULTS_DIRECTORY):
+    for file in os.listdir(RESULTS_DIR):
         instance_total_tests = 0
         instance_correct_predictions = 0
-        race_name = label(os.path.join(RESULTS_DIRECTORY, file))
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+        race_name = label(os.path.join(RESULTS_DIR, file))
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         race_date = race_data.date[0]
         race_dist = race_data.distance[0]
@@ -1279,8 +1280,8 @@ def outcome_table(athlete_name, dist='all'):
     top25pct = 0
     total_races = 0
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         if athlete_name in list(race_data.athlete_name):
             race_dist = race_data.distance[0]
@@ -1313,7 +1314,7 @@ def archive_athlete_data(athlete_name, start_date, end_date, mode='overwrite', i
     end_date = dt.strptime(end_date, "%m/%d/%Y")
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
-    csv_path = f"{ATHLETE_DATA_DIRECTORY}/{athlete_name}.csv"
+    csv_path = f"{ATHLETE_DATA_DIR}/{athlete_name}.csv"
 
     dates = []
     ranks = []
@@ -1323,7 +1324,7 @@ def archive_athlete_data(athlete_name, start_date, end_date, mode='overwrite', i
     # then create a df to be written to csv.
     for d in date_range:
         file_name = f"{alpha_date(d)}_{GENDER}_{RANK_DIST}km.csv"
-        ranking_data = pd.read_csv(f"{RANKINGS_DIRECTORY}/{file_name}")
+        ranking_data = pd.read_csv(f"{RANKINGS_DIR}/{file_name}")
         ranked_athletes = list(ranking_data.name)
         if athlete_name in ranked_athletes:
             dates.append(d)
@@ -1352,8 +1353,8 @@ def archive_athlete_data(athlete_name, start_date, end_date, mode='overwrite', i
 
 
 def top(n):
-    most_recent_ranking = os.listdir(RANKINGS_DIRECTORY)[-1]
-    df = pd.read_csv(RANKINGS_DIRECTORY + "/" + most_recent_ranking).iloc[0:n]
+    most_recent_ranking = os.listdir(RANKINGS_DIR)[-1]
+    df = pd.read_csv(RANKINGS_DIR + "/" + most_recent_ranking).iloc[0:n]
     return df['name']
 
 
@@ -1365,8 +1366,8 @@ def lastracedate(athlete_name):
 
     last_race_date = dt.strptime('01/01/2015', "%m/%d/%Y")
 
-    for file in os.listdir(RESULTS_DIRECTORY):
-        results_file_path = os.path.join(RESULTS_DIRECTORY, file)
+    for file in os.listdir(RESULTS_DIR):
+        results_file_path = os.path.join(RESULTS_DIR, file)
         race_data = pd.read_csv(results_file_path)
         race_date = dt.strptime(race_data.date[0], "%m/%d/%Y")
         if athlete_name in list(race_data.athlete_name):
@@ -1374,14 +1375,6 @@ def lastracedate(athlete_name):
                 last_race_date = race_date
 
     return last_race_date
-
-
-G = nx.DiGraph()
-total_tests = 0
-correct_predictions = 0
-last_test_time = timedelta(seconds=3117)
-
-# archive_rankings_range('09/09/2018', '09/30/2022')
 
 
 def archive_athlete_data_range(athlete_names, start_date, end_date, mode='overwrite', increment=1):
@@ -1398,13 +1391,6 @@ def archive_athlete_data_range(athlete_names, start_date, end_date, mode='overwr
         print(f'{athlete} file saved ({count} / {ttl_count})')
         print(count / ttl_count)
 
-# athlete_name = "Cecilia Biagioli"
-#
-# df = pd.read_csv('app_data/' + 'women' + "/athlete_countries.csv").set_index('athlete_name')
-# print(df)
-# country = df[0]
-# print(country)
-
 
 def system_update(start_date, end_date=''):
     if end_date == '':
@@ -1416,9 +1402,54 @@ def system_update(start_date, end_date=''):
     ttl_time = str(end - start)
     print(f"Time to execute: {ttl_time}")
 
+G = nx.DiGraph()
+total_tests = 0
+correct_predictions = 0
+last_test_time = timedelta(seconds=3117)
 
-system_update('10/31/2022')
+# athlete_name = "Cecilia Biagioli"
+#
+# df = pd.read_csv('app_data/' + 'women' + "/athlete_countries.csv").set_index('athlete_name')
+# print(df)
+# country = df[0]
+# print(country)
+
+# system_update('11/01/2022')
+
+def trend_graph(athlete_name):
+
+    split_cols = ['Split' + str(i + 1) for i in range(30)]
+
+    split_labels = ['Split0']
+    split_dists = [0]
+    athlete_time = [0]
+    athlete_split_type = [True]
+    leader_time = [0]
+    leader_split_type = [True]
+    avg_time = [0]
+    median_time = [0]
+
+    for file in os.listdir(RESULTS_DIR):
+        if os.path.exists(os.path.join(SPLITS_DIR, file)):
+            results_data = pd.read_csv(os.path.join(RESULTS_DIR, file)).set_index('athlete_name')
+            splits_data = pd.read_csv(os.path.join(SPLITS_DIR, file))
+            split_dists.extend(splits_data['distance'])
+            actual_split_bools = results_data
+            leader = ''
+            for col in split_cols:
+                split_labels.append(col)
+                bools = [False if math.isnan(cell) else True for cell in results_data[col]]
+                actual_split_bools[col] = bools
 
 
+
+
+
+
+
+trend_graph('Gregorio Paltrinieri')
+
+# df = pd.read_csv('beatle_splits.csv').set_index('name')
+# df2 = df
 
 

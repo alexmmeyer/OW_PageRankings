@@ -10,7 +10,6 @@ from app import app
 
 # MM/DD/YYYY string format of today's date
 today = dt.strftime(date.today(), "%m/%d/%Y")
-# today = '09/30/2022'
 
 def alpha_date(date):
     """
@@ -30,7 +29,7 @@ summary_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
 default_start_date = '01/01/2022'
-default_end_date = '09/30/2022'
+default_end_date = today
 default_gender = 'women'
 default_athlete = 'Lea Boy'
 default_names_list = pd.read_csv('app_data/' + default_gender + "/athlete_countries.csv").sort_values('athlete_name')
@@ -293,6 +292,7 @@ def results_table(athlete_name, gender_choice, start_date, end_date):
             rows.append(row)
     results_df = pd.concat(rows, ignore_index=True)
     results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
+    results_df = results_df[['date', 'event', 'location', 'distance', 'wetsuit', 'condition', 'place', 'field_size']]
     # results_df = results_df[results_df.dt_date >= start_date]
     # results_df = results_df[results_df.dt_date <= end_date]
     data = results_df.to_dict('rows')

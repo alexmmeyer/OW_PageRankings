@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\athlete_data\Aflah Prawira.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\results\2015_11_07_Madeira_10km_M.csv">
           <value>
             <Attribute>
@@ -67,6 +74,13 @@
           </value>
         </entry>
         <entry key="\app_data\men\results\2016_06_30_Roberval_32km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\men\results\2016_07_10_Hoorn_10km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -718,6 +732,13 @@
           </value>
         </entry>
         <entry key="\app_data\men\results\2022_09_24_Barcelona_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\men\splits\2022_06_29_Budapest_10km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -1445,55 +1466,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\men\consolidated results\Complete Results men.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\men\consolidated results\FINA\FINA 2.7.16-8.11.18.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\men\consolidated results\FINA\FINA 8.3.19-12.15.21.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\men\consolidated results\FINA\FINA 9.16.18-7.27.19.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\men\consolidated results\LEN\European Champs\Europeans 2016 &amp; 2021 M.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\men\consolidated results\LEN\LEN Cup\LEN Cup 2016-eo2021.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\men\consolidated results\LEN\LEN Cup\LEN Cup 2022.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\men\depreciation optimization 2018_01_31 to 2018_12_31.csv">
           <value>
             <Attribute>
@@ -1614,34 +1586,6 @@
           </value>
         </entry>
         <entry key="\other stuff\musicians.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\women\consolidated results\Complete Results women.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\women\consolidated results\FINA\FINA 2.4.18 - 12.16.21.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\women\consolidated results\LEN\European Champs\Europeans 2016 &amp; 2021 W.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\women\consolidated results\LEN\LEN Cup\LEN Cup 3.25.2018-3.23.2022.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

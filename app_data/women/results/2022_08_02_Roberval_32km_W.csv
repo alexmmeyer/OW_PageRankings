@@ -1,0 +1,5 @@
+athlete_name,country,date,event,location,distance,wetsuit,condition,field_size,time,place
+Morgane Dornic,FRA,07/30/2022,Traversee du lac St-Jean,"Roberval, CAN",32.0,NW,Neutral,4.0,26348.03,1.0
+Pilar Geijo,ARG,07/31/2022,Traversee du lac St-Jean,"Roberval, CAN",32.0,NW,Neutral,5.0,27411.0,2.0
+Rita Vanesa Garcia,ARG,08/01/2022,Traversee du lac St-Jean,"Roberval, CAN",32.0,NW,Neutral,6.0,30633.98,3.0
+Daira Marin,ARG,08/02/2022,Traversee du lac St-Jean,"Roberval, CAN",32.0,NW,Neutral,7.0,31769.97,4.0
