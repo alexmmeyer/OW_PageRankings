@@ -1422,18 +1422,18 @@ def trend_graph(athlete_name):
     dfs = []
 
     for file in os.listdir(RESULTS_DIR):
+        # First, check to see if this race even has splits data.
         if os.path.exists(os.path.join(SPLITS_DIR, file)):
-
-            # Create lists to be used in a dataframe to be created for each race for this athlete (where there are
-            # splits available.
+            # If so, create lists to be used in a dataframe to be created for each race for this athlete (where there
+            # are splits available.
             split_labels = []
             split_dists = []
-            athlete_time = []
-            athlete_split_type = []
-            leader_time = []
-            leader_split_type = []
-            avg_time = []
-            median_time = []
+            athlete_times = []
+            athlete_split_types = []
+            leader_times = []
+            leader_split_types = []
+            avg_times = []
+            median_times = []
 
             # Read in the results and the split distances files for that race. Fill out the split_dists column.
             results_data = pd.read_csv(os.path.join(RESULTS_DIR, file))
@@ -1445,19 +1445,18 @@ def trend_graph(athlete_name):
             # Make a copy of the results df and change the split values to True if there's an actual split, and False if
             # empty, meaning their timing chip didn't register. Fill out the split_labels column while you're at it, as
             # long as that split column is in use.
-            actual_split_bools = results_data.copy()
+            split_bools = results_data.copy()
             for col in split_cols:
                 bools = [False if math.isnan(cell) else True for cell in results_data[col]]
-                actual_split_bools[col] = bools
+                split_bools[col] = bools
                 if bools.count(True) > 0:
                     split_labels.append(col)
 
-            # Remove unused split columns in the results and bools dataframes.
+            # Remove unnecessary columns in the results and bools dataframes.
             results_data = results_data[split_labels]
-            actual_split_bools = actual_split_bools[split_labels]
+            split_bools = split_bools[split_labels]
 
-            print(results_data)
-
+            # Fill in missing splits in the results dataframe with estimates.
             for athlete in results_data.index:
                 df = pd.DataFrame(results_data.loc[athlete]).reset_index()
                 df.rename(columns={'index': 'split', athlete: 'time'}, inplace=True)
@@ -1489,15 +1488,39 @@ def trend_graph(athlete_name):
 
                 results_data.loc[athlete] = mod_splits
 
-            print(results_data)
-
-
-
-
-
-            leader = ''
+            # loop through each split and, referencing the results df and bools df, get all the data needed for the figure.
             for split in split_labels:
-                pass
+                athlete_times.append(results_data[split][athlete_name])
+                athlete_split_types.append(split_bools[split][athlete_name])
+                leader_times.append(results_data[split].min())
+                leader_split_types.append(True)
+                avg_times.append(results_data[split].mean())
+                median_times.append(results_data[split].median())
+
+            # print(split_labels)
+            # print(split_dists)
+            # print(athlete_times)
+            # print(athlete_split_types)
+            # print(leader_times)
+            # print(leader_split_types)
+            # print(avg_times)
+            # print(median_times)
+
+            fig_df = pd.DataFrame({
+                'split': split_labels,
+                'distance': split_dists,
+                'time': athlete_times,
+                'athlete_split_type': athlete_split_types,
+                'leader_time': leader_times,
+                'leader_split_type': leader_split_types,
+                'average_time': avg_times,
+                'median_time': median_times,
+            })
+
+            print(fig_df)
+
+
+
 
 
 
