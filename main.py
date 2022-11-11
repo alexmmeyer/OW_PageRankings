@@ -1430,6 +1430,7 @@ def trend_graph(athlete_name):
             split_dists = []
             athlete_times = []
             athlete_split_types = []
+            leader_names = []
             leader_times = []
             leader_split_types = []
             avg_times = []
@@ -1441,6 +1442,9 @@ def trend_graph(athlete_name):
             results_data = results_data.set_index('athlete_name')
             split_dist_data = pd.read_csv(os.path.join(SPLITS_DIR, file))
             split_dists.extend(split_dist_data['distance'])
+
+            race_dist = results_data['distance'][0]
+            race_label = custom_label(os.path.join(RESULTS_DIR, file), 'event', 'location', 'date', 'distance') + 'km'
 
             # Make a copy of the results df and change the split values to True if there's an actual split, and False if
             # empty, meaning their timing chip didn't register. Fill out the split_labels column while you're at it, as
@@ -1490,27 +1494,38 @@ def trend_graph(athlete_name):
 
             # loop through each split and, referencing the results df and bools df, get all the data needed for the figure.
             for split in split_labels:
-                athlete_times.append(results_data[split][athlete_name])
-                athlete_split_types.append(split_bools[split][athlete_name])
-                leader_times.append(results_data[split].min())
-                leader_split_types.append(True)
-                avg_times.append(results_data[split].mean())
-                median_times.append(results_data[split].median())
+                if split == 'Split0':
+                    athlete_times.append(0)
+                    athlete_split_types.append(True)
+                    leader_times.append(True)
+                    leader_names.append('N/A')
+                    leader_split_types.append(True)
+                    avg_times.append(0)
+                    median_times.append(0)
+                else:
+                    athlete_times.append(results_data[split][athlete_name])
+                    athlete_split_types.append(split_bools[split][athlete_name])
+                    leader_times.append(results_data[split].min())
+                    leaders = results_data.index[results_data[split] == results_data[split].min()].tolist()
+                    leader_split_type = False
+                    for leader in leaders:
+                        if split_bools[split][leader]:
+                            leader_split_type = True
+                    leader_split_types.append(leader_split_type)
+                    leader_name = ' / '.join(leaders)
+                    leader_names.append(leader_name)
 
-            # print(split_labels)
-            # print(split_dists)
-            # print(athlete_times)
-            # print(athlete_split_types)
-            # print(leader_times)
-            # print(leader_split_types)
-            # print(avg_times)
-            # print(median_times)
+                    avg_times.append(results_data[split].mean())
+                    median_times.append(results_data[split].median())
+
 
             fig_df = pd.DataFrame({
                 'split': split_labels,
                 'distance': split_dists,
+                'distance_pct': [i / (race_dist * 1000) for i in split_dists],
                 'time': athlete_times,
                 'athlete_split_type': athlete_split_types,
+                'leader': leader_names,
                 'leader_time': leader_times,
                 'leader_split_type': leader_split_types,
                 'average_time': avg_times,
