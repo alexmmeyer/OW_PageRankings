@@ -1418,29 +1418,84 @@ last_test_time = timedelta(seconds=3117)
 
 def trend_graph(athlete_name):
 
-    split_cols = ['Split' + str(i + 1) for i in range(30)]
-
-    split_labels = ['Split0']
-    split_dists = [0]
-    athlete_time = [0]
-    athlete_split_type = [True]
-    leader_time = [0]
-    leader_split_type = [True]
-    avg_time = [0]
-    median_time = [0]
+    split_cols = ['Split' + str(i + 1) for i in range(-1, 30)]
+    dfs = []
 
     for file in os.listdir(RESULTS_DIR):
         if os.path.exists(os.path.join(SPLITS_DIR, file)):
-            results_data = pd.read_csv(os.path.join(RESULTS_DIR, file)).set_index('athlete_name')
-            splits_data = pd.read_csv(os.path.join(SPLITS_DIR, file))
-            split_dists.extend(splits_data['distance'])
-            actual_split_bools = results_data
-            leader = ''
+
+            # Create lists to be used in a dataframe to be created for each race for this athlete (where there are
+            # splits available.
+            split_labels = []
+            split_dists = []
+            athlete_time = []
+            athlete_split_type = []
+            leader_time = []
+            leader_split_type = []
+            avg_time = []
+            median_time = []
+
+            # Read in the results and the split distances files for that race. Fill out the split_dists column.
+            results_data = pd.read_csv(os.path.join(RESULTS_DIR, file))
+            results_data['Split0'] = [0 for i in results_data['athlete_name']]
+            results_data = results_data.set_index('athlete_name')
+            split_dist_data = pd.read_csv(os.path.join(SPLITS_DIR, file))
+            split_dists.extend(split_dist_data['distance'])
+
+            # Make a copy of the results df and change the split values to True if there's an actual split, and False if
+            # empty, meaning their timing chip didn't register. Fill out the split_labels column while you're at it, as
+            # long as that split column is in use.
+            actual_split_bools = results_data.copy()
             for col in split_cols:
-                split_labels.append(col)
                 bools = [False if math.isnan(cell) else True for cell in results_data[col]]
                 actual_split_bools[col] = bools
+                if bools.count(True) > 0:
+                    split_labels.append(col)
 
+            # Remove unused split columns in the results and bools dataframes.
+            results_data = results_data[split_labels]
+            actual_split_bools = actual_split_bools[split_labels]
+
+            print(results_data)
+
+            # for athlete in results_data.index:
+            athlete = 'Cheng-Chi Cho'
+
+            df = pd.DataFrame(results_data.loc[athlete]).reset_index()
+            df.rename(columns={'index': 'split', athlete: 'time'}, inplace=True)
+            df['distance'] = split_dists
+            mod_splits = []
+            for i in range(len(df)):
+                split_time = df['time'][i]
+                if math.isnan(split_time):
+                    prev_dist = df['distance'][i - 1]
+                    prev_split = df['time'][i - 1]
+                    this_dist = df['distance'][i]
+                    next_split = df['time'][i + 1]
+                    next_dist = df['distance'][i + 1]
+                    if math.isnan(next_split):
+                        next_split_index = list(df['time']).index(df[i:]['time'].min())
+                        next_split = df['time'][next_split_index]
+                        next_dist = df['distance'][next_split_index]
+                    distance_swam = this_dist - prev_dist
+                    rate = (next_dist - prev_dist) / (next_split - prev_split)
+                    time_swam = distance_swam / rate
+                    estimated_split = prev_split + time_swam
+                    mod_splits.append(estimated_split)
+                else:
+                    mod_splits.append(split_time)
+
+            results_data.loc[athlete] = mod_splits
+
+            print(results_data)
+
+
+
+
+
+            leader = ''
+            for split in split_labels:
+                pass
 
 
 
@@ -1448,8 +1503,5 @@ def trend_graph(athlete_name):
 
 
 trend_graph('Gregorio Paltrinieri')
-
-# df = pd.read_csv('beatle_splits.csv').set_index('name')
-# df2 = df
 
 
