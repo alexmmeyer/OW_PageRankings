@@ -1458,34 +1458,36 @@ def trend_graph(athlete_name):
 
             print(results_data)
 
-            # for athlete in results_data.index:
-            athlete = 'Cheng-Chi Cho'
+            for athlete in results_data.index:
+                df = pd.DataFrame(results_data.loc[athlete]).reset_index()
+                df.rename(columns={'index': 'split', athlete: 'time'}, inplace=True)
+                df['distance'] = split_dists
+                mod_splits = []
+                prev_split = 0
+                prev_dist = 0
+                for i in range(len(df)):
+                    split_time = df['time'][i]
+                    if math.isnan(split_time):
+                        this_dist = df['distance'][i]
+                        next_split = df['time'][i + 1]
+                        next_dist = df['distance'][i + 1]
+                        if math.isnan(next_split):
+                            next_split_index = list(df['time']).index(df[i:]['time'].min())
+                            next_split = df['time'][next_split_index]
+                            next_dist = df['distance'][next_split_index]
+                        distance_swam = this_dist - prev_dist
+                        rate = (next_dist - prev_dist) / (next_split - prev_split)
+                        time_swam = distance_swam / rate
+                        estimated_split = prev_split + time_swam
+                        mod_splits.append(estimated_split)
+                        prev_split = estimated_split
+                        prev_dist = df['distance'][i]
+                    else:
+                        mod_splits.append(split_time)
+                        prev_split = df['time'][i]
+                        prev_dist = df['distance'][i]
 
-            df = pd.DataFrame(results_data.loc[athlete]).reset_index()
-            df.rename(columns={'index': 'split', athlete: 'time'}, inplace=True)
-            df['distance'] = split_dists
-            mod_splits = []
-            for i in range(len(df)):
-                split_time = df['time'][i]
-                if math.isnan(split_time):
-                    prev_dist = df['distance'][i - 1]
-                    prev_split = df['time'][i - 1]
-                    this_dist = df['distance'][i]
-                    next_split = df['time'][i + 1]
-                    next_dist = df['distance'][i + 1]
-                    if math.isnan(next_split):
-                        next_split_index = list(df['time']).index(df[i:]['time'].min())
-                        next_split = df['time'][next_split_index]
-                        next_dist = df['distance'][next_split_index]
-                    distance_swam = this_dist - prev_dist
-                    rate = (next_dist - prev_dist) / (next_split - prev_split)
-                    time_swam = distance_swam / rate
-                    estimated_split = prev_split + time_swam
-                    mod_splits.append(estimated_split)
-                else:
-                    mod_splits.append(split_time)
-
-            results_data.loc[athlete] = mod_splits
+                results_data.loc[athlete] = mod_splits
 
             print(results_data)
 
