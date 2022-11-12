@@ -1413,7 +1413,7 @@ last_test_time = timedelta(seconds=3117)
 
 # system_update('11/01/2022')
 
-def trend_graph(athlete_name, comp_to):
+def trend_graph(athlete_name, comp_to, measure):
     split_cols = ['Split' + str(i + 1) for i in range(-1, 30)]
     traces = []
 
@@ -1423,8 +1423,8 @@ def trend_graph(athlete_name, comp_to):
             results_data = pd.read_csv(os.path.join(RESULTS_DIR, file))
             if athlete_name in list(results_data['athlete_name']):
                 print(file)
-                # If so, create lists to be used in a dataframe to be created for each race for this athlete (where there
-                # are splits available.
+                # If so, create lists to be used in a dataframe to be created for each race for this athlete (where
+                # there are splits available.
                 split_labels = []
                 split_dists = []
                 athlete_times = []
@@ -1435,6 +1435,9 @@ def trend_graph(athlete_name, comp_to):
                 avg_times = []
                 median_times = []
 
+                athlete_positions = []
+                median_positions = []
+
                 # Read in the split distances file for the race. Fill out the split_dists column and add Split0 to
                 # results df.
                 results_data['Split0'] = [0 for i in results_data['athlete_name']]
@@ -1444,10 +1447,12 @@ def trend_graph(athlete_name, comp_to):
 
                 race_dist = results_data['distance'][0]
                 race_label = custom_label(os.path.join(RESULTS_DIR, file), 'event', 'location', 'date', 'distance') + 'km'
+                median_position = results_data['place'].median()
+                print(f"median position for this race is {median_position}")
 
                 # Make a copy of the results df and change the split values to True if there's an actual split, and
-                # False if empty, meaning their timing chip didn't register. Fill out the split_labels column while
-                # you're at it, as long as that split column is in use.
+                # False if empty, meaning their timing chip didn't register. Fill out the split_labels list while
+                # you're at it.
                 split_bools = results_data.copy()
                 for col in split_cols:
                     bools = [False if math.isnan(cell) else True for cell in results_data[col]]
@@ -1496,28 +1501,89 @@ def trend_graph(athlete_name, comp_to):
                 # loop through each split and, referencing the results df and bools df, get all the data needed for the
                 # figure.
                 for split in split_labels:
-                    if split == 'Split0':
-                        athlete_times.append(0)
-                        athlete_split_types.append(True)
-                        leader_names.append('N/A')
-                        leader_times.append(0)
-                        leader_split_types.append(True)
-                        avg_times.append(0)
-                        median_times.append(0)
-                    else:
-                        athlete_times.append(results_data[split][athlete_name])
-                        athlete_split_types.append(split_bools[split][athlete_name])
-                        leader_times.append(results_data[split].min())
-                        leaders = results_data.index[results_data[split] == results_data[split].min()].tolist()
-                        leader_split_type = False
-                        for leader in leaders:
-                            if split_bools[split][leader]:
-                                leader_split_type = True
-                        leader_split_types.append(leader_split_type)
-                        leader_name = ' / '.join(leaders)
-                        leader_names.append(leader_name)
-                        avg_times.append(results_data[split].mean())
-                        median_times.append(results_data[split].median())
+                    if measure == 'time':
+                        if split == 'Split0':
+                            athlete_times.append(0)
+                            athlete_split_types.append(True)
+                            leader_names.append('N/A')
+                            leader_times.append(0)
+                            leader_split_types.append(True)
+                            avg_times.append(0)
+                            median_times.append(0)
+                        else:
+                            athlete_times.append(results_data[split][athlete_name])
+                            athlete_split_types.append(split_bools[split][athlete_name])
+                            leader_times.append(results_data[split].min())
+                            leaders = results_data.index[results_data[split] == results_data[split].min()].tolist()
+                            leader_split_type = False
+                            for leader in leaders:
+                                if split_bools[split][leader]:
+                                    leader_split_type = True
+                            leader_split_types.append(leader_split_type)
+                            leader_name = ' / '.join(leaders)
+                            leader_names.append(leader_name)
+                            avg_times.append(results_data[split].mean())
+                            median_times.append(results_data[split].median())
+                    elif measure == 'position':
+                        if split == 'Split0':
+                            athlete_positions.append(1)
+                            athlete_split_types.append(True)
+                            leader_names.append('N/A')
+                            leader_split_types.append(True)
+                            median_positions.append(1)
+                        else:
+                            athlete_time = results_data[split][athlete_name]
+                            sorted_split_times = list(results_data[split].sort_values(ascending=True))
+                            athlete_position = sorted_split_times.index(athlete_time) + 1
+                            athlete_positions.append(athlete_position)
+                            athlete_split_types.append(split_bools[split][athlete_name])
+                            leaders = results_data.index[results_data[split] == results_data[split].min()].tolist()
+                            leader_split_type = False
+                            for leader in leaders:
+                                if split_bools[split][leader]:
+                                    leader_split_type = True
+                            leader_split_types.append(leader_split_type)
+                            leader_name = ' / '.join(leaders)
+                            leader_names.append(leader_name)
+                            median_positions.append(median_position)
+
+                if measure == 'time':
+                    fig_df = pd.DataFrame({
+                        'split': split_labels,
+                        'distance': split_dists,
+                        'distance_pct': [i / (race_dist * 1000) for i in split_dists],
+                        'athlete_time': athlete_times,
+                        'athlete_split_type': ['actual' if i else 'estimate' for i in athlete_split_types],
+                        'leader': leader_names,
+                        'leader_time': leader_times,
+                        'leader_split_type': ['actual' if i else 'estimate' for i in leader_split_types],
+                        'average_time': avg_times,
+                        'median_time': median_times,
+                    })
+                    comp_time_col = comp_to + '_time'
+                    fig_df['var'] = [fig_df['athlete_time'][i] - fig_df[comp_time_col][i] for i in range(len(fig_df))]
+                elif measure == 'position':
+                    # print(len(split_labels))
+                    # print(len(split_dists))
+                    # print(len(athlete_positions))
+                    # print(len(athlete_split_types))
+                    # print(len(leader_names))
+                    # print(len(leader_split_types))
+                    # print(len([median_position for i in range(len(split_labels))]))
+
+                    fig_df = pd.DataFrame({
+                        'split': split_labels,
+                        'distance': split_dists,
+                        'distance_pct': [i / (race_dist * 1000) for i in split_dists],
+                        'athlete_position': athlete_positions,
+                        'athlete_split_type': ['actual' if i else 'estimate' for i in athlete_split_types],
+                        'leader': leader_names,
+                        'leader_split_type': ['actual' if i else 'estimate' for i in leader_split_types],
+                        'median_position': median_positions,
+                    })
+                    fig_df['leader_position'] = [1 for i in range(len(fig_df))]
+                    comp_pos_col = comp_to + '_position'
+                    fig_df['var'] = [fig_df['athlete_position'][i] - fig_df[comp_pos_col][i] for i in range(len(fig_df))]
 
                 # print(split_labels)
                 # print(split_dists)
@@ -1529,27 +1595,13 @@ def trend_graph(athlete_name, comp_to):
                 # print(avg_times)
                 # print(median_times)
 
-                fig_df = pd.DataFrame({
-                    'split': split_labels,
-                    'distance': split_dists,
-                    'distance_pct': [i / (race_dist * 1000) for i in split_dists],
-                    'athlete_time': athlete_times,
-                    'athlete_split_type': ['actual' if i else 'estimate' for i in athlete_split_types],
-                    'leader': leader_names,
-                    'leader_time': leader_times,
-                    'leader_split_type': ['actual' if i else 'estimate' for i in leader_split_types],
-                    'average_time': avg_times,
-                    'median_time': median_times,
-                })
 
-                comp_time_col = comp_to + '_time'
-                fig_df['time_var'] = [fig_df['athlete_time'][i] - fig_df[comp_time_col][i] for i in range(len(fig_df))]
 
                 print(fig_df)
 
                 trace = go.Scatter(
                     x=fig_df['distance_pct'],
-                    y=fig_df['time_var'],
+                    y=fig_df['var'],
                     mode='lines+markers',
                     name=race_label,
                     showlegend=True
@@ -1564,10 +1616,10 @@ def trend_graph(athlete_name, comp_to):
     layout = go.Layout(
             title=athlete_name,
             xaxis={'title': 'Percent of race completed'},
-            yaxis={'title': f'Time back from {comp_to}', 'autorange': 'reversed'},
+            yaxis={'title': f'{measure} back from {comp_to}', 'autorange': 'reversed'},
             hovermode='closest')
 
     fig = go.Figure(data=traces, layout=layout)
     pyo.plot(fig)
 
-trend_graph('Sacha Velly', 'leader')
+trend_graph('Sacha Velly', 'leader', 'position')
