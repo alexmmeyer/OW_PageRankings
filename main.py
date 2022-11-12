@@ -403,10 +403,10 @@ def ranking_progression_multi(start_date, end_date, athlete_names):
                 rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
                 ranks.append(rank_on_date)
         line_trace = go.Scatter(x=rank_dates,
-                           y=ranks,
-                           mode='lines',
-                           opacity=0.8,
-                           name=athlete_name)
+                                y=ranks,
+                                mode='lines',
+                                opacity=0.8,
+                                name=athlete_name)
         traces.append(line_trace)
 
         results_df = get_results(athlete_name)
@@ -434,10 +434,10 @@ def ranking_progression_multi(start_date, end_date, athlete_names):
         traces.append(scatter_trace)
 
     fig_layout = go.Layout(
-            title="World Ranking Progression",
-            xaxis={'title': 'Date'},
-            yaxis={'title': 'World Ranking'},
-            hovermode='closest')
+        title="World Ranking Progression",
+        xaxis={'title': 'Date'},
+        yaxis={'title': 'World Ranking'},
+        hovermode='closest')
 
     fig = go.Figure(data=traces, layout=fig_layout)
     pyo.plot(fig)
@@ -677,7 +677,6 @@ def show_edges(graph, athlete1, athlete2):
 
 
 def print_race_labels():
-
     race_list = []
 
     for file in os.listdir(RESULTS_DIR):
@@ -823,7 +822,6 @@ def time_diffs(dist, athlete, comp_to_athlete):
 
 
 def time_diffs2(dist, athlete, comp_to_athlete, date_for_weights=""):
-
     time_diffs = []
     outcomes = []
     races = []
@@ -966,7 +964,8 @@ def plot_time_diffs2(dist, athlete_name, *comp_athletes, date_for_weights=""):
     df = pd.DataFrame(diff_dict)
     print(df)
 
-    fig = px.strip(df, x="time_diff", y="competitor", color="outcome", stripmode="overlay", hover_data=["competitor", "time_diff", "race"])
+    fig = px.strip(df, x="time_diff", y="competitor", color="outcome", stripmode="overlay",
+                   hover_data=["competitor", "time_diff", "race"])
     fig['layout']['xaxis']['autorange'] = "reversed"
     fig.update_xaxes(title_text=f"{athlete_name}'s time compared to competitors (seconds)")
     fig.update_yaxes(title_text="Competitor")
@@ -974,12 +973,10 @@ def plot_time_diffs2(dist, athlete_name, *comp_athletes, date_for_weights=""):
 
 
 def plot_wr_num_races(date, max_rank):
-
     athlete_list = []
 
     ranking_file = f"{alpha_date(date)}_{GENDER}_{RANK_DIST}km.csv"
     df = pd.read_csv(f"{RANKINGS_DIR}/{ranking_file}")
-
 
     for file in os.listdir(RESULTS_DIR):
         results_file_path = os.path.join(RESULTS_DIR, file)
@@ -1143,7 +1140,6 @@ def country_ranks(lowest_rank, as_of):
 
 
 def predicttest():
-
     start = time.time()
     global total_tests
     global correct_predictions
@@ -1274,7 +1270,6 @@ def opttest_vis(file_path):
 
 
 def outcome_table(athlete_name, dist='all'):
-
     wins = 0
     podiums = 0
     top25pct = 0
@@ -1402,10 +1397,12 @@ def system_update(start_date, end_date=''):
     ttl_time = str(end - start)
     print(f"Time to execute: {ttl_time}")
 
+
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
+
 
 # athlete_name = "Cecilia Biagioli"
 #
@@ -1416,132 +1413,161 @@ last_test_time = timedelta(seconds=3117)
 
 # system_update('11/01/2022')
 
-def trend_graph(athlete_name):
-
+def trend_graph(athlete_name, comp_to):
     split_cols = ['Split' + str(i + 1) for i in range(-1, 30)]
-    dfs = []
+    traces = []
 
     for file in os.listdir(RESULTS_DIR):
         # First, check to see if this race even has splits data.
         if os.path.exists(os.path.join(SPLITS_DIR, file)):
-            # If so, create lists to be used in a dataframe to be created for each race for this athlete (where there
-            # are splits available.
-            split_labels = []
-            split_dists = []
-            athlete_times = []
-            athlete_split_types = []
-            leader_names = []
-            leader_times = []
-            leader_split_types = []
-            avg_times = []
-            median_times = []
-
-            # Read in the results and the split distances files for that race. Fill out the split_dists column.
             results_data = pd.read_csv(os.path.join(RESULTS_DIR, file))
-            results_data['Split0'] = [0 for i in results_data['athlete_name']]
-            results_data = results_data.set_index('athlete_name')
-            split_dist_data = pd.read_csv(os.path.join(SPLITS_DIR, file))
-            split_dists.extend(split_dist_data['distance'])
+            if athlete_name in list(results_data['athlete_name']):
+                print(file)
+                # If so, create lists to be used in a dataframe to be created for each race for this athlete (where there
+                # are splits available.
+                split_labels = []
+                split_dists = []
+                athlete_times = []
+                athlete_split_types = []
+                leader_names = []
+                leader_times = []
+                leader_split_types = []
+                avg_times = []
+                median_times = []
 
-            race_dist = results_data['distance'][0]
-            race_label = custom_label(os.path.join(RESULTS_DIR, file), 'event', 'location', 'date', 'distance') + 'km'
+                # Read in the split distances file for the race. Fill out the split_dists column and add Split0 to
+                # results df.
+                results_data['Split0'] = [0 for i in results_data['athlete_name']]
+                results_data = results_data.set_index('athlete_name')
+                split_dist_data = pd.read_csv(os.path.join(SPLITS_DIR, file))
+                split_dists.extend(split_dist_data['distance'])
 
-            # Make a copy of the results df and change the split values to True if there's an actual split, and False if
-            # empty, meaning their timing chip didn't register. Fill out the split_labels column while you're at it, as
-            # long as that split column is in use.
-            split_bools = results_data.copy()
-            for col in split_cols:
-                bools = [False if math.isnan(cell) else True for cell in results_data[col]]
-                split_bools[col] = bools
-                if bools.count(True) > 0:
-                    split_labels.append(col)
+                race_dist = results_data['distance'][0]
+                race_label = custom_label(os.path.join(RESULTS_DIR, file), 'event', 'location', 'date', 'distance') + 'km'
 
-            # Remove unnecessary columns in the results and bools dataframes.
-            results_data = results_data[split_labels]
-            split_bools = split_bools[split_labels]
+                # Make a copy of the results df and change the split values to True if there's an actual split, and
+                # False if empty, meaning their timing chip didn't register. Fill out the split_labels column while
+                # you're at it, as long as that split column is in use.
+                split_bools = results_data.copy()
+                for col in split_cols:
+                    bools = [False if math.isnan(cell) else True for cell in results_data[col]]
+                    split_bools[col] = bools
+                    if bools.count(True) > 0:
+                        split_labels.append(col)
 
-            # Fill in missing splits in the results dataframe with estimates.
-            for athlete in results_data.index:
-                df = pd.DataFrame(results_data.loc[athlete]).reset_index()
-                df.rename(columns={'index': 'split', athlete: 'time'}, inplace=True)
-                df['distance'] = split_dists
-                mod_splits = []
-                prev_split = 0
-                prev_dist = 0
-                for i in range(len(df)):
-                    split_time = df['time'][i]
-                    if math.isnan(split_time):
-                        this_dist = df['distance'][i]
-                        next_split = df['time'][i + 1]
-                        next_dist = df['distance'][i + 1]
-                        if math.isnan(next_split):
-                            next_split_index = list(df['time']).index(df[i:]['time'].min())
-                            next_split = df['time'][next_split_index]
-                            next_dist = df['distance'][next_split_index]
-                        distance_swam = this_dist - prev_dist
-                        rate = (next_dist - prev_dist) / (next_split - prev_split)
-                        time_swam = distance_swam / rate
-                        estimated_split = prev_split + time_swam
-                        mod_splits.append(estimated_split)
-                        prev_split = estimated_split
-                        prev_dist = df['distance'][i]
+                # Remove unnecessary columns in the results and bools dataframes.
+                results_data = results_data[split_labels]
+                split_bools = split_bools[split_labels]
+
+                # Fill in missing splits in the results dataframe with estimates.
+                for athlete in results_data.index:
+                    df = pd.DataFrame(results_data.loc[athlete]).reset_index()
+                    df.rename(columns={'index': 'split', athlete: 'time'}, inplace=True)
+                    df['distance'] = split_dists
+                    mod_splits = []
+                    prev_split = 0
+                    prev_dist = 0
+                    for i in range(len(df)):
+                        split_time = df['time'][i]
+                        if math.isnan(split_time):
+                            this_dist = df['distance'][i]
+                            next_split = df['time'][i + 1]
+                            next_dist = df['distance'][i + 1]
+                            if math.isnan(next_split):
+                                next_split_index = list(df['time']).index(df[i:]['time'].min())
+                                next_split = df['time'][next_split_index]
+                                next_dist = df['distance'][next_split_index]
+                            distance_swam = this_dist - prev_dist
+                            rate = (next_dist - prev_dist) / (next_split - prev_split)
+                            time_swam = distance_swam / rate
+                            estimated_split = prev_split + time_swam
+                            mod_splits.append(estimated_split)
+                            prev_split = estimated_split
+                            prev_dist = df['distance'][i]
+                        else:
+                            mod_splits.append(split_time)
+                            prev_split = df['time'][i]
+                            prev_dist = df['distance'][i]
+
+                    results_data.loc[athlete] = mod_splits
+
+                # print(results_data)
+
+                # loop through each split and, referencing the results df and bools df, get all the data needed for the
+                # figure.
+                for split in split_labels:
+                    if split == 'Split0':
+                        athlete_times.append(0)
+                        athlete_split_types.append(True)
+                        leader_names.append('N/A')
+                        leader_times.append(0)
+                        leader_split_types.append(True)
+                        avg_times.append(0)
+                        median_times.append(0)
                     else:
-                        mod_splits.append(split_time)
-                        prev_split = df['time'][i]
-                        prev_dist = df['distance'][i]
+                        athlete_times.append(results_data[split][athlete_name])
+                        athlete_split_types.append(split_bools[split][athlete_name])
+                        leader_times.append(results_data[split].min())
+                        leaders = results_data.index[results_data[split] == results_data[split].min()].tolist()
+                        leader_split_type = False
+                        for leader in leaders:
+                            if split_bools[split][leader]:
+                                leader_split_type = True
+                        leader_split_types.append(leader_split_type)
+                        leader_name = ' / '.join(leaders)
+                        leader_names.append(leader_name)
+                        avg_times.append(results_data[split].mean())
+                        median_times.append(results_data[split].median())
 
-                results_data.loc[athlete] = mod_splits
+                # print(split_labels)
+                # print(split_dists)
+                # print(athlete_times)
+                # print(athlete_split_types)
+                # print(leader_names)
+                # print(leader_times)
+                # print(leader_split_types)
+                # print(avg_times)
+                # print(median_times)
 
-            # loop through each split and, referencing the results df and bools df, get all the data needed for the figure.
-            for split in split_labels:
-                if split == 'Split0':
-                    athlete_times.append(0)
-                    athlete_split_types.append(True)
-                    leader_times.append(True)
-                    leader_names.append('N/A')
-                    leader_split_types.append(True)
-                    avg_times.append(0)
-                    median_times.append(0)
-                else:
-                    athlete_times.append(results_data[split][athlete_name])
-                    athlete_split_types.append(split_bools[split][athlete_name])
-                    leader_times.append(results_data[split].min())
-                    leaders = results_data.index[results_data[split] == results_data[split].min()].tolist()
-                    leader_split_type = False
-                    for leader in leaders:
-                        if split_bools[split][leader]:
-                            leader_split_type = True
-                    leader_split_types.append(leader_split_type)
-                    leader_name = ' / '.join(leaders)
-                    leader_names.append(leader_name)
+                fig_df = pd.DataFrame({
+                    'split': split_labels,
+                    'distance': split_dists,
+                    'distance_pct': [i / (race_dist * 1000) for i in split_dists],
+                    'athlete_time': athlete_times,
+                    'athlete_split_type': ['actual' if i else 'estimate' for i in athlete_split_types],
+                    'leader': leader_names,
+                    'leader_time': leader_times,
+                    'leader_split_type': ['actual' if i else 'estimate' for i in leader_split_types],
+                    'average_time': avg_times,
+                    'median_time': median_times,
+                })
 
-                    avg_times.append(results_data[split].mean())
-                    median_times.append(results_data[split].median())
+                comp_time_col = comp_to + '_time'
+                fig_df['time_var'] = [fig_df['athlete_time'][i] - fig_df[comp_time_col][i] for i in range(len(fig_df))]
 
+                print(fig_df)
 
-            fig_df = pd.DataFrame({
-                'split': split_labels,
-                'distance': split_dists,
-                'distance_pct': [i / (race_dist * 1000) for i in split_dists],
-                'time': athlete_times,
-                'athlete_split_type': athlete_split_types,
-                'leader': leader_names,
-                'leader_time': leader_times,
-                'leader_split_type': leader_split_types,
-                'average_time': avg_times,
-                'median_time': median_times,
-            })
+                trace = go.Scatter(
+                    x=fig_df['distance_pct'],
+                    y=fig_df['time_var'],
+                    mode='lines+markers',
+                    name=race_label,
+                    showlegend=True
+                )
+                traces.append(trace)
 
-            print(fig_df)
+                # trace = px.line(fig_df,
+                #                 x='distance_pct',
+                #                 y='time_var')
+                # traces.append(trace.data)
 
+    layout = go.Layout(
+            title=athlete_name,
+            xaxis={'title': 'Percent of race completed'},
+            yaxis={'title': f'Time back from {comp_to}', 'autorange': 'reversed'},
+            hovermode='closest')
 
+    fig = go.Figure(data=traces, layout=layout)
+    pyo.plot(fig)
 
-
-
-
-
-
-
-trend_graph('Gregorio Paltrinieri')
-
-
+trend_graph('Sacha Velly', 'leader')
