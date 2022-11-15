@@ -167,8 +167,6 @@ def trend_graph(gender_choice, athlete_name, comp_to, measure):
 
                     results_data.loc[athlete] = mod_splits
 
-                # print(results_data)
-
                 # loop through each split and, referencing the results df and bools df, get all the data needed for the
                 # figure.
                 for split in split_labels:
@@ -234,14 +232,6 @@ def trend_graph(gender_choice, athlete_name, comp_to, measure):
                     comp_time_col = comp_to + '_time'
                     fig_df['var'] = [fig_df['athlete_time'][i] - fig_df[comp_time_col][i] for i in range(len(fig_df))]
                 elif measure == 'position':
-                    # print(len(split_labels))
-                    # print(len(split_dists))
-                    # print(len(athlete_positions))
-                    # print(len(athlete_split_types))
-                    # print(len(leader_names))
-                    # print(len(leader_split_types))
-                    # print(len([median_position for i in range(len(split_labels))]))
-
                     fig_df = pd.DataFrame({
                         'split': split_labels,
                         'distance': split_dists,
@@ -272,10 +262,22 @@ def trend_graph(gender_choice, athlete_name, comp_to, measure):
                 #                 y='time_var')
                 # traces.append(trace.data)
 
+    yaxis_titles = {
+        'time': {
+            'leader': "Time (seconds) Behind Race Leader",
+            'average': "Time (seconds) Compared to Average Time",
+            'median': "Time (seconds) Compared to Median Time"
+        },
+        'position': {
+            'leader': "Positions Behind Race Leader",
+            'median': "Position Compared to Median Swimmer"
+        }
+    }
+
     layout = go.Layout(
-            title=athlete_name,
-            xaxis={'title': 'Percent of race completed'},
-            yaxis={'title': f'{measure} back from {comp_to}', 'autorange': 'reversed'},
+            title=f"Race Trends by {measure.title()}: {athlete_name}",
+            xaxis={'title': 'Percent of Race Completed'},
+            yaxis={'title': yaxis_titles[measure][comp_to], 'autorange': 'reversed'},
             hovermode='closest')
 
     fig = go.Figure(data=traces, layout=layout)

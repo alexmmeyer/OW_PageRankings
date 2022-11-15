@@ -40,7 +40,7 @@ default_ranking_date = '09/30/2022'
 default_comparison_date = ''
 default_gender = 'women'
 
-# if you change these, also
+# if you change these, change the table_formatting above to match!
 up_arrow = '▲'
 down_arrow = '▼'
 

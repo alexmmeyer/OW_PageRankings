@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 from datetime import datetime as dt
-from datetime import timedelta
+from datetime import timedelta, date
 import plotly.graph_objs as go
 from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
@@ -26,7 +26,7 @@ stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
 # Defaults:
 default_start_date = '01/01/2022'
-default_end_date = '09/30/2022'
+default_end_date = dt.strftime(date.today(), "%m/%d/%Y")
 default_gender_choice = 'women'
 
 layout = html.Div([

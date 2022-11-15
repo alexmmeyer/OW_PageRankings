@@ -17,7 +17,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\athlete_data\Aaron Elias Schmidt.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\athlete_data\Aflah Prawira.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\men\athlete_data\Domenico Acerenza.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -746,6 +760,13 @@
           </value>
         </entry>
         <entry key="\app_data\women\athlete_countries.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\rankings_archive\2022_11_12_women_10km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
