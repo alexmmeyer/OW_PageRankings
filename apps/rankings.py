@@ -1,9 +1,6 @@
 import pandas as pd
-import os
 from datetime import datetime as dt
 from datetime import timedelta, date
-import plotly.graph_objs as go
-import plotly.express as px
 from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
 from app import app

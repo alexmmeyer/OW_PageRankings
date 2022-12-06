@@ -245,6 +245,17 @@ def trend_graph(gender_choice, athlete_name, comp_to, measure):
                     fig_df['leader_position'] = [1 for i in range(len(fig_df))]
                     comp_pos_col = comp_to + '_position'
                     fig_df['var'] = [fig_df['athlete_position'][i] - fig_df[comp_pos_col][i] for i in range(len(fig_df))]
+                var_types = []
+                for i in range(len(fig_df)):
+                    if comp_to == 'leader':
+                        if fig_df['athlete_split_type'][i] == 'actual' and fig_df['leader_split_type'][i] == 'actual':
+                            type = 'actual'
+                        else:
+                            type = 'estimate'
+                    else:
+                        type = fig_df['athlete_split_type'][i]
+                    var_types.append(type)
+                fig_df['var_type'] = var_types
 
                 print(fig_df)
 

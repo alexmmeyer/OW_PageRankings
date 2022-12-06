@@ -27,6 +27,7 @@ layouts = {
     '/apps/profile': profile.layout,
     '/apps/rankings': rankings.layout,
     '/apps/race_trends': race_trends.layout,
+    '/': 'Choose a module above.',
 }
 
 

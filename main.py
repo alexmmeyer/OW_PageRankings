@@ -1257,8 +1257,8 @@ def opttest(dp_start, dp_stop, k_start, k_stop, num):
     secs = round(end - start, 0)
     print(f"Total run time: {timedelta(seconds=secs)}")
 
-    pivotted = df.pivot("k_value", "depreciation_period", "predictability").sort_values(by="k_value", ascending=False)
-    fig = px.imshow(pivotted, origin="lower")
+    pivoted = df.pivot("k_value", "depreciation_period", "predictability").sort_values(by="k_value", ascending=False)
+    fig = px.imshow(pivoted, origin="lower")
     fig.show()
 
 
@@ -1405,6 +1405,6 @@ last_test_time = timedelta(seconds=3117)
 
 
 
-system_update('11/13/2022', '11/14/2022')
+system_update('12/01/2022', '12/07/2022')
 
 

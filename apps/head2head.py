@@ -80,10 +80,10 @@ def update(name1, name2, gender_choice):
         if name1 in list(race_data.athlete_name) and name2 in list(race_data.athlete_name):
             if race_dist == dist or dist == "all":
                 race_name = custom_label(os.path.join(results_directory, file), "event", "location")
-                date = race_data["date"][0]
+                race_date = race_data["date"][0]
                 distance = race_data['distance'][0]
                 races.append(race_name)
-                dates.append(date)
+                dates.append(race_date)
                 distances.append(distance)
                 name1time = float(race_data["time"][race_data["athlete_name"] == name1])
                 name2time = float(race_data["time"][race_data["athlete_name"] == name2])
@@ -135,6 +135,11 @@ def update(name1, name2, gender_choice):
     fig_df = pd.DataFrame(diff_dict)
     fig_df = fig_df[fig_df.time_diff != 'N/A'].reset_index(drop=True)
     fig_df['dt_date'] = [dt.strptime(i, "%m/%d/%Y") for i in fig_df['date']]
+    oldest_date = min(fig_df['dt_date'])
+    fig_df['opacity'] = [age_opacity(i, oldest_date) for i in fig_df['dt_date']]
+    print(type(date.today()))
+    print(type(fig_df['dt_date'][0]))
+    fig_df['days_old'] = [(date.today() - d).days for d in [dt.strptime(i, "%m/%d/%Y").date() for i in fig_df['date']]]
     print(fig_df)
 
     chart_data = []
@@ -144,9 +149,9 @@ def update(name1, name2, gender_choice):
         "Tie": 'orange'
     }
     unique_winners = list(fig_df['winner'].unique())
-    oldest_date = min(fig_df['dt_date'])
-    opacities = [age_opacity(i, oldest_date) for i in fig_df['dt_date']]
-    # think i should try plotly.express for this because for loop below is based on traces (unique winners / tie), not rows of fig_df
+
+    # think i should try plotly.express for this because for loop below is based on traces (unique winners / tie),
+    # not rows of fig_df
 
     for i in unique_winners:
         df = fig_df[fig_df['winner'] == i]
