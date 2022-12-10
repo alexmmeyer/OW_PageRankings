@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\athlete_data\Cheng-Chi Cho.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\athlete_data\Domenico Acerenza.csv">
           <value>
             <Attribute>
@@ -760,6 +767,13 @@
           </value>
         </entry>
         <entry key="\app_data\women\athlete_countries.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\athlete_data\Ana Marcela Cunha.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

@@ -136,7 +136,7 @@ def update_title(gender_choice, rank_date, comp_date):
         title_date = ''
         title_change = ''
     else:
-        title_main = f"{gender_choice}'s 10km Marathon Swimming World Rankingssssss"
+        title_main = f"{gender_choice}'s 10km Marathon Swimming World Rankings"
         title_main = title_main.upper()
         title_date = dt.strftime(dt.strptime(rank_date, "%Y-%m-%d"), "%d %B, %Y")
         formatted_comp_date = dt.strftime(dt.strptime(comp_date, "%Y-%m-%d"), "%d %B, %Y")
