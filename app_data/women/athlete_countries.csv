@@ -1,892 +1,882 @@
-﻿athlete_name,country,status,dob
-Cecilia Biagioli,ARG,Active,
-Barbara Pozzobon,ITA,Active,
-Alice Franco,ITA,Active,
-Daria Kulik,RUS,Active,
-Pilar Geijo,ARG,Active,
-Anna Mankevich,RUS,Active,
-Romina Soledad Imwinkelried,ARG,Active,
-Erika Yenssen,ARG,Active,
-Rita Vanesa Garcia,ARG,Active,
-Daira Marin,ARG,Active,
-Ilaria Raimondi,ITA,Active,
-Sharon Van Rouwendaal,NED,Active,
-Leonie Beck,GER,Active,
-Finnia Wunram,GER,Retired,
-Ana Marcela Cunha,BRA,Active,
-Martina De Memme,ITA,Active,
-Chelsea Gubecka,AUS,Active,
-Arianna Bridi,ITA,Active,
-Oceane Cassignol,FRA,Active,
-Rachele Bruni,ITA,Active,
-Giulia Gabbrielleschi,ITA,Active,
-Samantha Arevalo,ECU,Active,
-Lara Grangeon De Villele,FRA,Active,
-Kareena Lee,AUS,Active,
-Alice Dearing,GBR,Active,
-Adeline Furst,FRA,Active,
-Lisa Pou,FRA,Active,
-Anna Olasz,HUN,Active,
-Esmee Vermeulen,NED,Retired,
-Danielle Huskisson,GBR,Retired,
-Viviane Jungblut,BRA,Active,
-Yukimi Moriyama,JPN,Active,
-Angela Maurer,GER,Active,
-Lea Boy,GER,Active,
-Sarah Bosslet,GER,Active,
-Kalliopi Araouzou,GRE,Active,
-Paula Ruiz Bravo,ESP,Active,
-Stephanie Horner,CAN,Active,
-Mackenzie Brazier,AUS,Active,
-Jeannette Spiwoks,GER,Active,
-Minami Niikura,JPN,Active,
-Xin Xin,CHN,Active,
-Chloe Gubecka,AUS,Active,
-Souad Nefissa Cherouati,ALG,Active,
-Svenja Zihsler,GER,Active,
-Eva Bonnet,BEL,Active,
-Krystyna Panchishko,UKR,Active,
-Phoebe Louise Griffiths,GBR,Active,
-Ilona Maille,FRA,Active,
-Claire Six,FRA,Active,
-Siyu Yan,CHN,Active,
-Justyna Burska,POL,Active,
-Shan Lei,CHN,Active,
-Yumi Kida,JPN,Retired,
-Caroline Laure Jouisse,FRA,Active,
-Caiping Yang,CHN,Active,
-Michelle Weber,RSA,Active,
-Muran Tian,CHN,Active,
-Haley Anderson,USA,Retired,
-Chase Travis,USA,Active,
-Martina Grimaldi,ITA,Active,
-Maria De Valdes,ESP,Active,
-Fang Qu,CHN,Active,
-Maria Bramont-Arias,PER,Active,
-Ellen Olsson,SWE,Active,
-Maryna Kyryk,UKR,Active,
-Xu Chu,CHN,Active,
-Hannah Blackwood,NZL,Active,
-Angelica Andre,POR,Active,
-Melinda Novoszath,HUN,Active,
-Alena Benesova,CZE,Active,
-Onon Katalin Somenek,HUN,Active,
-Nikolett Szilagyi,HUN,Active,
-Eden Girloanta,ISR,Active,
-Adel Juhasz,HUN,Active,
-Reka Rohacs,HUN,Active,
-Luca Vas,HUN,Active,
-Greta Szilvasi,HUN,Active,
-Karolina Dubcakova,SVK,Active,
-Dana Khaled Abdelmoneim Akl,EGY,Active,
-Morgane Dornic,FRA,Active,
-Sabryna Lavoie,CAN,Active,
-Marie-Laurence Lortie,CAN,Active,
-Becca Mann,USA,Active,
-Nataly Caldas Calle,ECU,Active,
-Julia Arino,ARG,Active,
-Betina Lorscheitter,BRA,Active,
-Mahina Nicole Valdivia Dannenberg,CHI,Active,
-Stefannie Gillespie,NZL,Active,
-Andrea Terriault,CAN,Active,
-Mia Desjarlais,CAN,Active,
-Sandra Frimerman-Bergquist,USA,Active,
-Heidi Ullrich,CAN,Active,
-Dania Belisle,CAN,Active,
-Vasiliki Kadoglu,BUL,Active,
-Yawen Hou,CHN,Active,
-Fuwei Dong,CHN,Active,
-Mikayla Messer,AUS,Active,
-Sun Jia Sun,CHN,Active,
-Xiaoxiao Niu,CHN,Active,
-Ru Yi Yu,CHN,Active,
-Ci Chen,CHN,Active,
-Jia Yi Lu,CHN,Active,
-Tsz Yin Nip,HKG,Active,
-Jessica Lavin,AUS,Active,
-Katawan Teeka,THA,Active,
-Sheung Wai Ho,HKG,Active,
-Ka Ching Leung,HKG,Active,
-Paguypha Leelahanon,THA,Active,
-Neeranuch Ponglangka,THA,Active,
-Warisara Khaengkun,THA,Active,
-Aurelie Muller,FRA,Active,
-Sofia Kolesnikova,RUS,Active,
-Ane De La Fuente Fiano,ESP,Active,
-Valeriia Ermakova,RUS,Active,
-Carla Goyanes Garcia,ESP,Active,
-Cho Ying Wong,HKG,Active,
-Nada Osman,EGY,Active,
-Pac Tung Nikita Lam,HKG,Active,
-Kathriana Gustianjani,INA,Active,
-Martina Oriozabala,ARG,Active,
-Vicenia Navarro,VEN,Active,
-Hannah Moore,USA,Retired,
-Ashley Twichell,USA,Retired,
-Erica Sullivan,USA,Active,
-Katy Campbell,USA,Active,
-Mariah Denigan,USA,Active,
-Mira Szimcsak,HUN,Active,
-Yi-Chen Wang,TPE,Active,
-Aleyna Nur Sungur,TUR,Active,
-Hsin-Yi Fang,TPE,Active,
-Jordan White,AUS,Active,
-Polly Isabella Holden,GBR,Active,
-Madisyn Armstrong,AUS,Active,
-Luomeng Ren,CHN,Active,
-Aricia Peree,BRA,Active,
-Amica De Jager,RSA,Active,
-Sofie Frichot,SEY,Active,
-Maria Vilas,ESP,Active,
-Martha Aguilar Ortega,MEX,Active,
-Martha Sandoval,MEX,Active,
-Hitomi Okamura,JPN,Active,
-Aide Lourdes Sandoval Ayala,MEX,Active,
-Catia Iordan Agostinho,POR,Active,
-Mariana Mendes,POR,Active,
-Spela Perse,SLO,Active,
-Miriam Frass,GER,Active,
-Lenka Sterbova,CZE,Active,
-Janka Juhasz,HUN,Active,
-Adel Farkas,HUN,Active,
-Sarah Demicoli,MLT,Active,
-Dorka Betlehem,HUN,Active,
-Mariia Novikova,RUS,Active,
-Kate Farley Sanderson,CAN,Active,
-Eva Fabian,ISR,Active,
-Chantel Lily Jeffrey,CAN,Active,
-Liliana Hernandez,VEN,Active,
-Sandy Atef,EGY,Active,
-Paola Perez,VEN,Active,
-Robyn Kinghorn,RSA,Active,
-Maisie Emily Macartney,GBR,Active,
-Seonjae Ban,KOR,Active,
-Jeongmin Lee,KOR,Active,
-Mariya Fedotova,KAZ,Active,
-Yanci Vanegas,GUA,Active,
-Ana Abad,ECU,Active,
-Camila Mercado,BOL,Active,
-Merle Liivand,EST,Active,
-Genesis Rojas,CRC,Active,
-Anastasiia Krapivina,RUS,Active,
-Dayoun Lim,KOR,Active,
-Pimpun Choopong,THA,Active,
-Haeun Jung,KOR,Active,
-Fatima Flores,ESA,Active,
-Hita Nayak,IND,Active,
-Nikitha Setru Venugopal,IND,Active,
-Kenna Delaney Godfrey Smallegange,CAN,Active,
-Alexandra Bougie,CAN,Active,
-Gabrielle Savard,CLB,Active,
-Elise Bolger,CAN,Active,
-Julia Nina,BRA,Active,
-Ivana Prizmic,CRO,Active,
-Li-Shan Chantal Liew,SGP,Active,
-Yi Chen Hsieh,TPE,Active,
-Rui An Kuo,TPE,Active,
-Szu-An Chen,TPE,Active,
-Jie Chuan Tseng,TPE,Active,
-Ting Yu Chan,TPE,Active,
-Hannah Hang Fung Li,HKG,Active,
-Jiake Sun,CHN,Active,
-Jingcen Hao,CHN,Active,
-Nikita Lam Pac Tung,HKG,Active,
-Mafalda Rosa,POR,Active,
-Bianca Crisp,AUS,Active,
-Maria Claro Martinez,ESP,Active,
-Yumi Tou,JPN,Active,
-Hayley Pike,USA,Active,
-Runa Kasahara,JPN,Active,
-Silvia Ciccarella,ITA,Active,
-Celia Heurtaux,FRA,Active,
-Yuen Koike,JPN,Active,
-Petra Mijic,CRO,Active,
-Mia Yamamoto,JPN,Active,
-Lucie Zubalikova,CZE,Active,
-Leona Coha,CRO,Active,
-Isabella Sinisi,ITA,Active,
-Madelon Catteau,FRA,Active,
-Marie Kuntzmann,FRA,Active,
-Eleonora Brotto,ITA,Active,
-Milana Boldyreva,KAZ,Active,
-Anastasiia Kirpichnikova,RUS,Active,
-Johanna Enkner,AUT,Active,
-Maria Jose Mata Cocco,MEX,Active,
-Klaudia Tarasiewicz,POL,Active,
-Hania Moro,EGY,Active,
-Stephanie Houtman,RSA,Active,
-Samira-Svea Erhart,GER,Active,
-Sofie Callo,ITA,Active,
-Narin Burcunaz,TUR,Active,
-Tuna Erdogan,TUR,Active,
-Sophia Irem Iskenderoglu,TUR,Active,
-Sevim Eylul Supurgeci,TUR,Active,
-Ece Yildirim,TUR,Active,
-Merve Erdemir,TUR,Active,
-Ilgin Celik,TUR,Active,
-Doga Babacan,TUR,Active,
-Rebecca Talanti,ITA,Active,
-Nora Naessens,BEL,Active,
-Orian Gablan,ISR,Active,
-Guy Shlegel,ISR,Active,
-Serena Stel,NED,Active,
-Ginevra Taddeucci,ITA,Active,
-Elea Linka,GER,Active,
-Vivien Balogh,HUN,Active,
-Alisia Tettamanzi,ITA,Active,
-Katie Grimes,USA,Active,
-Sarah Kohler,GER,Active,
-Xiaoming Ma,CHN,Active,
-Yana Kurtseva,RUS,Active,
-Lean Cabon,FRA,Active,
-Kincso Gal,HUN,Active,
-Brooke Travis,USA,Active,
-Xeniya Romanchuk,KAZ,Active,
-Mathilde Herlem,FRA,Active,
-Holly Hibbott,GBR,Active,
-Diana Taszhanova,KAZ,Active,
-Mariia Bondarenko,UKR,Active,
-Irina Arkhipova,KAZ,Active,
-Poliana Okimoto Cintra,BRA,Active,
-Ophelie Aspord,FRA,Active,
-Emily Brunemann,USA,Active,
-Astridi Turbe,VEN,Active,
-Silvie Rybarova,CZE,Active,
-Karelis Del Carmen Clemant Materano,VEN,Active,
-Florencia Mazzei Villegas,ARG,Active,
-Esther Nunez Morera,ESP,Active,
-Stephanie Karin Romero Serwatka,ARG,Active,
-Mayte Puca,ARG,Active,
-María Celeste Puñet,ARG,Active,
-Keri-Anne Payne,GBR,Active,
-Eva Risztov,HUN,Active,
-Isabelle Harle,GER,Active,
-Anastasiia Azarova,RUS,Active,
-Heidi Gan,MAS,Active,
-Erika Villaecija,ESP,Active,
-Olga Kozydub,RUS,Active,
-Sarah Thompson,AUS,Active,
-Joanna Zachoszcz,POL,Active,
-Nikoletta Kiss,HUN,Active,
-Aygul Sagirova,RUS,Active,
-Mireia Belmonte,ESP,Active,
-Charlyne Secrestat,FRA,Active,
-Sophie Evans,GBR,Active,
-Jimena Perez Blanco,ESP,Active,
-Connie Mcclelland,AUS,Active,
-Reem Kaseem,EGY,Active,
-Fiona On Yi Chan,HKG,Active,
-Alessandra Colombini,AUS,Active,
-Sofiia Zubenko,UKR,Active,
-Hoi Man Lok,HKG,Active,
-Mariam Abdelrahman Elsayed Sakr,EGY,Active,
-Jana Pechanova,CZE,Active,
-Vania Neves,POR,Active,
-Jade Dusablon,CAN,Active,
-Kristel Kobrich,CHI,Active,
-Karla Sitic,CRO,Active,
-Charlotte Webby,NZL,Active,
-Zaira Cardenas,MEX,Active,
-Nilay Erkal,TUR,Active,
-Cherelle Tahnee Oestringer,SUI,Active,
-Carmen Le Roux,RSA,Active,
-Ecem Donmez,TUR,Active,
-Tiffany Wan Fung Lee,HKG,Active,
-Borbala Szalai,HUN,Active,
-Tali Lemcoff,ISR,Active,
-Jelena Jecanski,SRB,Active,
-Rotem Meirov,ISR,Active,
-Ekaterina Sorokina,RUS,Active,
-Julie Pleskotova,CZE,Active,
-Evan Giannopoulou Nefeli,GRE,Active,
-Laerke Toft Ruby,DEN,Active,
-Adi Peleg,ISR,Active,
-Agathe Henry,FRA,Active,
-Aimee Hood,GBR,Active,
-Alba Herrero Lazaro,ESP,Active,
-Alexane Cormier,FRA,Active,
-Alexia Bouteilly,FRA,Active,
-Alexia Saurel,FRA,Active,
-Alice Bataille,FRA,Active,
-Alisa Skorniakova,RUS,Active,
-Alissia Montebrun,FRA,Active,
-Alizée Marbais,FRA,Active,
-Alvarez Maria De Valdes,ESP,Active,
-Amelia Rodd,GBR,Active,
-Anais Jarraud,FRA,Active,
-Anastasia Basalduk,RUS,Active,
-Anastasiia Kostyleva,RUS,Active,
-Andrea Dominguez Casabella,ESP,Active,
-Clara Andreea Spanu,ROU,Active,
-Angela Martinez Guillen,ESP,Active,
-Angelina Kargaltseva,RUS,Active,
-Anita Metelnytskyy,ISR,Active,
-Anna Brendstrup,DEN,Active,
-Anna Egorova,RUS,Active,
-Anna Fave,FRA,Active,
-Anna Tymashenko,ISR,Active,
-Antonia Bulicic,CRO,Active,
-Arianna Valloni,SMR,Active,
-Aroa Silva Fidalgo,ESP,Active,
-Audrenn Foiny,FRA,Active,
-Audrey Robert,FRA,Active,
-Aurelie Holschneider,FRA,Active,
-Aurianne Regi,FRA,Active,
-Aurora Ponsele,ITA,Active,
-Avital Flishman,ISR,Active,
-Ayala Chudy,ISR,Active,
-Bar Goldin,ISR,Active,
-Blanka Berecz,HUN,Active,
-Annet Borsi,HUN,Active,
-Brooke Switzer,CAN,Active,
-Camille Bouteloup,FRA,Active,
-Camille Cottier,FRA,Active,
-Candela Sanchez Lora,ESP,Active,
-Carmen Mikusova,SVK,Active,
-Catherine Francis Van Rensburg,RSA,Active,
-Céleste Vereecke,FRA,Active,
-Charlotte Perrin,FRA,Active,
-Celine Weil,SUI,Active,
-Chloe Green,AUS,Active,
-Chloé Lisik,FRA,Active,
-Chloé Stutel,FRA,Active,
-Christine Ekman,SWE,Active,
-Claudia Giralt Pidemont,ESP,Active,
-Clémence Coccordano,FRA,Active,
-Coline Coraboeuf,FRA,Active,
-Daria Klimova,RUS,Active,
-Daria Volobueva,RUS,Active,
-Eden Botbol,ISR,Active,
-Eden Nimri,ISR,Active,
-Ekaterina Zotova,RUS,Active,
-Elea Perigueux,FRA,Active,
-Elise Houllier,FRA,Active,
-Elise Oeberg,SWE,Active,
-Elizaveta Anufrieva,RUS,Active,
-Ella Dyson,GBR,Active,
-Emili Seyevich,ISR,Active,
-Emilia Sansome,GBR,Active,
-Emilie Anne,FRA,Active,
-Emilie Cahuzac,FRA,Active,
-Emilie Sansome,GBR,Active,
-Emily Clarke,GBR,Active,
-Emily Golos,ISR,Active,
-Emma Bruneau,FRA,Active,
-Emma Calvo,FRA,Active,
-Emma Cocheteux,FRA,Active,
-Emma Fredersdorf,SUI,Active,
-Emma Lebre,FRA,Active,
-Emma Leu,AUT,Active,
-Emma Onolfo,FRA,Active,
-Esther Rydbeck Norden,SWE,Active,
-Eva Vilar Yebra,ESP,Active,
-Evdokia Kritikou,GRE,Active,
-Fatima Portillo,ESA,Active,
-Fraenzi Heinrich,GER,Active,
-Gabriela Martins Scrooby,RSA,Active,
-Gili Weltman,ISR,Active,
-Giulia Berton,ITA,Active,
-Giulia Salin,ITA,Active,
-Helena Hvid Hansen,DEN,Active,
-Helvina Huet,FRA,Active,
-Hilal Zeyneb Sarac,TUR,Active,
-Inbal Hazan,ISR,Active,
-Inès Idier,FRA,Active,
-Iris Menechini,ITA,Active,
-Ivana Nedelkovska,MKD,Active,
-Jackie Gade,DEN,Active,
-Jada Chatoor,TTO,Active,
-Janna De Vries Lize,NED,Active,
-Jannette Spiwoks,GER,Active,
-Jazmin Carlin,GBR,Active,
-Jess Booth,RSA,Active,
-Jnaka Juhasz,HUN,Active,
-Joanne Pladys,FRA,Active,
-Josephine Tesch,GER,Active,
-Jovana Nedelkovska,MKD,Active,
-Judith Navarro Silvestre,ESP,Active,
-Karolina Balazikova,SVK,Active,
-Kaylee De Jong,NED,Active,
-Kiara Barnes,RSA,Active,
-Lara Maria Hernandez Tome,ESP,Active,
-Laura Burycz,FRA,Active,
-Laura Rodriguez Santaularia,ESP,Active,
-Léa Cepeck,FRA,Active,
-Léa Dubois,FRA,Active,
-Leah Crisp,GBR,Active,
-Lia Arad,ISR,Active,
-Linda Ungerboeck,AUT,Active,
-Liane Muller,SUI,Active,
-Libi Sela,ISR,Active,
-Lilou Ambrass,FRA,Active,
-Lily Smith,FRA,Active,
-Lou Joly,FRA,Active,
-Lou-Anne Barniet,FRA,Active,
-Louise Culty,FRA,Active,
-Lucie Hanquet,BEL,Active,
-Lucie Sebestova,CZE,Active,
-Lucile Mouret,FRA,Active,
-Lucy Fox,GBR,Active,
-Maëlys Fardeau,FRA,Active,
-Maëlys Fourmy,FRA,Active,
-Maeve Garreau,FRA,Active,
-Maiana Flament,FRA,Active,
-Maina Guillemin,FRA,Active,
-Manoella Barbosa,FRA,Active,
-Margaux Bouteloup,FRA,Active,
-Margaux Guillaume,FRA,Active,
-Maria Babkina,RUS,Active,
-Marie-Amélie Henriet,FRA,Active,
-Marij Van Der Mast,NED,Active,
-Marina Castro Atalaya,ESP,Active,
-Marine Boudes,FRA,Active,
-Marion Joffle,FRA,Active,
-Marlene Blanke,GER,Active,
-Marta Garzon Siles,ESP,Active,
-Mathilde Lombard,FRA,Active,
-May Levy,ISR,Active,
-Megan De Wet,RSA,Active,
-Mélie Boulianne,FRA,Active,
-Mia Englender,ISR,Active,
-Moa Holmquist,SWE,Active,
-Mor Jacob,ISR,Active,
-Nadia Blaauw,RSA,Active,
-Nicole Oliva,USA,Active,
-Nina Mikhailova,RUS,Active,
-Noa Barderan,ISR,Active,
-Noah Bondouy,FRA,Active,
-Noga Baruch,ISR,Active,
-Nolwenn Nunes,FRA,Active,
-Norah Vigouroux,FRA,Active,
-Ofir Rabina,ISR,Active,
-Ofri Dueak,ISR,Active,
-Olivia Mascarin,FRA,Active,
-Ori Komemi,ISR,Active,
-Paolina Istomina,RUS,Active,
-Paula Otero Fernandez,ESP,Active,
-Pauline Dauvin,FRA,Active,
-Pavlina Soukupova,CZE,Active,
-Perrine Courbet,FRA,Active,
-Polina Kharitonova,RUS,Active,
-Polina Yuzofenko,UKR,Active,
-Reka Fehervari,HUN,Active,
-Rosalie Levesque Pero,CAN,Active,
-Sara Veress,HUN,Active,
-Sarah Moreau,FRA,Active,
-Scarlett Botes,RSA,Active,
-Shelly Dekel,ISR,Active,
-Sherine Bouftini,FRA,Active,
-Shira Elbazis,ISR,Active,
-Shira Golcman,ISR,Active,
-Shira Kedem,ISR,Active,
-Shiri Yamin,ISR,Active,
-Sofia Vakhrusheva,RUS,Active,
-Solene Cousseau,FRA,Active,
-Stav Siminchi,ISR,Active,
-Sude Nur Sucan,TUR,Active,
-Tal Ashkenazi,ISR,Active,
-Tamar Delmonte,ISR,Active,
-Tamarrachel Nahmanny,ISR,Active,
-Valentina Barbosa,FRA,Active,
-Varvara Pogorelova,RUS,Active,
-Veronica Santoni,ITA,Active,
-Veronika Nikulina,RUS,Active,
-Veronika Petrekova,CZE,Active,
-Veronika Volikov,ISR,Active,
-Vivien Nett,HUN,Active,
-Yael Ravid,ISR,Active,
-Yakut Ayse Yaprak,TUR,Active,
-Yarden Harel,ISR,Active,
-Yuval Natan,ISR,Active,
-Zsofia Varga,HUN,Active,
-Breanne Emma Joan Siwicki,CAN,Active,
-Lauren Teghtsoonian,CAN,Active,
-Leonie Van Noort,NED,Active,
-Victoria Mock,CAN,Active,
-Angelica Astorga,CRC,Active,
-Anne-Catherine Savaria,CAN,Active,
-Dina Levacic,CRO,Active,
-Victoria Mori,ARG,Active,
-Elena Lionello,ITA,Active,
-Catalina Berraud,ARG,Active,
-Daphnée Demers,CAN,Active,
-Hannah Riordan,CAN,Active,
-Sara E Holman,USA,Active,
-Gwenaelle Plonquet-Thibault,CAN,Active,
-Rosalie Levesque-Pero,CAN,Active,
-Mary E Holman,USA,Active,
-Dandan Yang,CHN,Active,
-Xiaolin Yang,CHN,Active,
-Shiyue Cao,CHN,Active,
-Honoka Hasegawa,JPN,Active,
-Ming Yu Claudia Wong,HKG,Active,
-Taylor Pike,USA,Active,
-Lee Tiffany Wan Fung,HKG,Active,
-Shih-Han Su,TPE,Active,
-Fabiana Lamberti,ITA,Active,
-Catarina Ganyeuli,BRA,Active,
-Judith Navarro Silvestre,ESP,Active,
-Lila Langlais,FRA,Active,
-Inis Idier,FRA,Active,
-Celeste Vereecke,FRA,Active,
-Hanna Bakuniak,POL,Active,
-Jill Reich,SUI,Active,
-Kiah Melverton,AUS,Active,
-Martina Rita Caramignoli,ITA,Active,
-Chaya Simone Zabludoff,ISR,Active,
-Ruthseli Guadalupe Aponte Teran,VEN,Active,
-Heba Elkhouly,EGY,Active,
-Patricia Guerrero,ECU,Active,
-Nina Rakhimova,KAZ,Active,
-Raquel Duran,CRC,Active,
-Cindy Toscano,GUA,Active,
-Doris Beros,CRO,Active,
-Sasha-Lee Nordengen-Corris,RSA,Active,
-Cathryn Salladin,USA,Active,
-Caitlin Nolan,CAN,Active,
-Antonija Bulicic,CRO,Active,
-Catarina Cucatti Ganzeli,BRA,Active,
-Jazmin Carlin,GBR,Active,
-Marit Anderson,CAN,Active,
-Isabella Rongione,USA,Active,
-Maggie Wallace,USA,Active,
-Cho Yiu Kwok,HKG,Active,
-Maria Romero,ESP,Active,
-Alba Romero,ESP,Active,
-Agueda Cons,ESP,Active,
-Paula Goyanes,ESP,Active,
-Judith Navarro Silvestre,ESP,Active,
-Franzi Heinrich,GER,Active,
-Claudia Giralt Pidemont,ESP,Active,
-Emma Wael,DEN,Active,
-Dora Sztankovics,HUN,Active,
-Fanni Kun-Szabo,HUN,Active,
-Laura Dressayre,FRA,Active,
-Morgane Garcia,FRA,Active,
-Ines Idier,FRA,Active,
-Charline Mace,FRA,Active,
-Rachel Wothrich,SUI,Active,
-Omer Shwartz,ISR,Active,
-Ofek Adir,ISR,Active,
-Bekky Pozdner,ISR,Active,
-Eden Goldenberg,ISR,Active,
-Alessia Ossoli,ITA,Active,
-Clemence Coccordano,FRA,Active,
-Emma Micheletti,ITA,Active,
-Talya Erdogan,TUR,Active,
-Federica Senatore,ITA,Active,
-Elena Tortora,ITA,Active,
-Renata Vigano,ITA,Active,
-Anna Masetti,ITA,Active,
-Ines Delacroix,FRA,Active,
-Letizia Baldessari,ITA,Active,
-Erica Tommassini,ITA,Active,
-Ludovica Lugli,ITA,Active,
-Candice Foix,FRA,Active,
-Giorgia Gosetto,ITA,Active,
-Sara Petrolli,ITA,Active,
-Apolline Gallant,FRA,Active,
-Elena Pavan,ITA,Active,
-Marina Triantafyllidi,GRE,Active,
-Hazel Bentley,IRL,Active,
-Summer Smith,USA,Active,
-Kensey Mcmahon,USA,Active,
-Cibelle Jungblut,BRA,Active,
-Anna Auld,USA,Active,
-Moesha Johnson,AUS,Active,
-Airi Ebina,JPN,Active,
-Finella Gibbs-Beal,AUS,Active,
-Emma Finlin,CAN,Active,
-Abby Dunford,CAN,Active,
-Isabella Babbitt,ECU,Active,
-Ruby Heath,NZL,Active,
-Citlalli Montserrat Mora Olivares,MEX,Active,
-Jinha Kim,KOR,Active,
-Leandra Torres,PUR,Active,
-Candice Ruo Han Ang,SGP,Active,
-Sofia Guevara,ECU,Active,
-Alondra Itzel Quiles,PUR,Active,
-Maria Porres,GUA,Active,
-Maiza Cardozo,URU,Active,
-Therese Soukup,SEY,Active,
-Candela Giordanino,ARG,Active,
-Katrina Bellio,CAN,Active,
-Yu-Wen Teng,TPE,Active,
-Paulina Alanis Hernandez,MEX,Active,
-Hae Rim Lee,KOR,Active,
-Jungju Park,KOR,Active,
-Jocelyn Bermeo,ECU,Active,
-Samantha Yeo,SGP,Active,
-Natwara Bavornsukseri,THA,Active,
-Hanano Kato,JPN,Active,
-Hanyu Cheng,CHN,Active,
-Kexin Wang,CHN,Active,
-Candela Sanchez Lora,ESP,Active,
-Jacqueline Davison-Mcgovern,AUS,Active,
-Emma Fredersdorf,SUI,Active,
-Ilektra Varvara Lebl,GRE,Active,
-Katja Fain,SLO,Active,
-Fleur Lewis,CZE,Active,
-Kennedy Denby,MKD,Active,
-Livia Kingsland,SRB,Active,
-Divna Simsic,GRE,Active,
-Sofie Callo Von Platen,ITA,Active,
-Megan Frost,CAN,Active,
-Megan Willar,CAN,Active,
-Lara Seifert,GER,Active,
-Mariia Horodnia,UKR,Active,
-Madison Emment,GBR,Active,
-Bettina Fábián,HUN,Active,
-Lia Csulak,HUN,Active,
-Matea Sumajstorcic,CRO,Active,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-end,,,
+﻿athlete_name,country,status,dob,count
+Cecilia Biagioli,ARG,Active,,1
+Barbara Pozzobon,ITA,Active,,1
+Alice Franco,ITA,Active,,1
+Daria Kulik,RUS,Active,,1
+Pilar Geijo,ARG,Active,,1
+Anna Mankevich,RUS,Active,,1
+Romina Soledad Imwinkelried,ARG,Active,,1
+Erika Yenssen,ARG,Active,,1
+Rita Vanesa Garcia,ARG,Active,,1
+Daira Marin,ARG,Active,,1
+Ilaria Raimondi,ITA,Active,,1
+Sharon Van Rouwendaal,NED,Active,,1
+Leonie Beck,GER,Active,,1
+Finnia Wunram,GER,Retired,,1
+Ana Marcela Cunha,BRA,Active,,1
+Martina De Memme,ITA,Active,,1
+Chelsea Gubecka,AUS,Active,,1
+Arianna Bridi,ITA,Active,,1
+Oceane Cassignol,FRA,Active,,1
+Rachele Bruni,ITA,Active,,1
+Giulia Gabbrielleschi,ITA,Active,,1
+Samantha Arevalo,ECU,Active,,1
+Lara Grangeon De Villele,FRA,Active,,1
+Kareena Lee,AUS,Active,,1
+Alice Dearing,GBR,Active,,1
+Adeline Furst,FRA,Active,,1
+Lisa Pou,FRA,Active,,1
+Anna Olasz,HUN,Active,,1
+Esmee Vermeulen,NED,Retired,,1
+Danielle Huskisson,GBR,Retired,,1
+Viviane Jungblut,BRA,Active,,1
+Yukimi Moriyama,JPN,Active,,1
+Angela Maurer,GER,Active,,1
+Lea Boy,GER,Active,,1
+Sarah Bosslet,GER,Active,,1
+Kalliopi Araouzou,GRE,Active,,1
+Paula Ruiz Bravo,ESP,Active,,1
+Stephanie Horner,CAN,Active,,1
+Mackenzie Brazier,AUS,Active,,1
+Jeannette Spiwoks,GER,Active,,1
+Minami Niikura,JPN,Active,,1
+Xin Xin,CHN,Active,,1
+Chloe Gubecka,AUS,Active,,1
+Souad Nefissa Cherouati,ALG,Active,,1
+Svenja Zihsler,GER,Active,,1
+Eva Bonnet,BEL,Active,,1
+Krystyna Panchishko,UKR,Active,,1
+Phoebe Louise Griffiths,GBR,Active,,1
+Ilona Maille,FRA,Active,,1
+Claire Six,FRA,Active,,1
+Siyu Yan,CHN,Active,,1
+Justyna Burska,POL,Active,,1
+Shan Lei,CHN,Active,,1
+Yumi Kida,JPN,Retired,,1
+Caroline Laure Jouisse,FRA,Active,,1
+Caiping Yang,CHN,Active,,1
+Michelle Weber,RSA,Active,,1
+Muran Tian,CHN,Active,,1
+Haley Anderson,USA,Retired,,1
+Chase Travis,USA,Active,,1
+Martina Grimaldi,ITA,Active,,1
+Maria De Valdes,ESP,Active,,1
+Fang Qu,CHN,Active,,1
+Maria Bramont-Arias,PER,Active,,1
+Ellen Olsson,SWE,Active,,1
+Maryna Kyryk,UKR,Active,,1
+Xu Chu,CHN,Active,,1
+Hannah Blackwood,NZL,Active,,1
+Angelica Andre,POR,Active,,1
+Melinda Novoszath,HUN,Active,,1
+Alena Benesova,CZE,Active,,1
+Onon Katalin Somenek,HUN,Active,,1
+Nikolett Szilagyi,HUN,Active,,1
+Eden Girloanta,ISR,Active,,1
+Adel Juhasz,HUN,Active,,1
+Reka Rohacs,HUN,Active,,1
+Luca Vas,HUN,Active,,1
+Greta Szilvasi,HUN,Active,,1
+Karolina Dubcakova,SVK,Active,,1
+Dana Khaled Abdelmoneim Akl,EGY,Active,,1
+Morgane Dornic,FRA,Active,,1
+Sabryna Lavoie,CAN,Active,,1
+Marie-Laurence Lortie,CAN,Active,,1
+Becca Mann,USA,Active,,1
+Nataly Caldas Calle,ECU,Active,,1
+Julia Arino,ARG,Active,,1
+Betina Lorscheitter,BRA,Active,,1
+Mahina Nicole Valdivia Dannenberg,CHI,Active,,1
+Stefannie Gillespie,NZL,Active,,1
+Andrea Terriault,CAN,Active,,1
+Mia Desjarlais,CAN,Active,,1
+Sandra Frimerman-Bergquist,USA,Active,,1
+Heidi Ullrich,CAN,Active,,1
+Dania Belisle,CAN,Active,,1
+Vasiliki Kadoglu,BUL,Active,,1
+Yawen Hou,CHN,Active,,1
+Fuwei Dong,CHN,Active,,1
+Mikayla Messer,AUS,Active,,1
+Sun Jia Sun,CHN,Active,,1
+Xiaoxiao Niu,CHN,Active,,1
+Ru Yi Yu,CHN,Active,,1
+Ci Chen,CHN,Active,,1
+Jia Yi Lu,CHN,Active,,1
+Tsz Yin Nip,HKG,Active,,1
+Jessica Lavin,AUS,Active,,1
+Katawan Teeka,THA,Active,,1
+Sheung Wai Ho,HKG,Active,,1
+Ka Ching Leung,HKG,Active,,1
+Paguypha Leelahanon,THA,Active,,1
+Neeranuch Ponglangka,THA,Active,,1
+Warisara Khaengkun,THA,Active,,1
+Aurelie Muller,FRA,Active,,1
+Sofia Kolesnikova,RUS,Active,,1
+Ane De La Fuente Fiano,ESP,Active,,1
+Valeriia Ermakova,RUS,Active,,1
+Carla Goyanes Garcia,ESP,Active,,1
+Cho Ying Wong,HKG,Active,,1
+Nada Osman,EGY,Active,,1
+Pac Tung Nikita Lam,HKG,Active,,1
+Kathriana Gustianjani,INA,Active,,1
+Martina Oriozabala,ARG,Active,,1
+Vicenia Navarro,VEN,Active,,1
+Hannah Moore,USA,Retired,,1
+Ashley Twichell,USA,Retired,,1
+Erica Sullivan,USA,Active,,1
+Katy Campbell,USA,Active,,1
+Mariah Denigan,USA,Active,,1
+Mira Szimcsak,HUN,Active,,1
+Yi-Chen Wang,TPE,Active,,1
+Aleyna Nur Sungur,TUR,Active,,1
+Hsin-Yi Fang,TPE,Active,,1
+Jordan White,AUS,Active,,1
+Polly Isabella Holden,GBR,Active,,1
+Madisyn Armstrong,AUS,Active,,1
+Luomeng Ren,CHN,Active,,1
+Aricia Peree,BRA,Active,,1
+Amica De Jager,RSA,Active,,1
+Sofie Frichot,SEY,Active,,1
+Maria Vilas,ESP,Active,,1
+Martha Aguilar Ortega,MEX,Active,,1
+Martha Sandoval,MEX,Active,,1
+Hitomi Okamura,JPN,Active,,1
+Aide Lourdes Sandoval Ayala,MEX,Active,,1
+Catia Iordan Agostinho,POR,Active,,1
+Mariana Mendes,POR,Active,,1
+Spela Perse,SLO,Active,,1
+Miriam Frass,GER,Active,,1
+Lenka Sterbova,CZE,Active,,1
+Janka Juhasz,HUN,Active,,1
+Adel Farkas,HUN,Active,,1
+Sarah Demicoli,MLT,Active,,1
+Dorka Betlehem,HUN,Active,,1
+Mariia Novikova,RUS,Active,,1
+Kate Farley Sanderson,CAN,Active,,1
+Eva Fabian,ISR,Active,,1
+Chantel Lily Jeffrey,CAN,Active,,1
+Liliana Hernandez,VEN,Active,,1
+Sandy Atef,EGY,Active,,1
+Paola Perez,VEN,Active,,1
+Robyn Kinghorn,RSA,Active,,1
+Maisie Emily Macartney,GBR,Active,,1
+Seonjae Ban,KOR,Active,,1
+Jeongmin Lee,KOR,Active,,1
+Mariya Fedotova,KAZ,Active,,1
+Yanci Vanegas,GUA,Active,,1
+Ana Abad,ECU,Active,,1
+Camila Mercado,BOL,Active,,1
+Merle Liivand,EST,Active,,1
+Genesis Rojas,CRC,Active,,1
+Anastasiia Krapivina,RUS,Active,,1
+Dayoun Lim,KOR,Active,,1
+Pimpun Choopong,THA,Active,,1
+Haeun Jung,KOR,Active,,1
+Fatima Flores,ESA,Active,,1
+Hita Nayak,IND,Active,,1
+Nikitha Setru Venugopal,IND,Active,,1
+Kenna Delaney Godfrey Smallegange,CAN,Active,,1
+Alexandra Bougie,CAN,Active,,1
+Gabrielle Savard,CLB,Active,,1
+Elise Bolger,CAN,Active,,1
+Julia Nina,BRA,Active,,1
+Ivana Prizmic,CRO,Active,,1
+Li-Shan Chantal Liew,SGP,Active,,1
+Yi Chen Hsieh,TPE,Active,,1
+Rui An Kuo,TPE,Active,,1
+Szu-An Chen,TPE,Active,,1
+Jie Chuan Tseng,TPE,Active,,1
+Ting Yu Chan,TPE,Active,,1
+Hannah Hang Fung Li,HKG,Active,,1
+Jiake Sun,CHN,Active,,1
+Jingcen Hao,CHN,Active,,1
+Nikita Lam Pac Tung,HKG,Active,,1
+Mafalda Rosa,POR,Active,,1
+Bianca Crisp,AUS,Active,,1
+Maria Claro Martinez,ESP,Active,,1
+Yumi Tou,JPN,Active,,1
+Hayley Pike,USA,Active,,1
+Runa Kasahara,JPN,Active,,1
+Silvia Ciccarella,ITA,Active,,1
+Celia Heurtaux,FRA,Active,,1
+Yuen Koike,JPN,Active,,1
+Petra Mijic,CRO,Active,,1
+Mia Yamamoto,JPN,Active,,1
+Lucie Zubalikova,CZE,Active,,1
+Leona Coha,CRO,Active,,1
+Isabella Sinisi,ITA,Active,,1
+Madelon Catteau,FRA,Active,,1
+Marie Kuntzmann,FRA,Active,,1
+Eleonora Brotto,ITA,Active,,1
+Milana Boldyreva,KAZ,Active,,1
+Anastasiia Kirpichnikova,RUS,Active,,1
+Johanna Enkner,AUT,Active,,1
+Maria Jose Mata Cocco,MEX,Active,,1
+Klaudia Tarasiewicz,POL,Active,,1
+Hania Moro,EGY,Active,,1
+Stephanie Houtman,RSA,Active,,1
+Samira-Svea Erhart,GER,Active,,1
+Sofie Callo,ITA,Active,,1
+Narin Burcunaz,TUR,Active,,1
+Tuna Erdogan,TUR,Active,,1
+Sophia Irem Iskenderoglu,TUR,Active,,1
+Sevim Eylul Supurgeci,TUR,Active,,1
+Ece Yildirim,TUR,Active,,1
+Merve Erdemir,TUR,Active,,1
+Ilgin Celik,TUR,Active,,1
+Doga Babacan,TUR,Active,,1
+Rebecca Talanti,ITA,Active,,1
+Nora Naessens,BEL,Active,,1
+Orian Gablan,ISR,Active,,1
+Guy Shlegel,ISR,Active,,1
+Serena Stel,NED,Active,,1
+Ginevra Taddeucci,ITA,Active,,1
+Elea Linka,GER,Active,,1
+Vivien Balogh,HUN,Active,,1
+Alisia Tettamanzi,ITA,Active,,1
+Katie Grimes,USA,Active,,1
+Sarah Kohler,GER,Active,,1
+Xiaoming Ma,CHN,Active,,1
+Yana Kurtseva,RUS,Active,,1
+Lean Cabon,FRA,Active,,1
+Kincso Gal,HUN,Active,,1
+Brooke Travis,USA,Active,,1
+Xeniya Romanchuk,KAZ,Active,,1
+Mathilde Herlem,FRA,Active,,1
+Holly Hibbott,GBR,Active,,1
+Diana Taszhanova,KAZ,Active,,1
+Mariia Bondarenko,UKR,Active,,1
+Irina Arkhipova,KAZ,Active,,1
+Poliana Okimoto Cintra,BRA,Active,,1
+Ophelie Aspord,FRA,Active,,1
+Emily Brunemann,USA,Active,,1
+Astridi Turbe,VEN,Active,,1
+Silvie Rybarova,CZE,Active,,1
+Karelis Del Carmen Clemant Materano,VEN,Active,,1
+Florencia Mazzei Villegas,ARG,Active,,1
+Esther Nunez Morera,ESP,Active,,1
+Stephanie Karin Romero Serwatka,ARG,Active,,1
+Mayte Puca,ARG,Active,,1
+María Celeste Puñet,ARG,Active,,1
+Keri-Anne Payne,GBR,Active,,1
+Eva Risztov,HUN,Active,,1
+Isabelle Harle,GER,Active,,1
+Anastasiia Azarova,RUS,Active,,1
+Heidi Gan,MAS,Active,,1
+Erika Villaecija,ESP,Active,,1
+Olga Kozydub,RUS,Active,,1
+Sarah Thompson,AUS,Active,,1
+Joanna Zachoszcz,POL,Active,,1
+Nikoletta Kiss,HUN,Active,,1
+Aygul Sagirova,RUS,Active,,1
+Mireia Belmonte,ESP,Active,,1
+Charlyne Secrestat,FRA,Active,,1
+Sophie Evans,GBR,Active,,1
+Jimena Perez Blanco,ESP,Active,,1
+Connie Mcclelland,AUS,Active,,1
+Reem Kaseem,EGY,Active,,1
+Fiona On Yi Chan,HKG,Active,,1
+Alessandra Colombini,AUS,Active,,1
+Sofiia Zubenko,UKR,Active,,1
+Hoi Man Lok,HKG,Active,,1
+Mariam Abdelrahman Elsayed Sakr,EGY,Active,,1
+Jana Pechanova,CZE,Active,,1
+Vania Neves,POR,Active,,1
+Jade Dusablon,CAN,Active,,1
+Kristel Kobrich,CHI,Active,,1
+Karla Sitic,CRO,Active,,1
+Charlotte Webby,NZL,Active,,1
+Zaira Cardenas,MEX,Active,,1
+Nilay Erkal,TUR,Active,,1
+Cherelle Tahnee Oestringer,SUI,Active,,1
+Carmen Le Roux,RSA,Active,,1
+Ecem Donmez,TUR,Active,,1
+Tiffany Wan Fung Lee,HKG,Active,,1
+Borbala Szalai,HUN,Active,,1
+Tali Lemcoff,ISR,Active,,1
+Jelena Jecanski,SRB,Active,,1
+Rotem Meirov,ISR,Active,,1
+Ekaterina Sorokina,RUS,Active,,1
+Julie Pleskotova,CZE,Active,,1
+Evan Giannopoulou Nefeli,GRE,Active,,1
+Laerke Toft Ruby,DEN,Active,,1
+Adi Peleg,ISR,Active,,1
+Agathe Henry,FRA,Active,,1
+Aimee Hood,GBR,Active,,1
+Alba Herrero Lazaro,ESP,Active,,1
+Alexane Cormier,FRA,Active,,1
+Alexia Bouteilly,FRA,Active,,1
+Alexia Saurel,FRA,Active,,1
+Alice Bataille,FRA,Active,,1
+Alisa Skorniakova,RUS,Active,,1
+Alissia Montebrun,FRA,Active,,1
+Alizée Marbais,FRA,Active,,1
+Alvarez Maria De Valdes,ESP,Active,,1
+Amelia Rodd,GBR,Active,,1
+Anais Jarraud,FRA,Active,,1
+Anastasia Basalduk,RUS,Active,,1
+Anastasiia Kostyleva,RUS,Active,,1
+Andrea Dominguez Casabella,ESP,Active,,1
+Clara Andreea Spanu,ROU,Active,,1
+Angela Martinez Guillen,ESP,Active,,1
+Angelina Kargaltseva,RUS,Active,,1
+Anita Metelnytskyy,ISR,Active,,1
+Anna Brendstrup,DEN,Active,,1
+Anna Egorova,RUS,Active,,1
+Anna Fave,FRA,Active,,1
+Anna Tymashenko,ISR,Active,,1
+Antonia Bulicic,CRO,Active,,1
+Arianna Valloni,SMR,Active,,1
+Aroa Silva Fidalgo,ESP,Active,,1
+Audrenn Foiny,FRA,Active,,1
+Audrey Robert,FRA,Active,,1
+Aurelie Holschneider,FRA,Active,,1
+Aurianne Regi,FRA,Active,,1
+Aurora Ponsele,ITA,Active,,1
+Avital Flishman,ISR,Active,,1
+Ayala Chudy,ISR,Active,,1
+Bar Goldin,ISR,Active,,1
+Blanka Berecz,HUN,Active,,1
+Annet Borsi,HUN,Active,,1
+Brooke Switzer,CAN,Active,,1
+Camille Bouteloup,FRA,Active,,1
+Camille Cottier,FRA,Active,,1
+Carmen Mikusova,SVK,Active,,1
+Catherine Francis Van Rensburg,RSA,Active,,1
+Céleste Vereecke,FRA,Active,,1
+Charlotte Perrin,FRA,Active,,1
+Celine Weil,SUI,Active,,1
+Chloe Green,AUS,Active,,1
+Chloé Lisik,FRA,Active,,1
+Chloé Stutel,FRA,Active,,1
+Christine Ekman,SWE,Active,,1
+Clémence Coccordano,FRA,Active,,1
+Coline Coraboeuf,FRA,Active,,1
+Daria Klimova,RUS,Active,,1
+Daria Volobueva,RUS,Active,,1
+Eden Botbol,ISR,Active,,1
+Eden Nimri,ISR,Active,,1
+Ekaterina Zotova,RUS,Active,,1
+Elea Perigueux,FRA,Active,,1
+Elise Houllier,FRA,Active,,1
+Elise Oeberg,SWE,Active,,1
+Elizaveta Anufrieva,RUS,Active,,1
+Ella Dyson,GBR,Active,,1
+Emili Seyevich,ISR,Active,,1
+Emilia Sansome,GBR,Active,,1
+Emilie Anne,FRA,Active,,1
+Emilie Cahuzac,FRA,Active,,1
+Emilie Sansome,GBR,Active,,1
+Emily Clarke,GBR,Active,,1
+Emily Golos,ISR,Active,,1
+Emma Bruneau,FRA,Active,,1
+Emma Calvo,FRA,Active,,1
+Emma Cocheteux,FRA,Active,,1
+Emma Lebre,FRA,Active,,1
+Emma Leu,AUT,Active,,1
+Emma Onolfo,FRA,Active,,1
+Esther Rydbeck Norden,SWE,Active,,1
+Eva Vilar Yebra,ESP,Active,,1
+Evdokia Kritikou,GRE,Active,,1
+Fatima Portillo,ESA,Active,,1
+Fraenzi Heinrich,GER,Active,,1
+Gabriela Martins Scrooby,RSA,Active,,1
+Gili Weltman,ISR,Active,,1
+Giulia Berton,ITA,Active,,1
+Giulia Salin,ITA,Active,,1
+Helena Hvid Hansen,DEN,Active,,1
+Helvina Huet,FRA,Active,,1
+Hilal Zeyneb Sarac,TUR,Active,,1
+Inbal Hazan,ISR,Active,,1
+Inès Idier,FRA,Active,,1
+Iris Menechini,ITA,Active,,1
+Ivana Nedelkovska,MKD,Active,,1
+Jackie Gade,DEN,Active,,1
+Jada Chatoor,TTO,Active,,1
+Janna De Vries Lize,NED,Active,,1
+Jannette Spiwoks,GER,Active,,1
+Jess Booth,RSA,Active,,1
+Jnaka Juhasz,HUN,Active,,1
+Joanne Pladys,FRA,Active,,1
+Josephine Tesch,GER,Active,,1
+Jovana Nedelkovska,MKD,Active,,1
+Karolina Balazikova,SVK,Active,,1
+Kaylee De Jong,NED,Active,,1
+Kiara Barnes,RSA,Active,,1
+Lara Maria Hernandez Tome,ESP,Active,,1
+Laura Burycz,FRA,Active,,1
+Laura Rodriguez Santaularia,ESP,Active,,1
+Léa Cepeck,FRA,Active,,1
+Léa Dubois,FRA,Active,,1
+Leah Crisp,GBR,Active,,1
+Lia Arad,ISR,Active,,1
+Linda Ungerboeck,AUT,Active,,1
+Liane Muller,SUI,Active,,1
+Libi Sela,ISR,Active,,1
+Lilou Ambrass,FRA,Active,,1
+Lily Smith,FRA,Active,,1
+Lou Joly,FRA,Active,,1
+Lou-Anne Barniet,FRA,Active,,1
+Louise Culty,FRA,Active,,1
+Lucie Hanquet,BEL,Active,,1
+Lucie Sebestova,CZE,Active,,1
+Lucile Mouret,FRA,Active,,1
+Lucy Fox,GBR,Active,,1
+Maëlys Fardeau,FRA,Active,,1
+Maëlys Fourmy,FRA,Active,,1
+Maeve Garreau,FRA,Active,,1
+Maiana Flament,FRA,Active,,1
+Maina Guillemin,FRA,Active,,1
+Manoella Barbosa,FRA,Active,,1
+Margaux Bouteloup,FRA,Active,,1
+Margaux Guillaume,FRA,Active,,1
+Maria Babkina,RUS,Active,,1
+Marie-Amélie Henriet,FRA,Active,,1
+Marij Van Der Mast,NED,Active,,1
+Marina Castro Atalaya,ESP,Active,,1
+Marine Boudes,FRA,Active,,1
+Marion Joffle,FRA,Active,,1
+Marlene Blanke,GER,Active,,1
+Marta Garzon Siles,ESP,Active,,1
+Mathilde Lombard,FRA,Active,,1
+May Levy,ISR,Active,,1
+Megan De Wet,RSA,Active,,1
+Mélie Boulianne,FRA,Active,,1
+Mia Englender,ISR,Active,,1
+Moa Holmquist,SWE,Active,,1
+Mor Jacob,ISR,Active,,1
+Nadia Blaauw,RSA,Active,,1
+Nicole Oliva,USA,Active,,1
+Nina Mikhailova,RUS,Active,,1
+Noa Barderan,ISR,Active,,1
+Noah Bondouy,FRA,Active,,1
+Noga Baruch,ISR,Active,,1
+Nolwenn Nunes,FRA,Active,,1
+Norah Vigouroux,FRA,Active,,1
+Ofir Rabina,ISR,Active,,1
+Ofri Dueak,ISR,Active,,1
+Olivia Mascarin,FRA,Active,,1
+Ori Komemi,ISR,Active,,1
+Paolina Istomina,RUS,Active,,1
+Paula Otero Fernandez,ESP,Active,,1
+Pauline Dauvin,FRA,Active,,1
+Pavlina Soukupova,CZE,Active,,1
+Perrine Courbet,FRA,Active,,1
+Polina Kharitonova,RUS,Active,,1
+Polina Yuzofenko,UKR,Active,,1
+Reka Fehervari,HUN,Active,,1
+Rosalie Levesque Pero,CAN,Active,,1
+Sara Veress,HUN,Active,,1
+Sarah Moreau,FRA,Active,,1
+Scarlett Botes,RSA,Active,,1
+Shelly Dekel,ISR,Active,,1
+Sherine Bouftini,FRA,Active,,1
+Shira Elbazis,ISR,Active,,1
+Shira Golcman,ISR,Active,,1
+Shira Kedem,ISR,Active,,1
+Shiri Yamin,ISR,Active,,1
+Sofia Vakhrusheva,RUS,Active,,1
+Solene Cousseau,FRA,Active,,1
+Stav Siminchi,ISR,Active,,1
+Sude Nur Sucan,TUR,Active,,1
+Tal Ashkenazi,ISR,Active,,1
+Tamar Delmonte,ISR,Active,,1
+Tamarrachel Nahmanny,ISR,Active,,1
+Valentina Barbosa,FRA,Active,,1
+Varvara Pogorelova,RUS,Active,,1
+Veronica Santoni,ITA,Active,,1
+Veronika Nikulina,RUS,Active,,1
+Veronika Petrekova,CZE,Active,,1
+Veronika Volikov,ISR,Active,,1
+Vivien Nett,HUN,Active,,1
+Yael Ravid,ISR,Active,,1
+Yakut Ayse Yaprak,TUR,Active,,1
+Yarden Harel,ISR,Active,,1
+Yuval Natan,ISR,Active,,1
+Zsofia Varga,HUN,Active,,1
+Breanne Emma Joan Siwicki,CAN,Active,,1
+Lauren Teghtsoonian,CAN,Active,,1
+Leonie Van Noort,NED,Active,,1
+Victoria Mock,CAN,Active,,1
+Angelica Astorga,CRC,Active,,1
+Anne-Catherine Savaria,CAN,Active,,1
+Dina Levacic,CRO,Active,,1
+Victoria Mori,ARG,Active,,1
+Elena Lionello,ITA,Active,,1
+Catalina Berraud,ARG,Active,,1
+Daphnée Demers,CAN,Active,,1
+Hannah Riordan,CAN,Active,,1
+Sara E Holman,USA,Active,,1
+Gwenaelle Plonquet-Thibault,CAN,Active,,1
+Rosalie Levesque-Pero,CAN,Active,,1
+Mary E Holman,USA,Active,,1
+Dandan Yang,CHN,Active,,1
+Xiaolin Yang,CHN,Active,,1
+Shiyue Cao,CHN,Active,,1
+Honoka Hasegawa,JPN,Active,,1
+Ming Yu Claudia Wong,HKG,Active,,1
+Taylor Pike,USA,Active,,1
+Lee Tiffany Wan Fung,HKG,Active,,1
+Shih-Han Su,TPE,Active,,1
+Fabiana Lamberti,ITA,Active,,1
+Catarina Ganyeuli,BRA,Active,,1
+Lila Langlais,FRA,Active,,1
+Inis Idier,FRA,Active,,1
+Celeste Vereecke,FRA,Active,,1
+Hanna Bakuniak,POL,Active,,1
+Jill Reich,SUI,Active,,1
+Kiah Melverton,AUS,Active,,1
+Martina Rita Caramignoli,ITA,Active,,1
+Chaya Simone Zabludoff,ISR,Active,,1
+Ruthseli Guadalupe Aponte Teran,VEN,Active,,1
+Heba Elkhouly,EGY,Active,,1
+Patricia Guerrero,ECU,Active,,1
+Nina Rakhimova,KAZ,Active,,1
+Raquel Duran,CRC,Active,,1
+Cindy Toscano,GUA,Active,,1
+Doris Beros,CRO,Active,,1
+Sasha-Lee Nordengen-Corris,RSA,Active,,1
+Cathryn Salladin,USA,Active,,1
+Caitlin Nolan,CAN,Active,,1
+Antonija Bulicic,CRO,Active,,1
+Catarina Cucatti Ganzeli,BRA,Active,,1
+Marit Anderson,CAN,Active,,1
+Isabella Rongione,USA,Active,,1
+Maggie Wallace,USA,Active,,1
+Cho Yiu Kwok,HKG,Active,,1
+Maria Romero,ESP,Active,,1
+Alba Romero,ESP,Active,,1
+Agueda Cons,ESP,Active,,1
+Paula Goyanes,ESP,Active,,1
+Judith Navarro Silvestre,ESP,Active,,1
+Franzi Heinrich,GER,Active,,1
+Emma Wael,DEN,Active,,1
+Dora Sztankovics,HUN,Active,,1
+Fanni Kun-Szabo,HUN,Active,,1
+Laura Dressayre,FRA,Active,,1
+Morgane Garcia,FRA,Active,,1
+Ines Idier,FRA,Active,,1
+Charline Mace,FRA,Active,,1
+Rachel Wothrich,SUI,Active,,1
+Omer Shwartz,ISR,Active,,1
+Ofek Adir,ISR,Active,,1
+Bekky Pozdner,ISR,Active,,1
+Eden Goldenberg,ISR,Active,,1
+Alessia Ossoli,ITA,Active,,1
+Clemence Coccordano,FRA,Active,,1
+Emma Micheletti,ITA,Active,,1
+Talya Erdogan,TUR,Active,,1
+Federica Senatore,ITA,Active,,1
+Elena Tortora,ITA,Active,,1
+Renata Vigano,ITA,Active,,1
+Anna Masetti,ITA,Active,,1
+Ines Delacroix,FRA,Active,,1
+Letizia Baldessari,ITA,Active,,1
+Erica Tommassini,ITA,Active,,1
+Ludovica Lugli,ITA,Active,,1
+Candice Foix,FRA,Active,,1
+Giorgia Gosetto,ITA,Active,,1
+Sara Petrolli,ITA,Active,,1
+Apolline Gallant,FRA,Active,,1
+Elena Pavan,ITA,Active,,1
+Marina Triantafyllidi,GRE,Active,,1
+Hazel Bentley,IRL,Active,,1
+Summer Smith,USA,Active,,1
+Kensey Mcmahon,USA,Active,,1
+Cibelle Jungblut,BRA,Active,,1
+Anna Auld,USA,Active,,1
+Moesha Johnson,AUS,Active,,1
+Airi Ebina,JPN,Active,,1
+Finella Gibbs-Beal,AUS,Active,,1
+Emma Finlin,CAN,Active,,1
+Abby Dunford,CAN,Active,,1
+Isabella Babbitt,ECU,Active,,1
+Ruby Heath,NZL,Active,,1
+Citlalli Montserrat Mora Olivares,MEX,Active,,1
+Jinha Kim,KOR,Active,,1
+Leandra Torres,PUR,Active,,1
+Candice Ruo Han Ang,SGP,Active,,1
+Sofia Guevara,ECU,Active,,1
+Alondra Itzel Quiles,PUR,Active,,1
+Maria Porres,GUA,Active,,1
+Maiza Cardozo,URU,Active,,1
+Therese Soukup,SEY,Active,,1
+Candela Giordanino,ARG,Active,,1
+Katrina Bellio,CAN,Active,,1
+Yu-Wen Teng,TPE,Active,,1
+Paulina Alanis Hernandez,MEX,Active,,1
+Hae Rim Lee,KOR,Active,,1
+Jungju Park,KOR,Active,,1
+Jocelyn Bermeo,ECU,Active,,1
+Samantha Yeo,SGP,Active,,1
+Natwara Bavornsukseri,THA,Active,,1
+Hanano Kato,JPN,Active,,1
+Hanyu Cheng,CHN,Active,,1
+Kexin Wang,CHN,Active,,1
+Jacqueline Davison-Mcgovern,AUS,Active,,1
+Ilektra Varvara Lebl,GRE,Active,,1
+Katja Fain,SLO,Active,,1
+Fleur Lewis,CZE,Active,,1
+Kennedy Denby,MKD,Active,,1
+Livia Kingsland,SRB,Active,,1
+Divna Simsic,GRE,Active,,1
+Sofie Callo Von Platen,ITA,Active,,1
+Megan Frost,CAN,Active,,1
+Megan Willar,CAN,Active,,1
+Lara Seifert,GER,Active,,1
+Mariia Horodnia,UKR,Active,,1
+Madison Emment,GBR,Active,,1
+Bettina Fábián,HUN,Active,,1
+Lia Csulak,HUN,Active,,1
+Matea Sumajstorcic,CRO,Active,,1
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+end,,,,
