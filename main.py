@@ -1403,8 +1403,6 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-
-
-system_update('12/08/2022', '12/10/2022')
+system_update("12/11/2022", "12/31/2022")
 
 

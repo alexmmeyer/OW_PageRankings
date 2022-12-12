@@ -2,7 +2,7 @@ import pandas
 import variables
 
 gender = variables.GENDER
-consolidated_file_path = f"consolidated results/{gender}/Complete Results {gender}.csv"
+consolidated_file_path = f"app_data/{gender}/consolidated_results_{gender}.csv"
 consolidated_data = pandas.read_csv(consolidated_file_path)
 columns = list(consolidated_data.columns)
 
