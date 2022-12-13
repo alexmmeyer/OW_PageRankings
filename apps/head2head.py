@@ -30,6 +30,9 @@ score_style = {'fontFamily': 'helvetica', 'fontSize': 96, 'textAlign': 'center'}
 dropdown_div_style = {'width': '50%', 'float': 'left', 'display': 'block'}
 
 layout = html.Div([
+    html.Div(
+
+    ),
     dcc.RadioItems(id='gender-picker', value='women',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
