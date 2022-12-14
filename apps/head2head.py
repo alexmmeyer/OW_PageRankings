@@ -1,16 +1,12 @@
-import math
+import pandas as pd
 import os
+import math
 from datetime import datetime as dt
 from datetime import timedelta, date
-
-import dash_bootstrap_components as dbc
-import pandas as pd
 import plotly.graph_objs as go
-from dash import html, dcc, dash_table
+from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
-
 from app import app
-
 
 def custom_label(race_result_file, *args):
     race_data = pd.read_csv(race_result_file)
@@ -34,24 +30,20 @@ score_style = {'fontFamily': 'helvetica', 'fontSize': 96, 'textAlign': 'center'}
 dropdown_div_style = {'width': '50%', 'float': 'left', 'display': 'block'}
 
 layout = html.Div([
+    html.Div(
+
+    ),
     dcc.RadioItems(id='gender-picker', value='women',
-                       options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
-                       persistence=True, persistence_type='session', style={'float': 'center'}),
-    html.Div(
-        dbc.Row([
-            dbc.Col(html.H3('Athlete 1'), width={'size': 1, 'offset': 5}),
-            dbc.Col(html.H3('Athlete 2'), width=1)
-        ])
-    ),
-    html.Div(
-        dbc.Row([
-            dbc.Col(dcc.Dropdown(id='name-dropdown1', value='Lea Boy', persistence=True, persistence_type='session'), width={'size': 2, 'offset': 4}),
-            dbc.Col(dcc.Dropdown(id='name-dropdown2', value='Caroline Laure Jouisse', persistence=True, persistence_type='session'), width=2)
-        ])
-    ),
-    html.H1(id='score', style=score_style),
-    dcc.Graph(id='diff-graph'),
-    html.Div(id='table')
+                   options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
+                   persistence=True, persistence_type='session'),
+    html.Div([
+        html.Div(dcc.Dropdown(id='name-dropdown1', value='Lea Boy', persistence=True, persistence_type='session'),
+                 style=dropdown_div_style),
+        html.Div(dcc.Dropdown(id='name-dropdown2', value='Caroline Laure Jouisse', persistence=True, persistence_type='session'),
+                 style=dropdown_div_style)]),
+        html.H1(id='score', style=score_style),
+        dcc.Graph(id='diff-graph'),
+        html.Div(id='table')
     ])
 
 
