@@ -28,12 +28,18 @@ stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 default_start_date = '01/01/2022'
 default_end_date = dt.strftime(date.today(), "%m/%d/%Y")
 default_gender_choice = 'women'
+progressions_app_description = "Select multiple athletes to see both the their ranking and rating progressions " \
+                               "over time on the same graph. The rating value is an arbitrary number produced by " \
+                               "the ranking algorithm that is used to create the ranking. This tool allows a user " \
+                               "to see how close, or far, an athlete is from surpassing or being surpassed by other " \
+                               "athletes in the ranking pool."
 
 layout = html.Div([
-    dcc.RadioItems(id='progressions-gender-picker',  value=default_gender_choice,
+    html.Div(children=progressions_app_description),
+    dcc.RadioItems(id='progressions-gender-picker',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
-    html.Div(dcc.Dropdown(id='progressions-name-dropdown', value=['Lea Boy'],
+    html.Div(dcc.Dropdown(id='progressions-name-dropdown',
                           multi=True, persistence=True, persistence_type='session'),
                           style=dropdown_div_style),
     html.Div([

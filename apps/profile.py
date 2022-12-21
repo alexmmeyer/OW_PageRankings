@@ -9,7 +9,7 @@ from dash.dependencies import Input, Output
 from app import app
 
 # MM/DD/YYYY string format of today's date
-today = dt.strftime(date.today(), "%m/%d/%Y")
+today = dt.strftime(date.today(), "%Y-%m-%d")
 
 def alpha_date(date):
     """
@@ -28,20 +28,21 @@ graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 summary_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
-default_start_date = '01/01/2022'
+default_start_date = '2022-01-01'
 default_end_date = today
 default_gender = 'women'
 default_athlete = 'Lea Boy'
 default_names_list = pd.read_csv('app_data/' + default_gender + "/athlete_countries.csv").sort_values('athlete_name')
+date_display_format = 'Y-M-D'
 
 name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
 
 layout = html.Div([
-    dcc.RadioItems(id='gender-picker', value=default_gender,
+    dcc.RadioItems(id='gender-picker',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
-    html.Div(dcc.Dropdown(id='name-dropdown',persistence=True, persistence_type='session', value=default_athlete,
+    html.Div(dcc.Dropdown(id='name-dropdown',persistence=True, persistence_type='session',
                           options=[{'label': i, 'value': i} for i in default_names_list]),
                           style=dropdown_div_style),
     html.Div([
@@ -49,10 +50,12 @@ layout = html.Div([
         html.Div(id='summary-stats', style=summary_stats_style)
                 ], style=summary_style),
     html.Div([
-            html.Label('Start Date (MM/DD/YYYY)'),
-            dcc.Input(id='start-date', value=default_start_date, persistence=True, persistence_type='session'),
-            html.Label('End Date (MM/DD/YYYY)'),
-            dcc.Input(id='end-date', value=default_end_date, persistence=True, persistence_type='session'),
+            html.Label('Start Date '),
+            dcc.DatePickerSingle(id='start-date', date=default_start_date, display_format=date_display_format,
+                                             clearable=False, persistence=True, persistence_type='session'),
+            html.Label('End Date '),
+            dcc.DatePickerSingle(id='end-date', date=today, display_format=date_display_format,
+                                 clearable=False, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
     dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
     html.Div(id='outcome-stats-table', style=outcome_stats_style),
@@ -62,13 +65,15 @@ layout = html.Div([
 # Create / update ranking progression graph:
 @app.callback(
     Output('progression-graph', 'figure'),
-    [Input('start-date', 'value'),
-     Input('end-date', 'value'),
+    [Input('start-date', 'date'),
+     Input('end-date', 'date'),
      Input('name-dropdown', 'value'),
      Input('gender-picker', 'value')])
 def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
-    start_date = dt.strptime(start_date, "%m/%d/%Y")
-    end_date = dt.strptime(end_date, "%m/%d/%Y")
+    print(f'start date is {start_date}')
+    print(f'end date is {end_date}')
+    start_date = dt.strptime(start_date, "%Y-%m-%d")
+    end_date = dt.strptime(end_date, "%Y-%m-%d")
     global today
     increment = 1
     rank_dist = 10
@@ -195,7 +200,7 @@ def stats_tables(athlete_name, gender_choice):
     # loop through the results directory and if the athlete is in the results, figure out what tier they ended up in in
     # that race and add to the corresponding list.
 
-    first_race_date = dt.strptime(today, "%m/%d/%Y")
+    first_race_date = dt.strptime(today, "%Y-%m-%d")
 
     for file in os.listdir(results_directory):
         results_file_path = os.path.join(results_directory, file)
@@ -259,8 +264,14 @@ def stats_tables(athlete_name, gender_choice):
 
         summary_df = pd.DataFrame(dict(date=dates, rank=ranks, rating=ratings))
 
+    print(summary_df)
+
     try:
-        current_wr = list(summary_df['rank'][summary_df['date'] == today])[0]
+        summary_df = summary_df.set_index('date')
+        lookup_date = dt.strftime(dt.strptime(today, "%Y-%m-%d"), "%m/%d/%Y")
+        print(lookup_date)
+        current_wr = summary_df['rank'][lookup_date]
+        # current_wr = list(summary_df['rank'][summary_df['date'] == today])[0]
     except IndexError:
         current_wr = 'Unranked'
     highest_wr = min(summary_df['rank'])

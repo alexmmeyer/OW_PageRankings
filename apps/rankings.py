@@ -36,6 +36,9 @@ table_formatting = (
 default_ranking_date = '09/30/2022'
 default_comparison_date = ''
 default_gender = 'women'
+rankings_app_description = "See men's and women's world rankings as of any date after 01/01/2017. Select a previous " \
+                           "date as the Comparison Date to see every athlete's change in ranking between the two " \
+                           "dates selected."
 
 # if you change these, change the table_formatting above to match!
 up_arrow = '▲'
@@ -43,6 +46,7 @@ down_arrow = '▼'
 
 
 layout = html.Div([
+    html.Div(children=rankings_app_description),
     dcc.RadioItems(id='rankings-gender-picker', value=default_gender,
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
@@ -69,6 +73,7 @@ layout = html.Div([
      Input('ranking-date', 'date'),
      Input('comparison-date', 'date')])
 def update_ranking(gender_choice, rank_date, comp_date):
+    print(f'rank date is {rank_date}')
     athlete_countries = pd.read_csv('app_data/' + gender_choice + "/athlete_countries.csv")
     if comp_date is None:
         rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"

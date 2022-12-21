@@ -28,11 +28,14 @@ def age_opacity(race_date, oldest_date):
 
 score_style = {'fontFamily': 'helvetica', 'fontSize': 96, 'textAlign': 'center'}
 dropdown_div_style = {'width': '50%', 'float': 'left', 'display': 'block'}
+head2head_app_description = "Select the names of two athletes to compare. The score at the top shows total wins " \
+                            "(relative to each other) for each athlete, the graph shows the difference in finish " \
+                            "time between the athletes for the races where data is available, and the table shows " \
+                            "all the races where the athletes competed against each other along with some info " \
+                            "about the race."
 
 layout = html.Div([
-    html.Div(
-
-    ),
+    html.Div(children=head2head_app_description),
     dcc.RadioItems(id='gender-picker', value='women',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),

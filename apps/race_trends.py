@@ -29,15 +29,24 @@ default_measure = 'Time'
 default_gender = 'women'
 default_athlete = 'Lea Boy'
 default_names_list = pd.read_csv('app_data/' + default_gender + "/athlete_countries.csv").sort_values('athlete_name')
+trends_app_description = "Select an athlete of interest to see data from intermediate time checkpoints and " \
+                         "understand how they compared to either the leader or median (middle of the pack) " \
+                         "athlete at those checkpoints. In the 'Measure by' field, select whether you would like " \
+                         "to see the comparison in terms of time (seconds) or positions. In the 'Compare to' " \
+                         "field, select whether you want to compare to the leader, the median, or (if you have " \
+                         "selected 'time' in the 'Measure by field') the average swimmer in the race. Data is only " \
+                         "available from the 2017, 2019, and 2022 FINA World Championships. If an athlete is " \
+                         "selected who did not compete in any of those events, the chart will not update."
 
 name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
 
 layout = html.Div([
-    dcc.RadioItems(id='trends-gender-picker', value=default_gender,
+    html.Div(children=trends_app_description),
+    dcc.RadioItems(id='trends-gender-picker',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
-    html.Div(dcc.Dropdown(id='trends-name-dropdown', persistence=True, persistence_type='session', value=default_athlete,
+    html.Div(dcc.Dropdown(id='trends-name-dropdown', persistence=True, persistence_type='session',
                           options=[{'label': i, 'value': i} for i in default_names_list]),
                           style=dropdown_div_style),
     html.Div([
