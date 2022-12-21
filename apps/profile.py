@@ -272,9 +272,9 @@ def stats_tables(athlete_name, gender_choice):
         print(lookup_date)
         current_wr = summary_df['rank'][lookup_date]
         # current_wr = list(summary_df['rank'][summary_df['date'] == today])[0]
-    except IndexError:
+    except KeyError:
         current_wr = 'Unranked'
-    highest_wr = min(summary_df['rank'])
+    highest_wr = int(min(summary_df['rank']))
     first_race_date = dt.strftime(first_race_date, "%m/%d/%Y")
     athlete_status = athlete_countries['status'][athlete_countries['athlete_name'] == athlete_name]
     summary_text = html.P([f"Current WR: {current_wr}", html.Br(), f"Highest WR: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])

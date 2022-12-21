@@ -40,9 +40,9 @@ layout = html.Div([
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
     html.Div([
-        html.Div(dcc.Dropdown(id='name-dropdown1', value='Lea Boy', persistence=True, persistence_type='session'),
+        html.Div(dcc.Dropdown(id='name-dropdown1', persistence=True, persistence_type='session'),
                  style=dropdown_div_style),
-        html.Div(dcc.Dropdown(id='name-dropdown2', value='Caroline Laure Jouisse', persistence=True, persistence_type='session'),
+        html.Div(dcc.Dropdown(id='name-dropdown2', persistence=True, persistence_type='session'),
                  style=dropdown_div_style)]),
         html.H1(id='score', style=score_style),
         dcc.Graph(id='diff-graph'),

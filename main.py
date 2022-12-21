@@ -1403,6 +1403,9 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("01/01/2023", "01/31/2023")
+# system_update("01/01/2023", "01/31/2023")
+
+show_results("Florian Wellbrock")
+
 
 
