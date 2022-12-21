@@ -25,9 +25,10 @@ graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
 # Defaults:
-default_start_date = '01/01/2022'
-default_end_date = dt.strftime(date.today(), "%m/%d/%Y")
+default_start_date = '2022-01-01'
+default_end_date = dt.strftime(date.today(), "%Y-%m-%d")
 default_gender_choice = 'women'
+date_display_format = 'Y-M-D'
 progressions_app_description = "Select multiple athletes to see both the their ranking and rating progressions " \
                                "over time on the same graph. The rating value is an arbitrary number produced by " \
                                "the ranking algorithm that is used to create the ranking. This tool allows a user " \
@@ -43,10 +44,12 @@ layout = html.Div([
                           multi=True, persistence=True, persistence_type='session'),
                           style=dropdown_div_style),
     html.Div([
-            html.Label('Start Date (MM/DD/YYYY)'),
-            dcc.Input(id='progressions-start-date', value=default_start_date, persistence=True, persistence_type='session'),
-            html.Label('End Date (MM/DD/YYYY)'),
-            dcc.Input(id='progressions-end-date', value=default_end_date, persistence=True, persistence_type='session'),
+            html.Label('Start Date '),
+            dcc.DatePickerSingle(id='progressions-start-date', date=default_start_date, display_format=date_display_format,
+                                    clearable=False, persistence=True, persistence_type='session'),
+            html.Label('End Date '),
+            dcc.DatePickerSingle(id='progressions-end-date', date=default_end_date, display_format=date_display_format,
+                                    clearable=False, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
     dcc.Graph(id='rank-progression-graph'),
     dcc.Graph(id='rating-progression-graph')
@@ -56,15 +59,15 @@ layout = html.Div([
 @app.callback(
     [Output('rank-progression-graph', 'figure'),
      Output('rating-progression-graph', 'figure')],
-    [Input('progressions-start-date', 'value'),
-     Input('progressions-end-date', 'value'),
+    [Input('progressions-start-date', 'date'),
+     Input('progressions-end-date', 'date'),
      Input('progressions-name-dropdown', 'value'),
      Input('progressions-gender-picker', 'value')])
 def ranking_progression(start_date, end_date, athlete_names, gender_choice):
     rating_multiplier = 10000
     athlete_names = list(athlete_names)
-    start_date = dt.strptime(start_date, "%m/%d/%Y")
-    end_date = dt.strptime(end_date, "%m/%d/%Y")
+    start_date = dt.strptime(start_date, "%Y-%m-%d")
+    end_date = dt.strptime(end_date, "%Y-%m-%d")
     increment = 1
     rank_dist = 10
     rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
