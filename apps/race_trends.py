@@ -35,8 +35,8 @@ trends_app_description = "Select an athlete of interest to see data from interme
                          "to see the comparison in terms of time (seconds) or positions. In the 'Compare to' " \
                          "field, select whether you want to compare to the leader, the median, or (if you have " \
                          "selected 'time' in the 'Measure by field') the average swimmer in the race. Data is only " \
-                         "available from the 2017, 2019, and 2022 FINA World Championships. If an athlete is " \
-                         "selected who did not compete in any of those events, the chart will not update."
+                         "available from the 2017 (coming soon), 2019, and 2022 FINA World Championships. If an " \
+                         "athlete is selected who did not compete in any of those events, the chart will not update."
 
 name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
@@ -102,7 +102,6 @@ def trend_graph(gender_choice, athlete_name, comp_to, measure):
         if os.path.exists(os.path.join(splits_directory, file)):
             results_data = pd.read_csv(os.path.join(results_directory, file))
             if athlete_name in list(results_data['athlete_name']):
-                print(file)
                 # If so, create lists to be used in a dataframe to be created for each race for this athlete (where
                 # there are splits available.
                 split_labels = []
@@ -120,15 +119,14 @@ def trend_graph(gender_choice, athlete_name, comp_to, measure):
 
                 # Read in the split distances file for the race. Fill out the split_dists column and add Split0 to
                 # results df.
-                results_data['Split0'] = [0 for i in results_data['athlete_name']]
-                results_data = results_data.set_index('athlete_name')
                 split_dist_data = pd.read_csv(os.path.join(splits_directory, file))
                 split_dists.extend(split_dist_data['distance'])
+                results_data['Split0'] = [0 for i in results_data['athlete_name']]
+                results_data = results_data.set_index('athlete_name')
 
                 race_dist = results_data['distance'][0]
                 race_label = custom_label(os.path.join(results_directory, file), 'event', 'location', 'date', 'distance') + 'km'
                 median_position = results_data['place'].median()
-                print(f"median position for this race is {median_position}")
 
                 # Make a copy of the results df and change the split values to True if there's an actual split, and
                 # False if empty, meaning their timing chip didn't register. Fill out the split_labels list while

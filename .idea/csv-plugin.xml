@@ -1480,6 +1480,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\women\splits\2019_07_13_Gwangju_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\splits\2022_06_30_Budapest_25km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\country_codes.csv">
           <value>
             <Attribute>
