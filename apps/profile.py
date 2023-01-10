@@ -70,8 +70,6 @@ layout = html.Div([
      Input('name-dropdown', 'value'),
      Input('gender-picker', 'value')])
 def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
-    print(f'start date is {start_date}')
-    print(f'end date is {end_date}')
     start_date = dt.strptime(start_date, "%Y-%m-%d")
     end_date = dt.strptime(end_date, "%Y-%m-%d")
     global today
