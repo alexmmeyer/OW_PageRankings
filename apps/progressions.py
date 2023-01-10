@@ -29,7 +29,7 @@ default_start_date = '2022-01-01'
 default_end_date = dt.strftime(date.today(), "%Y-%m-%d")
 default_gender_choice = 'women'
 date_display_format = 'Y-M-D'
-progressions_app_description = "Select multiple athletes to see both the their ranking and rating progressions " \
+progressions_app_description = "Select multiple athletes to see either their ranking and rating progressions " \
                                "over time on the same graph. The rating value is an arbitrary number produced by " \
                                "the ranking algorithm that is used to create the ranking. This tool allows a user " \
                                "to see how close, or far, an athlete is from surpassing or being surpassed by other " \
@@ -43,6 +43,9 @@ layout = html.Div([
     html.Div(dcc.Dropdown(id='progressions-name-dropdown',
                           multi=True, persistence=True, persistence_type='session'),
                           style=dropdown_div_style),
+    dcc.RadioItems(id='mode-selector',
+                       options=[{'label': 'Rating', 'value': 'rating'}, {'label': 'Ranking', 'value': 'rank'}],
+                       persistence=True, persistence_type='session'),
     html.Div([
             html.Label('Start Date '),
             dcc.DatePickerSingle(id='progressions-start-date', date=default_start_date, display_format=date_display_format,
@@ -51,19 +54,18 @@ layout = html.Div([
             dcc.DatePickerSingle(id='progressions-end-date', date=default_end_date, display_format=date_display_format,
                                     clearable=False, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
-    dcc.Graph(id='rank-progression-graph'),
-    dcc.Graph(id='rating-progression-graph')
+    dcc.Graph(id='multi-progression-graph')
 ])
 
 # Create / update ranking progression graph:
 @app.callback(
-    [Output('rank-progression-graph', 'figure'),
-     Output('rating-progression-graph', 'figure')],
+    Output('multi-progression-graph', 'figure'),
     [Input('progressions-start-date', 'date'),
      Input('progressions-end-date', 'date'),
      Input('progressions-name-dropdown', 'value'),
-     Input('progressions-gender-picker', 'value')])
-def ranking_progression(start_date, end_date, athlete_names, gender_choice):
+     Input('progressions-gender-picker', 'value'),
+     Input('mode-selector', 'value')])
+def ranking_progression(start_date, end_date, athlete_names, gender_choice, mode):
     rating_multiplier = 10000
     athlete_names = list(athlete_names)
     start_date = dt.strptime(start_date, "%Y-%m-%d")
@@ -76,9 +78,14 @@ def ranking_progression(start_date, end_date, athlete_names, gender_choice):
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
-    rank_traces = []
-    rating_traces = []
+    traces = []
     scatter_df = pd.DataFrame()
+    if mode == 'rating':
+        col = 'pagerank'
+    elif mode == 'rank':
+        col = 'rank'
+    else:
+        col = 'balls'
 
     # Loop through each athlete and grab their progression csv. Create a dataframe, add a datetime format date column,
     # and filter it to include only rows in the selected date range. Then make a ranking and rating trace for them.
@@ -90,53 +97,52 @@ def ranking_progression(start_date, end_date, athlete_names, gender_choice):
             df['dt_date'] = [dt.strptime(d, "%m/%d/%Y") for d in df['date']]
             df = df[df['dt_date'] >= start_date]
             df = df[df['dt_date'] <= end_date]
+            if mode == 'rating':
+                df['rating'] = [i * rating_multiplier for i in df['rating']]
 
             # Use the columns of the modified dataframe to construct a trace for the rank line and the rating line.
             # Add the traces to the list that gets passed into the figure data parameter and returned to the graph.
 
-            rank_line_trace = go.Scatter(x=df['dt_date'],
-                                    y=df['rank'],
+            trace = go.Scatter(x=df['dt_date'],
+                                    y=df[mode],
                                     mode='lines',
                                     opacity=0.8,
                                     name=athlete_name)
-            rank_traces.append(rank_line_trace)
+            traces.append(trace)
 
-            rating_line_trace = go.Scatter(x=df['dt_date'],
-                                         y=[i * rating_multiplier for i in df['rating']],
-                                         mode='lines',
-                                         opacity=0.8,
-                                         name=athlete_name)
-            rating_traces.append(rating_line_trace)
+
         else:
-            rank_dates = []
-            ranks = []
-            ratings = []
+            pass
+            # rank_dates = []
+            # ranks = []
+            # ratings = []
+            #
+            # # For each date in the date range, look up the athlete's rank and rating on that date and create a trace for each.
+            # # Then add those traces to the respective lists to be used in the data parameter of each of the figures
+            # for date in date_range:
+            #     file_name = f"{alpha_date(date)}_{gender_choice}_{rank_dist}km.csv"
+            #     ranking_data = pd.read_csv(f"{rankings_directory}/{file_name}")
+            #     ranked_athletes = list(ranking_data.name)
+            #     if athlete_name in ranked_athletes:
+            #         rank_dates.append(dt.strptime(date, "%m/%d/%Y"))
+            #         rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
+            #         rating_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
+            #         ranks.append(rank_on_date)
+            #         ratings.append(rating_on_date)
+            # ratings = [i * rating_multiplier for i in ratings]
+            # trace = go.Scatter(x=rank_dates,
+            #                              y=ranks,
+            #                              mode='lines',
+            #                              opacity=0.8,
+            #                              name=athlete_name)
+            # traces.append(trace)
+            # rating_line_trace = go.Scatter(x=rank_dates,
+            #                                y=ratings,
+            #                                mode='lines',
+            #                                opacity=0.8,
+            #                                name=athlete_name)
+            # rating_traces.append(rating_line_trace)
 
-            # For each date in the date range, look up the athlete's rank and rating on that date and create a trace for each.
-            # Then add those traces to the respective lists to be used in the data parameter of each of the figures
-            for date in date_range:
-                file_name = f"{alpha_date(date)}_{gender_choice}_{rank_dist}km.csv"
-                ranking_data = pd.read_csv(f"{rankings_directory}/{file_name}")
-                ranked_athletes = list(ranking_data.name)
-                if athlete_name in ranked_athletes:
-                    rank_dates.append(dt.strptime(date, "%m/%d/%Y"))
-                    rank_on_date = int(ranking_data["rank"][ranking_data.name == athlete_name])
-                    rating_on_date = float(ranking_data["pagerank"][ranking_data.name == athlete_name])
-                    ranks.append(rank_on_date)
-                    ratings.append(rating_on_date)
-            ratings = [i * rating_multiplier for i in ratings]
-            rank_line_trace = go.Scatter(x=rank_dates,
-                                         y=ranks,
-                                         mode='lines',
-                                         opacity=0.8,
-                                         name=athlete_name)
-            rank_traces.append(rank_line_trace)
-            rating_line_trace = go.Scatter(x=rank_dates,
-                                           y=ratings,
-                                           mode='lines',
-                                           opacity=0.8,
-                                           name=athlete_name)
-            rating_traces.append(rating_line_trace)
 
         # Create the scatter traces.
         # this block is the get_results function from main.py basically. Get a df of all the times the athlete raced.
@@ -156,53 +162,48 @@ def ranking_progression(start_date, end_date, athlete_names, gender_choice):
         results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
         results_df = results_df[results_df.dt_date >= start_date]
         results_df = results_df[results_df.dt_date <= end_date]
-        race_date_ranks = []
-        race_date_ratings = []
-        # for dates where athlete raced, look up their rank on that date and create another column for rank
-        # do the same for their rating - now you have two new columns in the df.
-        for date in results_df.date:
-            file_name = f"{alpha_date(date)}_{gender_choice}_{rank_dist}km.csv"
+        race_date_vals = []
+
+        # for dates where athlete raced, look up their rank/rating on that date and create another column in the
+        # results_df for that value. Then, concatenate the athlete's results_df with the running overall scatter_df.
+        for d in results_df.date:
+            file_name = f"{alpha_date(d)}_{gender_choice}_{rank_dist}km.csv"
             df = pd.read_csv(f"{rankings_directory}/{file_name}")
-            rank_on_date = int(df["rank"][df.name == athlete_name])
-            rating_on_date = float(df["pagerank"][df.name == athlete_name])
-            race_date_ranks.append(rank_on_date)
-            race_date_ratings.append(rating_on_date)
-        results_df['rank'] = race_date_ranks
-        results_df['rating'] = race_date_ratings
+            if mode == 'rank':
+                val_on_date = int(df[col][df.name == athlete_name])
+            else:
+                val_on_date = float(df[col][df.name == athlete_name]) * rating_multiplier
+            race_date_vals.append(val_on_date)
+        results_df[col] = race_date_vals
         scatter_df = pd.concat([scatter_df, results_df])
 
     for event_type in scatter_df['event'].unique():
         df = scatter_df[scatter_df['event'] == event_type]
-        scatter_trace_rank = go.Scatter(x=df['dt_date'],
-                                   y=df['rank'],
+        scatter_trace = go.Scatter(x=df['dt_date'],
+                                   y=df[col],
                                    mode='markers',
                                    marker={'size': 10, 'line': {'width': 0.5, 'color': 'black'}},
                                    name=event_type)
-        rank_traces.append(scatter_trace_rank)
-        scatter_trace_rating = go.Scatter(x=df['dt_date'],
-                                        y=[i * rating_multiplier for i in df['rating']],
-                                        mode='markers',
-                                        marker={'size': 10, 'line': {'width': 0.5, 'color': 'black'}},
-                                        name=event_type)
-        rating_traces.append(scatter_trace_rating)
+        traces.append(scatter_trace)
 
-    rank_fig = {
-        'data': rank_traces,
-        'layout': go.Layout(
-            xaxis={'title': 'Date'},
-            yaxis={'title': 'World Ranking', 'autorange': 'reversed'},
-            hovermode='closest')
-    }
+    if mode == 'rank':
+        fig = {
+            'data': traces,
+            'layout': go.Layout(
+                xaxis={'title': 'Date'},
+                yaxis={'title': 'World Ranking', 'autorange': 'reversed'},
+                hovermode='closest')
+        }
+    else:
+        fig = {
+            'data': traces,
+            'layout': go.Layout(
+                xaxis={'title': 'Date'},
+                yaxis={'title': 'Rating Value'},
+                hovermode='closest')
+        }
 
-    rating_fig = {
-        'data': rating_traces,
-        'layout': go.Layout(
-            xaxis={'title': 'Date'},
-            yaxis={'title': 'Rating Value'},
-            hovermode='closest')
-    }
-
-    return rank_fig, rating_fig
+    return fig
 
 
 # Update names in dropdown list when a different gender is selected:
