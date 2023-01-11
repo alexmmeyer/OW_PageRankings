@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\rankings_archive\2023_01_11_men_10km.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\results\2015_11_07_Madeira_10km_M.csv">
           <value>
             <Attribute>
