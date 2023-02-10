@@ -141,11 +141,11 @@ def update(name1, name2, gender_choice):
     fig_df = pd.DataFrame(diff_dict)
     fig_df = fig_df[fig_df.time_diff != 'N/A'].reset_index(drop=True)
     fig_df['dt_date'] = [dt.strptime(i, "%m/%d/%Y") for i in fig_df['date']]
-    oldest_date = min(fig_df['dt_date'])
-    fig_df['opacity'] = [age_opacity(i, oldest_date) for i in fig_df['dt_date']]
-    print(type(date.today()))
-    print(type(fig_df['dt_date'][0]))
-    fig_df['days_old'] = [(date.today() - d).days for d in [dt.strptime(i, "%m/%d/%Y").date() for i in fig_df['date']]]
+    # oldest_date = min(fig_df['dt_date'])
+    # fig_df['opacity'] = [age_opacity(i, oldest_date) for i in fig_df['dt_date']]
+    # print(type(date.today()))
+    # print(type(fig_df['dt_date'][0]))
+    # fig_df['days_old'] = [(date.today() - d).days for d in [dt.strptime(i, "%m/%d/%Y").date() for i in fig_df['date']]]
     print(fig_df)
 
     chart_data = []

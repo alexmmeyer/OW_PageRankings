@@ -55,7 +55,8 @@ layout = html.Div([
             dcc.DatePickerSingle(id='progressions-end-date', date=default_end_date, display_format=date_display_format,
                                     clearable=False, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
-    dcc.Graph(id='multi-progression-graph')
+            # html.Div(id='error-msg', children='hello world'),
+            dcc.Loading(children=[dcc.Graph(id='multi-progression-graph')], color="#119DFF", type="dot", fullscreen=False),
 ])
 
 # Create / update ranking progression graph:

@@ -268,8 +268,7 @@ def stats_tables(athlete_name, gender_choice):
         summary_df = summary_df.set_index('date')
         lookup_date = dt.strftime(dt.strptime(today, "%Y-%m-%d"), "%m/%d/%Y")
         print(lookup_date)
-        current_wr = summary_df['rank'][lookup_date]
-        # current_wr = list(summary_df['rank'][summary_df['date'] == today])[0]
+        current_wr = int(summary_df['rank'][lookup_date])
     except KeyError:
         current_wr = 'Unranked'
     highest_wr = int(min(summary_df['rank']))

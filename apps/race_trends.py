@@ -277,8 +277,9 @@ def trend_graph(gender_choice, athlete_name, comp_to, measure):
 
                 # trace = px.line(fig_df,
                 #                 x='distance_pct',
-                #                 y='time_var')
-                # traces.append(trace.data)
+                #                 y='var')
+                # traces.append(trace['data'])
+                # print(trace)
 
     yaxis_titles = {
         'time': {

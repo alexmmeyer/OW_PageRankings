@@ -59,14 +59,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\app_data\men\results\2016_02_07_Viedma_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_02_26_AbuDhabi_10km.csv">
+        <entry key="\app_data\men\results\2016_02_07_Viedma_10km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -80,28 +73,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\app_data\men\results\2016_06_12_Setubal_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_06_18_Balatonfured_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_06_28_Roberval_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_06_30_Roberval_32km.csv">
+        <entry key="\app_data\men\results\2016_06_30_Roberval_32km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -122,63 +94,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\app_data\men\results\2016_08_13_LacMemphremagog_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_08_20_OhridLake_30km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\app_data\men\results\2016_08_27_Copenhagen_6km_M.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_09_04_Capri-Napoli_36km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_10_09_Chun'An_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2016_10_14_HongKong_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_02_04_Viedma_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_02_05_SantaFe_57km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_03_11_AbuDhabi_10km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -192,49 +108,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\app_data\men\results\2017_06_24_Setubal_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\app_data\men\results\2017_07_01_Barcelona_10km_M.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_07_15_Budapest_5km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_07_18_Budapest_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_07_21_Budapest_25km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_07_27_Roberval_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_07_29_Roberval_32km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -248,49 +122,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\app_data\men\results\2017_08_12_LacMegantic_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_08_19_OhridLake_30km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\app_data\men\results\2017_08_26_Copenhagen_6km_M.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_09_03_Capri-Napoli_16km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_10_15_Chun'An_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2017_10_21_HongKong_10km.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app_data\men\results\2018_02_04_SantaFe_57km.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
