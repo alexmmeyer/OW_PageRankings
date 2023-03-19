@@ -1403,7 +1403,7 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("03/01/2023", "04/30/2023")
+system_update("03/16/2023", "04/30/2023")
 
 # print_race_labels()
 
