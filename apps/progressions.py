@@ -25,11 +25,13 @@ graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
 # Defaults:
-default_start_date = '2022-01-01'
-default_end_date = dt.strftime(date.today(), "%Y-%m-%d")
-default_gender_choice = 'women'
-date_display_format = 'Y-M-D'
-progressions_app_description = "Select multiple athletes to see either their ranking or rating progressions " \
+prog_default_start_date = '2022-01-01'
+prog_default_end_date = dt.strftime(date.today(), "%Y-%m-%d")
+prog_default_gender_choice = 'women'
+prog_default_names = ['Leonie Beck', 'Sharon Van Rouwendaal', 'Ana Marcela Cunha']
+prog_default_mode = 'rating'
+prog_date_display_format = 'Y-M-D'
+prog_app_description = "Select multiple athletes to see either their ranking or rating progressions " \
                                "over time compared to each other. The rating value is an arbitrary number produced " \
                                "by the ranking algorithm that is used to create the ranking, and cannot be compared " \
                                "across men and women. This tool, especially when displaying rating values, allows a " \
@@ -37,23 +39,23 @@ progressions_app_description = "Select multiple athletes to see either their ran
                                "other athletes in the ranking pool."
 
 layout = html.Div([
-    html.Div(children=progressions_app_description),
+    html.Div(children=prog_app_description),
     dcc.RadioItems(id='progressions-gender-picker',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
-                   persistence=True, persistence_type='session'),
+                   persistence=True, persistence_type='session', value=prog_default_gender_choice),
     html.Div(dcc.Dropdown(id='progressions-name-dropdown',
-                          multi=True, persistence=True, persistence_type='session'),
+                          multi=True, persistence=True, persistence_type='session', value=prog_default_names),
                           style=dropdown_div_style),
     dcc.RadioItems(id='mode-selector',
                        options=[{'label': 'Rating', 'value': 'rating'}, {'label': 'Ranking', 'value': 'rank'}],
-                       persistence=True, persistence_type='session'),
+                       persistence=True, persistence_type='session', value=prog_default_mode),
     html.Div([
             html.Label('Start Date '),
-            dcc.DatePickerSingle(id='progressions-start-date', date=default_start_date, display_format=date_display_format,
-                                    clearable=False, persistence=True, persistence_type='session'),
+            dcc.DatePickerSingle(id='progressions-start-date', date=prog_default_start_date, display_format=prog_date_display_format,
+                                 clearable=False, persistence=True, persistence_type='session'),
             html.Label('End Date '),
-            dcc.DatePickerSingle(id='progressions-end-date', date=default_end_date, display_format=date_display_format,
-                                    clearable=False, persistence=True, persistence_type='session'),
+            dcc.DatePickerSingle(id='progressions-end-date', date=prog_default_end_date, display_format=prog_date_display_format,
+                                 clearable=False, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
             # html.Div(id='error-msg', children='hello world'),
             dcc.Loading(children=[dcc.Graph(id='multi-progression-graph')], color="#119DFF", type="dot", fullscreen=False),

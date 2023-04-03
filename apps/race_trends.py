@@ -24,11 +24,11 @@ graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 summary_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
-default_comp_to = 'Leader'
-default_measure = 'Time'
-default_gender = 'women'
-default_athlete = 'Lea Boy'
-default_names_list = pd.read_csv('app_data/' + default_gender + "/athlete_countries.csv").sort_values('athlete_name')
+trends_default_comp_to = 'leader'
+trends_default_measure = 'time'
+trends_default_gender = 'men'
+trends_default_athlete = 'Ferry Weertman'
+trends_default_names_list = pd.read_csv('app_data/' + trends_default_gender + "/athlete_countries.csv").sort_values('athlete_name')
 trends_app_description = "Select an athlete of interest to see data from intermediate time checkpoints and " \
                          "understand how they compared to either the leader or median (middle of the pack) " \
                          "athlete at those checkpoints. In the 'Measure by' field, select whether you would like " \
@@ -44,17 +44,17 @@ summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': '
 layout = html.Div([
     html.Div(children=trends_app_description),
     dcc.RadioItems(id='trends-gender-picker',
-                   options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
+                   options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], value=trends_default_gender,
                    persistence=True, persistence_type='session'),
     html.Div(dcc.Dropdown(id='trends-name-dropdown', persistence=True, persistence_type='session',
-                          options=[{'label': i, 'value': i} for i in default_names_list]),
-                          style=dropdown_div_style),
+                          options=[{'label': i, 'value': i} for i in trends_default_names_list], value=trends_default_athlete),
+             style=dropdown_div_style),
     html.Div([
             html.Label('Measure by:'),
-            dcc.Dropdown(id='measure-dropdown', value='Time', options=[{'label': i.title(), 'value': i} for i in ['time', 'position']],
+            dcc.Dropdown(id='measure-dropdown', value=trends_default_measure, options=[{'label': i.title(), 'value': i} for i in ['time', 'position']],
                     persistence=True, persistence_type='session'),
             html.Label('Compare to:'),
-            dcc.Dropdown(id='comp-to-dropdown', value='Leader', options=[{'label': i.title(), 'value': i} for i in ['leader', 'average', 'median']],
+            dcc.Dropdown(id='comp-to-dropdown', value=trends_default_comp_to, options=[{'label': i.title(), 'value': i} for i in ['leader', 'average', 'median']],
                     persistence=True, persistence_type='session'),
             ],
         style=input_dates_style),

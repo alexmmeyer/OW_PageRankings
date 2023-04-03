@@ -25,6 +25,9 @@ def age_opacity(race_date, oldest_date):
     opacity = max_opacity - depreciation*(max_opacity - min_opacity)
     return opacity
 
+h2h_default_gender = 'men'
+h2h_default_athlete1 = 'Gregorio Paltrinieri'
+h2h_default_athlete2 = 'Domenico Acerenza'
 
 score_style = {'fontFamily': 'helvetica', 'fontSize': 96, 'textAlign': 'center'}
 dropdown_div_style = {'width': '50%', 'float': 'left', 'display': 'block'}
@@ -36,13 +39,13 @@ head2head_app_description = "Select the names of two athletes to compare. The sc
 
 layout = html.Div([
     html.Div(children=head2head_app_description),
-    dcc.RadioItems(id='gender-picker', value='women',
+    dcc.RadioItems(id='gender-picker', value=h2h_default_gender,
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
                    persistence=True, persistence_type='session'),
     html.Div([
-        html.Div(dcc.Dropdown(id='name-dropdown1', persistence=True, persistence_type='session'),
+        html.Div(dcc.Dropdown(id='name-dropdown1', persistence=True, persistence_type='session', value=h2h_default_athlete1),
                  style=dropdown_div_style),
-        html.Div(dcc.Dropdown(id='name-dropdown2', persistence=True, persistence_type='session'),
+        html.Div(dcc.Dropdown(id='name-dropdown2', persistence=True, persistence_type='session', value=h2h_default_athlete2),
                  style=dropdown_div_style)]),
         html.H1(id='score', style=score_style),
         dcc.Graph(id='diff-graph'),

@@ -28,12 +28,12 @@ graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 summary_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
 
-default_start_date = '2022-01-01'
-default_end_date = today
-default_gender = 'women'
-default_athlete = 'Lea Boy'
-default_names_list = pd.read_csv('app_data/' + default_gender + "/athlete_countries.csv").sort_values('athlete_name')
-date_display_format = 'Y-M-D'
+profile_default_start_date = '2022-01-01'
+profile_default_end_date = today
+profile_default_gender = 'women'
+profile_default_athlete = 'Lea Boy'
+profile_default_names_list = pd.read_csv('app_data/' + profile_default_gender + "/athlete_countries.csv").sort_values('athlete_name')
+profile_date_display_format = 'Y-M-D'
 
 name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
@@ -41,20 +41,20 @@ summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': '
 layout = html.Div([
     dcc.RadioItems(id='gender-picker',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
-                   persistence=True, persistence_type='session'),
-    html.Div(dcc.Dropdown(id='name-dropdown',persistence=True, persistence_type='session',
-                          options=[{'label': i, 'value': i} for i in default_names_list]),
-                          style=dropdown_div_style),
+                   value=profile_default_gender, persistence=True, persistence_type='session'),
+    html.Div(dcc.Dropdown(id='name-dropdown', persistence=True, persistence_type='session',
+                          options=[{'label': i, 'value': i} for i in profile_default_names_list], value=profile_default_athlete),
+             style=dropdown_div_style),
     html.Div([
         html.H1(id='athlete-name', style=name_style),
         html.Div(id='summary-stats', style=summary_stats_style)
                 ], style=summary_style),
     html.Div([
             html.Label('Start Date '),
-            dcc.DatePickerSingle(id='start-date', date=default_start_date, display_format=date_display_format,
-                                             clearable=False, persistence=True, persistence_type='session'),
+            dcc.DatePickerSingle(id='start-date', date=profile_default_start_date, display_format=profile_date_display_format,
+                                 clearable=False, persistence=True, persistence_type='session'),
             html.Label('End Date '),
-            dcc.DatePickerSingle(id='end-date', date=today, display_format=date_display_format,
+            dcc.DatePickerSingle(id='end-date', date=today, display_format=profile_date_display_format,
                                  clearable=False, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
     dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
@@ -274,7 +274,7 @@ def stats_tables(athlete_name, gender_choice):
     highest_wr = int(min(summary_df['rank']))
     first_race_date = dt.strftime(first_race_date, "%m/%d/%Y")
     athlete_status = athlete_countries['status'][athlete_countries['athlete_name'] == athlete_name]
-    summary_text = html.P([f"Current WR: {current_wr}", html.Br(), f"Highest WR: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
+    summary_text = html.P([f"Current Ranking: {current_wr}", html.Br(), f"Highest Ranking: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
 
     return summary_text, stats_datatable, header
 
