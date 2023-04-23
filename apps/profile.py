@@ -47,9 +47,9 @@ layout = html.Div([
                           options=[{'label': i, 'value': i} for i in profile_default_names_list], value=profile_default_athlete),
              style=dropdown_div_style),
     html.Div([
-        html.H1(id='athlete-name', style=name_style),
-        html.Div(id='summary-stats', style=summary_stats_style)
-                ], style=summary_style),
+        html.H1(id='athlete-name'),
+        html.Div(id='summary-stats')
+                ]),
     html.Div([
             html.Label('Start Date '),
             dcc.DatePickerSingle(id='start-date', date=profile_default_start_date, display_format=profile_date_display_format,
@@ -59,7 +59,7 @@ layout = html.Div([
                                  clearable=False, persistence=True, persistence_type='session'),
             ], style=input_dates_style),
     dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
-    html.Div(id='outcome-stats-table', style=outcome_stats_style),
+    html.Div(id='outcome-tiers-table', style=outcome_stats_style),
     html.Div(id='results-table')
 ])
 
@@ -175,9 +175,9 @@ def list_names(gender_choice):
     return [{'label': i, 'value': i} for i in names]
 
 
-# Update summary and outcomes stats tables for new athlete selected:
+# Update summary stats and outcomes tiers tables for new athlete selected:
 @app.callback([Output('summary-stats', 'children'),
-               Output('outcome-stats-table', 'children'),
+               Output('outcome-tiers-table', 'children'),
                Output('athlete-name', 'children')],
               [Input('name-dropdown', 'value'),
                Input('gender-picker', 'value')
@@ -295,16 +295,23 @@ def results_table(athlete_name, gender_choice, start_date, end_date):
         race_data = pd.read_csv(results_file_path)
         names_list = list(race_data.athlete_name)
         names_list = [name.title() for name in names_list]
-        race_data.athlete_name = names_list
         if athlete_name.title() in names_list:
             row = race_data[race_data.athlete_name == athlete_name.title()]
             rows.append(row)
     results_df = pd.concat(rows, ignore_index=True)
-    results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y") for date in results_df.date]
-    results_df = results_df[['date', 'event', 'location', 'distance', 'wetsuit', 'condition', 'place', 'field_size']]
+    results_df["dt_date"] = [dt.strptime(date, "%m/%d/%Y").date() for date in results_df.date]
+    results_df = results_df.sort_values(by='dt_date', ascending=False).reset_index(drop=True)
     # results_df = results_df[results_df.dt_date >= start_date]
     # results_df = results_df[results_df.dt_date <= end_date]
     data = results_df.to_dict('rows')
-    columns = [{"name": i, "id": i, } for i in results_df.columns]
-    table = [dash_table.DataTable(data=data, columns=columns)]
+    # columns = [{"name": i, "id": i, } for i in results_df.columns]
+    columns = [
+        {"name": 'Date', "id": 'dt_date' },
+        {"name": 'Event', "id": 'event'},
+        {"name": 'Location', "id": 'location'},
+        {"name": 'Distance (km)', "id": 'distance'},
+        {"name": 'Place', "id": 'place'},
+        {"name": 'Field Size', "id": 'field_size'},
+    ]
+    table = [dash_table.DataTable(data=data, columns=columns, sort_action="native", sort_mode="multi",)]
     return table

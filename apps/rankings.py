@@ -117,7 +117,8 @@ def update_ranking(gender_choice, rank_date, comp_date):
         table_df = rank_df[['rank', 'name', 'country', 'change']]
         data = table_df.to_dict('rows')
         columns = [{"name": i.title(), "id": i, } for i in table_df.columns]
-        table = [dash_table.DataTable(data=data, columns=columns, page_size=100, style_data_conditional=table_formatting)]
+        table = [dash_table.DataTable(data=data, columns=columns, page_size=100,
+                                      style_data_conditional=table_formatting,)]
 
     return table
 
