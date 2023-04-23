@@ -6,11 +6,13 @@ import plotly.graph_objs as go
 import plotly.express as px
 from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 
 from app import app
 
 # MM/DD/YYYY string format of today's date
 today = dt.strftime(date.today(), "%Y-%m-%d")
+
 
 def alpha_date(date):
     """
@@ -27,41 +29,73 @@ input_dates_style = {'fontFamily': 'helvetica', 'fontSize': 12, 'display': 'bloc
 dropdown_div_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 summary_style = {'width': '100%', 'float': 'left', 'display': 'block'}
-outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left'}
+outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left', 'padding-top': 40}
 
 profile_default_start_date = '2022-01-01'
 profile_default_end_date = today
 profile_default_gender = 'women'
 profile_default_athlete = 'Lea Boy'
-profile_default_names_list = pd.read_csv('app_data/' + profile_default_gender + "/athlete_countries.csv").sort_values('athlete_name')
+profile_default_names_list = pd.read_csv('app_data/' + profile_default_gender + "/athlete_countries.csv").sort_values(
+    'athlete_name')
 profile_date_display_format = 'Y-M-D'
 
 name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
 
+# layout = html.Div([
+#     dcc.RadioItems(id='gender-picker',
+#                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
+#                    value=profile_default_gender, persistence=True, persistence_type='session'),
+#     html.Div(dcc.Dropdown(id='name-dropdown', persistence=True, persistence_type='session',
+#                           options=[{'label': i, 'value': i} for i in profile_default_names_list],
+#                           value=profile_default_athlete),
+#              style=dropdown_div_style),
+#     html.Div([
+#         html.H1(id='athlete-name'),
+#         html.Div(id='summary-stats')
+#     ]),
+#     html.Div([
+#         html.Label('Start Date '),
+#         dcc.DatePickerSingle(id='start-date', date=profile_default_start_date,
+#                              display_format=profile_date_display_format,
+#                              clearable=False, persistence=True, persistence_type='session'),
+#         html.Label('End Date '),
+#         dcc.DatePickerSingle(id='end-date', date=today, display_format=profile_date_display_format,
+#                              clearable=False, persistence=True, persistence_type='session'),
+#     ], style=input_dates_style),
+#     dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
+#     html.Div(id='outcome-tiers-table', style=outcome_stats_style),
+#     html.Div(id='results-table'),
+#     dcc.Graph(id='finish-counts')
+# ])
+
 layout = html.Div([
-    dcc.RadioItems(id='gender-picker',
+    dbc.Row(dbc.Col(dcc.RadioItems(id='gender-picker',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
-                   value=profile_default_gender, persistence=True, persistence_type='session'),
-    html.Div(dcc.Dropdown(id='name-dropdown', persistence=True, persistence_type='session',
-                          options=[{'label': i, 'value': i} for i in profile_default_names_list], value=profile_default_athlete),
-             style=dropdown_div_style),
-    html.Div([
-        html.H1(id='athlete-name'),
-        html.Div(id='summary-stats')
-                ]),
-    html.Div([
-            html.Label('Start Date '),
-            dcc.DatePickerSingle(id='start-date', date=profile_default_start_date, display_format=profile_date_display_format,
-                                 clearable=False, persistence=True, persistence_type='session'),
-            html.Label('End Date '),
-            dcc.DatePickerSingle(id='end-date', date=today, display_format=profile_date_display_format,
-                                 clearable=False, persistence=True, persistence_type='session'),
-            ], style=input_dates_style),
-    dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
-    html.Div(id='outcome-tiers-table', style=outcome_stats_style),
-    html.Div(id='results-table')
+                   value=profile_default_gender, persistence=True, persistence_type='session'), width={'size': 2, 'offset': 5})),
+    dbc.Row(),
+    dbc.Row(dbc.Col(dcc.Dropdown(id='name-dropdown', persistence=True, persistence_type='session',
+                          options=[{'label': i, 'value': i} for i in profile_default_names_list],
+                          value=profile_default_athlete), width={'size': 2, 'offset': 5})),
+    dbc.Row([
+        dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 40}), width={'size': 3, 'offset': 2}),
+        dbc.Col(html.Div(id='outcome-tiers-table', style=outcome_stats_style), width={'size': 3}),
+        dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),
+    ]),
+    dbc.Row(dbc.Col(html.Div([
+        html.Label('Start Date '),
+        dcc.DatePickerSingle(id='start-date', date=profile_default_start_date,
+                             display_format=profile_date_display_format,
+                             clearable=False, persistence=True, persistence_type='session'),
+        html.Label('End Date '),
+        dcc.DatePickerSingle(id='end-date', date=today, display_format=profile_date_display_format,
+                             clearable=False, persistence=True, persistence_type='session'),
+    ], style=input_dates_style), width={'size': 4, 'offset': 4})),
+    dbc.Row(dbc.Col(dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
+                    width={'size': 8, 'offset': 2})),
+    dbc.Row(dbc.Col(html.Div(id='results-table'), width={'size': 8, 'offset': 2}))
 ])
+
 
 # Create / update ranking progression graph:
 @app.callback(
@@ -149,7 +183,6 @@ def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
     results_df['rank'] = race_date_ranks
     results_df["date"] = results_df["dt_date"]
 
-
     sp_fig = px.scatter(results_df, x="date", y="rank", color="event", hover_name="event",
                         hover_data=["location", "place", "field_size", "distance"])
     sp_fig.update_traces(marker=dict(size=12,
@@ -157,6 +190,7 @@ def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
                                                color='black')))
 
     layout = go.Layout(
+        title='World Ranking Progression',
         xaxis={'title': 'Date'},
         yaxis={'title': 'World Ranking', 'autorange': 'reversed'},
         hovermode='closest')
@@ -164,6 +198,7 @@ def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
     fig = go.Figure(data=ln_fig.data + sp_fig.data, layout=layout)
 
     return fig
+
 
 # Update names in dropdown list when a different gender is selected:
 @app.callback(Output('name-dropdown', 'options'),
@@ -183,7 +218,6 @@ def list_names(gender_choice):
                Input('gender-picker', 'value')
                ])
 def stats_tables(athlete_name, gender_choice):
-
     # -------------------- OUTCOME TIERS TABLE --------------------
     wins = 0
     podiums = 0
@@ -235,7 +269,7 @@ def stats_tables(athlete_name, gender_choice):
 
     # --------------------ATHLETE SUMMARY--------------------
 
-    athlete_data_directory ='app_data/' + gender_choice + "/athlete_data"
+    athlete_data_directory = 'app_data/' + gender_choice + "/athlete_data"
     if os.path.exists(f"{athlete_data_directory}/{athlete_name}.csv"):
         summary_df = pd.read_csv(f"{athlete_data_directory}/{athlete_name}.csv")
     else:
@@ -263,25 +297,27 @@ def stats_tables(athlete_name, gender_choice):
 
         summary_df = pd.DataFrame(dict(date=dates, rank=ranks, rating=ratings))
 
-    print(summary_df)
+    # print(summary_df)
 
     try:
         summary_df = summary_df.set_index('date')
         lookup_date = dt.strftime(dt.strptime(today, "%Y-%m-%d"), "%m/%d/%Y")
-        print(lookup_date)
+        # print(lookup_date)
         current_wr = int(summary_df['rank'][lookup_date])
     except KeyError:
         current_wr = 'Unranked'
     highest_wr = int(min(summary_df['rank']))
     first_race_date = dt.strftime(first_race_date, "%m/%d/%Y")
     athlete_status = athlete_countries['status'][athlete_countries['athlete_name'] == athlete_name]
-    summary_text = html.P([f"Current Ranking: {current_wr}", html.Br(), f"Highest Ranking: {highest_wr}", html.Br(), f"Active Since: {first_race_date}"])
+    summary_text = html.P([f"Current Ranking: {current_wr}", html.Br(), f"Highest Ranking: {highest_wr}", html.Br(),
+                           f"Active Since: {first_race_date}"])
 
     return summary_text, stats_datatable, header
 
 
 # Display results in data table for new athlete selected:
-@app.callback(Output('results-table', 'children'),
+@app.callback([Output('results-table', 'children'),
+               Output('finish-counts', 'figure')],
               [Input('name-dropdown', 'value'),
                Input('gender-picker', 'value'),
                Input('start-date', 'value'),
@@ -306,12 +342,31 @@ def results_table(athlete_name, gender_choice, start_date, end_date):
     data = results_df.to_dict('rows')
     # columns = [{"name": i, "id": i, } for i in results_df.columns]
     columns = [
-        {"name": 'Date', "id": 'dt_date' },
+        {"name": 'Date', "id": 'dt_date'},
         {"name": 'Event', "id": 'event'},
         {"name": 'Location', "id": 'location'},
         {"name": 'Distance (km)', "id": 'distance'},
         {"name": 'Place', "id": 'place'},
         {"name": 'Field Size', "id": 'field_size'},
     ]
-    table = [dash_table.DataTable(data=data, columns=columns, sort_action="native", sort_mode="multi",)]
-    return table
+    table = [dash_table.DataTable(data=data, columns=columns, sort_action="native", sort_mode="multi", )]
+
+    events = results_df['event'].unique()
+    finish_counts = pd.DataFrame({
+        'event': events,
+        'finishes': [list(results_df['event']).count(e) for e in events]
+    })
+    layout = go.Layout(
+        title='Race finishes by event type',
+        showlegend=True,
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="center",
+            x=.5
+        )
+    )
+    finish_count_fig = px.pie(finish_counts, values='finishes', names='event', title='Race Finishes by Event Type')
+
+    return table, finish_count_fig
