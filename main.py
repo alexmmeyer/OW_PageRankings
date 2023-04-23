@@ -1099,8 +1099,8 @@ def num_one_consec_days():
 
     df = pd.DataFrame(cd_dict)
     df = df.sort_values(by="days", ascending=False).reset_index(drop=True)
-    df.to_csv(f"{GENDER}/num_one_consecutive_days.csv")
     print(df)
+    df.to_csv(f"num_one_consecutive_days.csv")
 
 
 def country_ranks(lowest_rank, as_of):
@@ -1403,9 +1403,9 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("03/16/2023", "04/30/2023")
-
+# system_update("03/16/2023", "04/30/2023")
 # print_race_labels()
+num_one_consec_days()
 
 
 
