@@ -29,7 +29,7 @@ input_dates_style = {'fontFamily': 'helvetica', 'fontSize': 12, 'display': 'bloc
 dropdown_div_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 summary_style = {'width': '100%', 'float': 'left', 'display': 'block'}
-outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left', 'padding-top': 40}
+outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left', 'padding-top': 80}
 
 profile_default_start_date = '2022-01-01'
 profile_default_end_date = today
@@ -76,9 +76,9 @@ layout = html.Div([
     dbc.Row(),
     dbc.Row(dbc.Col(dcc.Dropdown(id='name-dropdown', persistence=True, persistence_type='session',
                           options=[{'label': i, 'value': i} for i in profile_default_names_list],
-                          value=profile_default_athlete), width={'size': 2, 'offset': 5})),
+                          value=profile_default_athlete, style={'margin-top': 20}), width={'size': 2, 'offset': 5})),
     dbc.Row([
-        dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 40}), width={'size': 3, 'offset': 2}),
+        dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 80}), width={'size': 3, 'offset': 2}),
         dbc.Col(html.Div(id='outcome-tiers-table', style=outcome_stats_style), width={'size': 3}),
         dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),
     ]),
@@ -93,6 +93,7 @@ layout = html.Div([
     ], style=input_dates_style), width={'size': 4, 'offset': 4})),
     dbc.Row(dbc.Col(dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
                     width={'size': 8, 'offset': 2})),
+    html.H3('Results:', style={'text-align': 'center'}),
     dbc.Row(dbc.Col(html.Div(id='results-table'), width={'size': 8, 'offset': 2}))
 ])
 
@@ -349,7 +350,7 @@ def results_table(athlete_name, gender_choice, start_date, end_date):
         {"name": 'Place', "id": 'place'},
         {"name": 'Field Size', "id": 'field_size'},
     ]
-    table = [dash_table.DataTable(data=data, columns=columns, sort_action="native", sort_mode="multi", )]
+    table = [dash_table.DataTable(data=data, columns=columns, sort_action="native", sort_mode="multi", style_as_list_view=True)]
 
     events = results_df['event'].unique()
     finish_counts = pd.DataFrame({
