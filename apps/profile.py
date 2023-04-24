@@ -29,7 +29,7 @@ input_dates_style = {'fontFamily': 'helvetica', 'fontSize': 12, 'display': 'bloc
 dropdown_div_style = {'width': '100%', 'float': 'left', 'display': 'block'}
 graph_style = {'width': '58%', 'display': 'block', 'float': 'left'}
 summary_style = {'width': '100%', 'float': 'left', 'display': 'block'}
-outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'left', 'padding-top': 80}
+outcome_stats_style = {'width': '38%', 'display': 'block', 'float': 'center', 'padding-top': 80}
 
 profile_default_start_date = '2022-01-01'
 profile_default_end_date = today
@@ -79,7 +79,7 @@ layout = html.Div([
                           value=profile_default_athlete, style={'margin-top': 20}), width={'size': 2, 'offset': 5})),
     dbc.Row([
         dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 80}), width={'size': 3, 'offset': 2}),
-        dbc.Col(html.Div(id='outcome-tiers-table', style=outcome_stats_style), width={'size': 3}),
+        dbc.Col([html.Div(id='outcome-tiers-table', style=outcome_stats_style), html.P("*currently presenting data on/after 07 Nov 2015")], width={'size': 3}),
         dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),
     ]),
     dbc.Row(dbc.Col(html.Div([
@@ -259,7 +259,7 @@ def stats_tables(athlete_name, gender_choice):
 
     outcome_tiers = {
         'Outcome': ['Win', 'Podium', 'Top 25%'],
-        'Count (all time)': [str(num) + ' / ' + str(total_races) for num in tier_counts],
+        'Count (all time*)': [str(num) + ' / ' + str(total_races) for num in tier_counts],
         'Percentage': ["{:.0%}".format(num / total_races) for num in tier_counts]
     }
 
