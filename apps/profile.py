@@ -42,33 +42,6 @@ profile_date_display_format = 'Y-M-D'
 name_style = {'fontFamily': 'helvetica', 'fontSize': 72, 'textAlign': 'left'}
 summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': 'left'}
 
-# layout = html.Div([
-#     dcc.RadioItems(id='gender-picker',
-#                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
-#                    value=profile_default_gender, persistence=True, persistence_type='session'),
-#     html.Div(dcc.Dropdown(id='name-dropdown', persistence=True, persistence_type='session',
-#                           options=[{'label': i, 'value': i} for i in profile_default_names_list],
-#                           value=profile_default_athlete),
-#              style=dropdown_div_style),
-#     html.Div([
-#         html.H1(id='athlete-name'),
-#         html.Div(id='summary-stats')
-#     ]),
-#     html.Div([
-#         html.Label('Start Date '),
-#         dcc.DatePickerSingle(id='start-date', date=profile_default_start_date,
-#                              display_format=profile_date_display_format,
-#                              clearable=False, persistence=True, persistence_type='session'),
-#         html.Label('End Date '),
-#         dcc.DatePickerSingle(id='end-date', date=today, display_format=profile_date_display_format,
-#                              clearable=False, persistence=True, persistence_type='session'),
-#     ], style=input_dates_style),
-#     dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
-#     html.Div(id='outcome-tiers-table', style=outcome_stats_style),
-#     html.Div(id='results-table'),
-#     dcc.Graph(id='finish-counts')
-# ])
-
 layout = html.Div([
     dbc.Row(dbc.Col(dcc.RadioItems(id='gender-picker',
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
@@ -79,8 +52,9 @@ layout = html.Div([
                           value=profile_default_athlete, style={'margin-top': 20}), width={'size': 2, 'offset': 5})),
     dbc.Row([
         dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 80}), width={'size': 3, 'offset': 2}),
-        dbc.Col([html.Div(id='outcome-tiers-table', style=outcome_stats_style), html.P("*currently presenting data on/after 07 Nov 2015")], width={'size': 3}),
-        dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),
+        dbc.Col([html.Div(id='outcome-tiers-table', style=outcome_stats_style), html.P("*currently presenting data from 07 Nov 2015 and after.")], width={'size': 3}),
+        dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),qa!
+
     ]),
     dbc.Row(dbc.Col(html.Div([
         html.Label('Start Date '),
