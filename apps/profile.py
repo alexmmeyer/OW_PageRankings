@@ -53,7 +53,7 @@ layout = html.Div([
     dbc.Row([
         dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 80}), width={'size': 3, 'offset': 2}),
         dbc.Col([html.Div(id='outcome-tiers-table', style=outcome_stats_style), html.P("*currently presenting data from 07 Nov 2015 and after.")], width={'size': 3}),
-        dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),qa!
+        dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),
 
     ]),
     dbc.Row(dbc.Col(html.Div([
