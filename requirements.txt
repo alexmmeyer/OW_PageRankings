@@ -12,6 +12,7 @@ dash-table==5.0.0
 Flask==2.2.2
 Flask-Compress==1.12
 fonttools==4.28.3
+gunicorn==20.1.0
 idna==3.3
 importlib-metadata==4.12.0
 itsdangerous==2.1.2
