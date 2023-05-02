@@ -53,10 +53,13 @@ layout = html.Div([
     html.Div([
             html.Label('Ranking Date'),
             dcc.DatePickerSingle(id='ranking-date', date=date.today(), display_format=date_display_format,
-                                 clearable=False, persistence=True, persistence_type='session'),
+                                 clearable=False, persistence=True, persistence_type='session',
+                                 max_date_allowed=date.today(),
+                                 min_date_allowed=date(2017, 1, 1)),
             html.Label('Comparison Date'),
             dcc.DatePickerSingle(id='comparison-date', display_format=date_display_format, clearable=True,
-                                 persistence=True, persistence_type='session'),
+                                 persistence=True, persistence_type='session',
+                                 min_date_allowed=date(2017, 1, 1)),
             ], style=input_dates_style),
     html.Div([
             html.H2(id='title-main'),
@@ -66,6 +69,13 @@ layout = html.Div([
     html.Div(id='rankings-table', style=table_div_style)
 ])
 
+@app.callback(
+    [Output('comparison-date', 'max_date_allowed'),
+     Output('comparison-date', 'initial_visible_month')],
+    Input('ranking-date', 'date')
+)
+def set_max_comp_date(max_comp_date):
+    return max_comp_date, max_comp_date
 
 @app.callback(
     Output('rankings-table', 'children'),
