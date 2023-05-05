@@ -23,19 +23,16 @@ app.layout = html.Div([
     html.Div(id='page-content', children=[])
 ])
 
-# app.layout = html.Div([
-#     dcc.Location(id='url', refresh=False),
-#     html.Div(
-#         dbc.Row(
-#             [dbc.Col(dcc.Link('RANKINGS', href='/apps/rankings'), width={'size': 1, 'offset': 3}),
-#             dbc.Col(dcc.Link('PROFILES', href='/apps/profile'), width={'size': 1}),
-#             dbc.Col(dcc.Link('RANKING PROGRESSIONS', href='/apps/progressions'), width={'size': 2}),
-#             dbc.Col(dcc.Link('RACE TRENDS', href='/apps/race_trends'), width={'size': 1}),
-#             dbc.Col(dcc.Link('HEAD-TO-HEAD', href='/apps/head2head'), width={'size': 1})]
-#         )
-#     ),
-#     html.Div(id='page-content', children=[])
-# ])
+default = html.Div(
+    [html.Div('Please click on a tool above to get started!'),
+    html.Ul([
+        html.Li("RANKINGS: See current and historical world rankings, and how they've changed over time."),
+        html.Li('PROFILES: Look up summary stats, world ranking, and results for a single athlete.'),
+        html.Li('RANKING PROGRESSIONS: Compare ranking progressions of multiple athletes in one figure.'),
+        html.Li('RACE TRENDS: See where in the pack an athlete was positioned at various points throughout a race.'),
+        html.Li('HEAD-TO-HEAD: Match up two athletes to see a win/loss record and finish time differences.')
+    ])]
+)
 
 layouts = {
     '/apps/head2head': head2head.layout,
@@ -43,7 +40,7 @@ layouts = {
     '/apps/profile': profile.layout,
     '/apps/rankings': rankings.layout,
     '/apps/race_trends': race_trends.layout,
-    '/': 'Choose a module above.',
+    '/': default
 }
 
 
