@@ -1,3 +1,5 @@
+import datetime
+
 import pandas as pd
 import os
 from datetime import datetime as dt
@@ -56,15 +58,10 @@ layout = html.Div([
         dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),
 
     ]),
-    dbc.Row(dbc.Col(html.Div([
-        html.Label('Start Date '),
-        dcc.DatePickerSingle(id='start-date', date=profile_default_start_date,
-                             display_format=profile_date_display_format,
-                             clearable=False, persistence=True, persistence_type='session'),
-        html.Label('End Date '),
-        dcc.DatePickerSingle(id='end-date', date=today, display_format=profile_date_display_format,
-                             clearable=False, persistence=True, persistence_type='session'),
-    ], style=input_dates_style), width={'size': 4, 'offset': 4})),
+    dbc.Row(dbc.Col(dcc.RadioItems(id='time-range-picker',
+        options=[{'label': i, 'value': i} for i in ['All time', '1 year', '6 months', '1 month']],
+        value='1 year', labelStyle={'margin-left': '20px'}
+    ), width={'size': 4, 'offset': 5})),
     dbc.Row(dbc.Col(dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
                     width={'size': 8, 'offset': 2})),
     html.H3('Results:', style={'text-align': 'center'}),
@@ -75,19 +72,28 @@ layout = html.Div([
 # Create / update ranking progression graph:
 @app.callback(
     Output('progression-graph', 'figure'),
-    [Input('start-date', 'date'),
-     Input('end-date', 'date'),
+    [Input('time-range-picker', 'value'),
      Input('name-dropdown', 'value'),
      Input('gender-picker', 'value')])
-def update_progression_fig(start_date, end_date, athlete_name, gender_choice):
-    start_date = dt.strptime(start_date, "%Y-%m-%d")
-    end_date = dt.strptime(end_date, "%Y-%m-%d")
-    global today
+def update_progression_fig(time_range, athlete_name, gender_choice):
     increment = 1
     rank_dist = 10
     rankings_directory = 'app_data/' + gender_choice + "/rankings_archive"
     results_directory = 'app_data/' + gender_choice + "/results"
     athlete_data_directory = 'app_data/' + gender_choice + "/athlete_data"
+    global today
+    if time_range == 'All time':
+        start_date = dt.strptime('2017-1-1', "%Y-%m-%d")
+        end_date = dt.strptime(today, '%Y-%m-%d')
+    elif time_range == '1 year':
+        start_date = dt.strptime(today, "%Y-%m-%d") - timedelta(days=365)
+        end_date = dt.strptime(today, '%Y-%m-%d')
+    elif time_range == '6 months':
+        start_date = dt.strptime(today, "%Y-%m-%d") - timedelta(days=180)
+        end_date = dt.strptime(today, '%Y-%m-%d')
+    elif time_range == '1 month':
+        start_date = dt.strptime(today, "%Y-%m-%d") - timedelta(days=30)
+        end_date = dt.strptime(today, '%Y-%m-%d')
     date_range = [(start_date + timedelta(days=i)).strftime("%m/%d/%Y") for i in range((end_date - start_date).days + 1)
                   if i % increment == 0]
 
@@ -295,10 +301,8 @@ def stats_tables(athlete_name, gender_choice):
                Output('finish-counts', 'figure')],
               [Input('name-dropdown', 'value'),
                Input('gender-picker', 'value'),
-               Input('start-date', 'value'),
-               Input('end-date', 'value')
                ])
-def results_table(athlete_name, gender_choice, start_date, end_date):
+def results_table(athlete_name, gender_choice):
     results_directory = 'app_data/' + gender_choice + "/results"
     rows = []
     for file in os.listdir(results_directory):
@@ -331,17 +335,6 @@ def results_table(athlete_name, gender_choice, start_date, end_date):
         'event': events,
         'finishes': [list(results_df['event']).count(e) for e in events]
     })
-    layout = go.Layout(
-        title='Race finishes by event type',
-        showlegend=True,
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="center",
-            x=.5
-        )
-    )
-    finish_count_fig = px.pie(finish_counts, values='finishes', names='event', title='Race Finishes by Event Type')
+    finish_count_fig = px.pie(finish_counts, values='finishes', names='event', title='Race Finishes by Event Type (All Time)')
 
     return table, finish_count_fig

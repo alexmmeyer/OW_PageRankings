@@ -9,7 +9,7 @@ from app import server
 # Connect to your app pages
 from apps import profile, head2head, progressions, rankings, race_trends
 
-link_style = {'display': 'inline'}
+link_style = {'display': 'inline', 'padding-left': '40px', 'padding-right': '40px'}
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -20,7 +20,7 @@ app.layout = html.Div([
         dcc.Link('RACE TRENDS', href='/apps/race_trends'),
         dcc.Link('HEAD-TO-HEAD', href='/apps/head2head')
     ], className="row", style=link_style),
-    html.Div(id='page-content', children=[])
+    html.Div(id='page-content', children=[], style={'padding-left': '40px', 'padding-right': '40px'})
 ])
 
 default = html.Div(
