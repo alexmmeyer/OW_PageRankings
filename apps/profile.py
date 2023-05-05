@@ -46,7 +46,7 @@ summary_stats_style = {'fontFamily': 'helvetica', 'fontSize': 36, 'textAlign': '
 
 layout = html.Div([
     dbc.Row(dbc.Col(dcc.RadioItems(id='gender-picker',
-                   options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
+                   options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}], labelStyle={'margin-left': '20px'},
                    value=profile_default_gender, persistence=True, persistence_type='session'), width={'size': 2, 'offset': 5})),
     dbc.Row(),
     dbc.Row(dbc.Col(dcc.Dropdown(id='name-dropdown', persistence=True, persistence_type='session',
