@@ -1448,7 +1448,7 @@ last_test_time = timedelta(seconds=3117)
 # system_update("05/08/2023", "05/19/2023")
 # print_race_labels()
 # num_one_consec_days()
-race_accuracy('app_data/men/results/2023_05_08_SomaBay_10km_M.csv')
+compare_place_wr('app_data/women/results/2023_05_08_SomaBay_10km_W.csv')
 
 
 

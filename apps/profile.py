@@ -53,16 +53,19 @@ layout = html.Div([
                           options=[{'label': i, 'value': i} for i in profile_default_names_list],
                           value=profile_default_athlete, style={'margin-top': 20}), width={'size': 2, 'offset': 5})),
     dbc.Row([
-        dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 80}), width={'size': 3, 'offset': 2}),
+        dbc.Col(html.Div([html.H1(id='athlete-name'), html.Div(id='summary-stats')], style={'padding-top': 80}), width={'size': 2, 'offset': 2}),
         dbc.Col([html.Div(id='outcome-tiers-table', style=outcome_stats_style), html.P("*currently presenting data from 07 Nov 2015 and after.")], width={'size': 3}),
         dbc.Col(dcc.Graph(id='finish-counts'), width={'size': 3}),
 
     ]),
-    dbc.Row(dbc.Col(dcc.RadioItems(id='time-range-picker',
-        options=[{'label': i, 'value': i} for i in ['All time', '1 year', '6 months', '1 month']],
-        value='1 year', labelStyle={'margin-left': '20px'}
-    ), width={'size': 4, 'offset': 5})),
-    dbc.Row(dbc.Col(dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
+    dbc.Row(
+        [dbc.Col(html.Label('Select time range: '), width={'size': 1, 'offset': 4}, style={'font-weight': 'bold'}),
+        dbc.Col(dcc.RadioItems(id='time-range-picker',
+            options=[{'label': i, 'value': i} for i in ['All time', '1 year', '6 months', '1 month']],
+            value='1 year', labelStyle={'margin-left': '20px'}
+    ), width={'size': 4})]),
+    dbc.Row(
+        dbc.Col(dcc.Loading(children=[dcc.Graph(id='progression-graph')], color="#119DFF", type="dot", fullscreen=True),
                     width={'size': 8, 'offset': 2})),
     html.H3('Results:', style={'text-align': 'center'}),
     dbc.Row(dbc.Col(html.Div(id='results-table'), width={'size': 8, 'offset': 2}))

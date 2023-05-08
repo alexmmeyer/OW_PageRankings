@@ -49,7 +49,7 @@ layout = html.Div([
     html.Div(children=rankings_app_description),
     dcc.RadioItems(id='rankings-gender-picker', value=default_gender,
                    options=[{'label': 'Men', 'value': 'men'}, {'label': 'Women', 'value': 'women'}],
-                   persistence=True, persistence_type='session'),
+                   persistence=True, persistence_type='session', labelStyle={'margin-right': '20px'}),
     html.Div([
             html.Label('Ranking Date'),
             dcc.DatePickerSingle(id='ranking-date', date=date.today(), display_format=date_display_format,
