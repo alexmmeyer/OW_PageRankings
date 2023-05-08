@@ -598,6 +598,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\results\2023_05_08_SomaBay_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\splits\2022_06_29_Budapest_10km_M.csv">
           <value>
             <Attribute>
@@ -1313,6 +1320,13 @@
           </value>
         </entry>
         <entry key="\app_data\women\results\2022_09_24_Barcelona_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\results\2023_05_08_SomaBay_10km_W.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

@@ -164,6 +164,7 @@ def test_predictability(race_result_file):
     instance_correct_predictions = 0
     instance_total_tests = 0
     # race_label = label(race_result_file, "event", "location", "date", "distance")
+    # race_label = race_result_file
 
     ranking_data = pd.read_csv(RANKING_FILE_NAME).iloc[(FROM_RANK - 1):TO_RANK]
     race_data = pd.read_csv(race_result_file)
@@ -1397,16 +1398,58 @@ def system_update(start_date, end_date=''):
     ttl_time = str(end - start)
     print(f"Time to execute: {ttl_time}")
 
+def race_accuracy(race_result_file):
+    """
+    :param race_result_file: a new race result csv file to compare against the ranking at that point in time
+    :return: prints predictability of the ranking as of the day before the race
+    """
+
+    global FROM_RANK
+    global TO_RANK
+
+    instance_correct_predictions = 0
+    instance_total_tests = 0
+
+    race_data = pd.read_csv(race_result_file)
+    race_date = dt.strptime(race_data['date'][0], '%m/%d/%Y')
+    rank_date = race_date - timedelta(days=1)
+    rank_file_name = f"{RANKINGS_DIR}/{dt.strftime(rank_date, '%Y_%m_%d')}_{GENDER}_{RANK_DIST}km.csv"
+    ranking_data = pd.read_csv(rank_file_name).iloc[(FROM_RANK - 1):TO_RANK]
+
+    name_list = race_data.athlete_name.tolist()
+    combos = list(combinations(name_list, 2))
+
+    for matchup in combos:
+        winner_name = matchup[0].title()
+        loser_name = matchup[1].title()
+        if winner_name in list(ranking_data.name) and loser_name in list(ranking_data.name):
+            winner_rank = int(ranking_data["rank"][ranking_data.name == winner_name])
+            loser_rank = int(ranking_data["rank"][ranking_data.name == loser_name])
+            instance_total_tests += 1
+            if winner_rank < loser_rank:
+                instance_correct_predictions += 1
+
+    try:
+        instance_predictability = instance_correct_predictions / instance_total_tests
+        print(f"{rank_file_name} predictability at {race_result_file} = {instance_predictability}")
+        print(f'total matchups = {instance_total_tests}')
+        print(f'correct predictions = {instance_correct_predictions}')
+    except ZeroDivisionError:
+        print(f"cannot calculate predictability for {race_result_file} -- cannot divide by 0")
+        pass
+
+
 
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-# system_update("03/16/2023", "05/07/2023")
+# system_update("05/08/2023", "05/19/2023")
 # print_race_labels()
 # num_one_consec_days()
-archive_athlete_data('Sergio Santisteban Romero', '07/01/2017', '05/07/2023')
+race_accuracy('app_data/men/results/2023_05_08_SomaBay_10km_M.csv')
+
 
 
 

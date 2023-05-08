@@ -15,7 +15,7 @@ app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div([
         dcc.Link('RANKINGS', href='/apps/rankings'),
-        dcc.Link('PROFILES', href='/apps/profile'),
+        dcc.Link('ATHLETE PROFILES', href='/apps/profile'),
         dcc.Link('RANKING PROGRESSIONS', href='/apps/progressions'),
         dcc.Link('RACE TRENDS', href='/apps/race_trends'),
         dcc.Link('HEAD-TO-HEAD', href='/apps/head2head')
@@ -27,7 +27,7 @@ default = html.Div(
     [html.Div('Please click on a tool above to get started!'),
     html.Ul([
         html.Li("RANKINGS: See current and historical world rankings, and how they've changed over time."),
-        html.Li('PROFILES: Look up summary stats, world ranking, and results for a single athlete.'),
+        html.Li('ATHLETE PROFILES: Look up summary stats, world ranking, and results for a single athlete.'),
         html.Li('RANKING PROGRESSIONS: Compare ranking progressions of multiple athletes in one figure.'),
         html.Li('RACE TRENDS: See where in the pack an athlete was positioned at various points throughout a race.'),
         html.Li('HEAD-TO-HEAD: Match up two athletes to see a win/loss record and finish time differences.')
