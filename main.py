@@ -724,9 +724,9 @@ def compare_place_wr(results_file_path):
 
     print(place_wr_dict)
 
-    plt.plot(graph_ranks, graph_places, "o")
-    plt.xlabel("World Ranking")
-    plt.ylabel("Place")
+    plt.plot(graph_places, graph_ranks, "o")
+    plt.xlabel("Place")
+    plt.ylabel("World Ranking")
     title = custom_label(results_file_path, "event", "location", "date", "distance") + "km"
     plt.title(f"{title}")
     plt.show()
@@ -1445,10 +1445,10 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-# system_update("05/08/2023", "05/19/2023")
+# system_update("05/13/2023", "05/19/2023")
 # print_race_labels()
 # num_one_consec_days()
-compare_place_wr('app_data/women/results/2023_05_08_SomaBay_10km_W.csv')
+compare_place_wr('app_data/women/results/2023_05_13_Piombino_10km_W.csv')
 
 
 
