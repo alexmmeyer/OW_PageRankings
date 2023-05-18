@@ -1439,15 +1439,52 @@ def race_accuracy(race_result_file):
         pass
 
 
+def name_correction(current_name, correct_name):
+
+    # 1. Change name in all ranking files
+
+    for file in os.listdir(RANKINGS_DIR):
+        results_file_path = os.path.join(RANKINGS_DIR, file)
+        ranking_data = pd.read_csv(results_file_path)
+        names = list(ranking_data['name'])
+        if current_name in names:
+            names[names.index(current_name)] = correct_name
+            ranking_data['name'] = names
+            ranking_data.to_csv(results_file_path, index=False)
+        else:
+            pass
+
+
+
+
+
+
+
 
 G = nx.DiGraph()
 total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("10/14/2017", "05/19/2023")
-# print_race_labels()
-# num_one_consec_days()
+# system_update("10/14/2017", "05/19/2023")
 # compare_place_wr('app_data/men/results/2023_05_13_Piombino_10km_M.csv')
 # race_accuracy('app_data/women/results/2023_05_13_Piombino_10km_W.csv')
+# archive_athlete_data('Saleh Mohammad', '02/04/2018', '05/19/2023')
 
+current_name = 'Greggie Paltz'
+correct_name = 'Gregorio Paltrinieri'
+
+results_file_path = 'PageRanking.csv'
+ranking_data = pd.read_csv(results_file_path)
+names = list(ranking_data['name'])
+if current_name in names:
+    print(f'{current_name} is in {results_file_path}')
+    print(names[0:10])
+    names[names.index(current_name)] = correct_name
+    print('New list:')
+    print(names[0:10])
+    ranking_data['name'] = names
+    ranking_data.to_csv('PageRanking.csv', index=False)
+else:
+    print(f'{current_name} is not in {results_file_path}')
+    pass
