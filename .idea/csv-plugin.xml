@@ -1326,6 +1326,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\women\results\2022_11_12_Eilat_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\results\2023_03_16_Eilat_5km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\results\2023_03_18_Eilat_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\women\results\2023_05_08_SomaBay_10km_W.csv">
           <value>
             <Attribute>
