@@ -1398,6 +1398,7 @@ def system_update(start_date, end_date=''):
     ttl_time = str(end - start)
     print(f"Time to execute: {ttl_time}")
 
+
 def race_accuracy(race_result_file):
     """
     :param race_result_file: a new race result csv file to compare against the ranking at that point in time
@@ -1440,7 +1441,6 @@ def race_accuracy(race_result_file):
 
 
 def name_correction(current_name, correct_name):
-
     # 1. Change name in all ranking files
 
     for file in os.listdir(RANKINGS_DIR):
@@ -1456,10 +1456,38 @@ def name_correction(current_name, correct_name):
             pass
 
 
+def create_splits_file(splits_dict):
+    '''
+    :param splits_dict: dictionary with keys as filename and values as list of split distances,
+    including 0 and total distance
+    :return:
+    '''
+    for filename in splits_dict.keys():
+        filepath = os.path.join(RESULTS_DIR, filename)
+        df = pd.read_csv(filepath)
+        df = df[['Split1', 'Split2', 'Split3', 'Split4', 'Split5', 'Split6', 'Split7', 'Split8', 'Split9', 'Split10',
+                 'Split11', 'Split12', 'Split13', 'Split14', 'Split15', 'Split16', 'Split17', 'Split18', 'Split19',
+                 'Split20',
+                 'Split21', 'Split22', 'Split23', 'Split24', 'Split25', 'Split26', 'Split27', 'Split28', 'Split29',
+                 'Split30', ]]
+        cols = ['Split0']
+        for col in df.columns:
+            if not math.isnan(df[col][0]):
+                cols.append(col)
+            else:
+                pass
 
+        if len(cols) - len(splits_dict[filename]) != 0:
+            print(f'!!! {filename} missing {len(splits_dict[filename]) - len(cols)} splits')
+        else:
+            d = {
+                'split': cols,
+                'distance': splits_dict[filename]
+            }
 
-
-
+            df2 = pd.DataFrame(d)
+            df2.to_csv(f'{SPLITS_DIR}/{filename}', index=False)
+            print(f'{filename} created')
 
 
 G = nx.DiGraph()
@@ -1467,7 +1495,25 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("05/20/2023", "05/26/2023")
-# compare_place_wr('app_data/men/results/2023_05_13_Piombino_10km_M.csv')
+system_update("05/27/2023", "06/16/2023")
+# compare_place_wr('app_data/men/results/2023_05_20_GolfoAranci_10km_M.csv')
 # race_accuracy('app_data/women/results/2023_05_13_Piombino_10km_W.csv')
 # archive_athlete_data('Saleh Mohammad', '02/04/2018', '05/19/2023')
+
+# files_with_splits = {
+#     # '2022_03_24_Eilat_10km_M.csv': [0, 1250, 2500, 3750, 5000, 6250, 7500, 8250, 10000],
+#     # '2021_05_13_Budapest_10km_M.csv': [],
+#     # '2020_02_15_Doha_10km_M.csv': [],
+#     # '2019_06_15_Balatonfured_10km_M.csv': [],
+#     # '2019_05_12_Seychelles_10km_M.csv': [],
+#     # '2018_11_09_AbuDhabi_10km_M.csv': [],
+#     # '2018_06_16_Balatonfured_10km_M.csv': [],
+#     # '2018_05_20_Seychelles_10km_M.csv': [],
+#     # '2018_03_17_Doha_10km_M.csv': [],
+#     # '2017_03_11_AbuDhabi_10km_M.csv': [],
+#     # '2016_07_10_Hoorn_10km_M.csv': [],
+#     # '2023_05_20_GolfoAranci_10km_M.csv': [0, 1666, 3332, 5000, 6666, 8332, 10000],
+#     # '2022_11_12_Eilat_10km_M.csv': [0, 1666, 3332, 5000, 6666, 8332, 10000],
+# }
+
+
