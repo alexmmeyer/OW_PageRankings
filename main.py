@@ -1441,7 +1441,7 @@ def race_accuracy(race_result_file):
 
 
 def name_correction(current_name, correct_name):
-    # 1. Change name in all ranking files
+    # 1. Change name in all existing ranking files
 
     for file in os.listdir(RANKINGS_DIR):
         results_file_path = os.path.join(RANKINGS_DIR, file)
@@ -1454,6 +1454,9 @@ def name_correction(current_name, correct_name):
             print(f'{results_file_path} updated')
         else:
             pass
+
+    # 2. Delete athlete archive file with wrong name
+    # 3. Delete row in athlete_countries with wrong name
 
 
 def create_splits_file(splits_dict):
@@ -1495,7 +1498,7 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("05/27/2023", "06/16/2023")
+# system_update("06/17/2023", "07/13/2023")
 # compare_place_wr('app_data/men/results/2023_05_20_GolfoAranci_10km_M.csv')
 # race_accuracy('app_data/women/results/2023_05_13_Piombino_10km_W.csv')
 # archive_athlete_data('Saleh Mohammad', '02/04/2018', '05/19/2023')
@@ -1515,5 +1518,7 @@ system_update("05/27/2023", "06/16/2023")
 #     # '2023_05_20_GolfoAranci_10km_M.csv': [0, 1666, 3332, 5000, 6666, 8332, 10000],
 #     # '2022_11_12_Eilat_10km_M.csv': [0, 1666, 3332, 5000, 6666, 8332, 10000],
 # }
+
+create_splits_file({'2023_06_17_Belgrade_10km_M.csv': [0, 2000, 4000, 6000, 8000, 10000]})
 
 
