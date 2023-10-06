@@ -1498,7 +1498,7 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("08/04/2023", "09/30/2023")
+system_update("09/30/2023", "10/31/2023")
 # compare_place_wr('app_data/men/results/2023_05_20_GolfoAranci_10km_M.csv')
 # race_accuracy('app_data/women/results/2023_05_13_Piombino_10km_W.csv')
 # archive_athlete_data('Saleh Mohammad', '02/04/2018', '05/19/2023')
