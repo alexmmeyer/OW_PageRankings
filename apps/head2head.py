@@ -108,9 +108,9 @@ def update(name1, name2, gender_choice):
                     winner_places.append(name2place)
                     loser_places.append(name1place)
                 else:
-                    winners.append("Tie")
+                    winners.append('Tie')
                     winner_places.append(name1place)
-                    loser_places.append('N/A')
+                    loser_places.append(name2place)
                 if not math.isnan(diff):
                     diffs.append(diff)
                 else:

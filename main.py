@@ -126,28 +126,43 @@ def update_graph(race_result_file, ranking_date):
     total_weight = age_weight * comp_weight * dist_weight
     race_label = custom_label(race_result_file, "event", "location", "distance", "date")
 
+    # Check for a tie:
+    this_race_has_a_tie = False
+    if len(race_data.place) != len(set(race_data.place)):
+        this_race_has_a_tie = True
+        # print(f'{race_result_file} has a tie')
+
     combos = list(combinations(name_list, 2))
     combos = [tuple(reversed(combo)) for combo in combos]
 
     for combo in combos:
         loser = combo[0]
         winner = combo[1]
-        # check for a tie
-        # print(race_result_file)
-        # print(f"loser place: {race_data.place[race_data.athlete_name == loser]}")
-        # print(f"winner place: {race_data.place[race_data.athlete_name == winner]}")
-        # if int(race_data.place[race_data.athlete_name == loser]) == int(race_data.place[race_data.athlete_name == winner]):
-        #     pass
-        if combo in G.edges:
-            current_weight = G[loser][winner]["weight"]
-            new_weight = current_weight + total_weight
-            G[loser][winner]["weight"] = new_weight
-            G[loser][winner]["race_weights"][race_label] = total_weight
+        if this_race_has_a_tie:
+            if int(race_data.place[race_data.athlete_name == loser]) == int(race_data.place[race_data.athlete_name == winner]):
+                # print(f'{winner} and {loser} tied for {int(race_data.place[race_data.athlete_name == loser])} place.')
+                pass
+            if combo in G.edges:
+                current_weight = G[loser][winner]["weight"]
+                new_weight = current_weight + total_weight
+                G[loser][winner]["weight"] = new_weight
+                G[loser][winner]["race_weights"][race_label] = total_weight
+            else:
+                label_dict = {
+                    race_label: total_weight
+                }
+                G.add_edge(*combo, weight=total_weight, race_weights=label_dict)
         else:
-            label_dict = {
-                race_label: total_weight
-            }
-            G.add_edge(*combo, weight=total_weight, race_weights=label_dict)
+            if combo in G.edges:
+                current_weight = G[loser][winner]["weight"]
+                new_weight = current_weight + total_weight
+                G[loser][winner]["weight"] = new_weight
+                G[loser][winner]["race_weights"][race_label] = total_weight
+            else:
+                label_dict = {
+                    race_label: total_weight
+                }
+                G.add_edge(*combo, weight=total_weight, race_weights=label_dict)
 
 
 def test_predictability(race_result_file):
@@ -1455,8 +1470,22 @@ def name_correction(current_name, correct_name):
         else:
             pass
 
-    # 2. Delete athlete archive file with wrong name
-    # 3. Delete row in athlete_countries with wrong name
+    # 2. Change athlete archive file with wrong name to correct name
+    # 3. Correct row in athlete_countries with wrong name
+
+def name_merge(name_to_merge, merge_into_name):
+    """
+
+    :param name_to_merge: The name to be deprecated and merged into merge_into_name.
+    :param merge_into_name: The name that is already existing and is preferred. Rankings for name_to_merge will be
+    merged into this name, and results with name_to_merge will be updated with this name.
+    :return:
+    """
+    pass
+# 1. get earliest date where name_to_merge appears in results and store in variable starting_rewrite_date
+# 2. get latest date where name_to_merge appears in results and store in variable ending_rewrite_date
+# 2. Change name_to_merge to merge_into_name in all results files
+# 3. Perform system_update() from starting_rewrite_date to ending_rewrite_date
 
 
 def create_splits_file(splits_dict):
@@ -1498,7 +1527,7 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("09/30/2023", "10/31/2023")
+system_update("09/21/2023", "11/04/2023")
 # compare_place_wr('app_data/men/results/2023_05_20_GolfoAranci_10km_M.csv')
 # race_accuracy('app_data/women/results/2023_05_13_Piombino_10km_W.csv')
 # archive_athlete_data('Saleh Mohammad', '02/04/2018', '05/19/2023')

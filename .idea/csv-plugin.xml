@@ -59,6 +59,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\results\2007_03_18_Melbourne_5km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\results\2015_11_07_Madeira_10km_M.csv">
           <value>
             <Attribute>
@@ -606,6 +613,13 @@
           </value>
         </entry>
         <entry key="\app_data\men\results\2023_05_08_SomaBay_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\men\results\2023_09_23_Barcelona_10km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -1355,6 +1369,34 @@
           </value>
         </entry>
         <entry key="\app_data\women\results\2023_05_08_SomaBay_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\results\2023_05_13_Piombino_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\results\2023_05_27_Setubal_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\results\2023_07_15_Fukuoka_10km_W.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\women\results\2023_09_23_Barcelona_10km_W.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
