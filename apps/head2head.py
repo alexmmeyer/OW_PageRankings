@@ -49,6 +49,7 @@ layout = html.Div([
                  style=dropdown_div_style)]),
         html.H1(id='score', style=score_style),
         dcc.Graph(id='diff-graph'),
+        html.H2('Competitive History:'),
         html.Div(id='table')
     ])
 
@@ -132,6 +133,7 @@ def update(name1, name2, gender_choice):
 
     table_df = pd.DataFrame(diff_dict)
     table_df['time_diff'] = [str(timedelta(seconds=abs(i))) if i != 'N/A' else 'N/A' for i in table_df['time_diff']]
+    table_df = table_df.sort_values('date')
     print(table_df)
     data = table_df.to_dict('rows')
     columns = [{"name": i, "id": i, } for i in table_df.columns]

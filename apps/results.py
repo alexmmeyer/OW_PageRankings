@@ -29,19 +29,20 @@ layout = html.Div([
                    labelStyle={'margin-left': '20px'},
                    # value='men',
                    persistence=True, persistence_type='session'),
-    dcc.Dropdown(id='results-race-dropdown'),
+    dcc.Dropdown(id='results-race-dropdown', persistence=True, persistence_type='session'),
     html.Div(id='results-output-table', children='this is where the results table will go')
 ])
 
+
 @app.callback(Output('results-race-dropdown', 'options'),
               [Input('results-gender-picker', 'value')])
-def list_names(gender_choice):
+def list_races(gender_choice):
     results_path = 'app_data/' + gender_choice + '/results'
     race_choices = os.listdir(results_path)
-    # for i in inrace_choices:
-        # print(custom_label('app_data/' + gender_choice + '/results/' + i, 'event', 'location', 'distance', 'date'))
 
-    return [{'label': custom_label('app_data/' + gender_choice + '/results/' + i, 'event', 'location', 'distance', 'date'), 'value': i} for i in race_choices]
+    return [{'label': custom_label('app_data/' + gender_choice + '/results/' + i, 'event', 'location', 'distance',
+                                   'date'), 'value': i} for i in race_choices]
+
 
 @app.callback(Output('results-output-table', 'children'),
               [Input('results-gender-picker', 'value'),
