@@ -451,6 +451,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\results\2021_05_13_Budapest_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\results\2021_06_20_Setubal_10km_M.csv">
           <value>
             <Attribute>
@@ -626,7 +633,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app_data\men\results\2023_05_20_GolfoAranci_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app_data\men\results\2023_09_23_Barcelona_10km_M.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\app_data\men\splits\2022_03_24_Eilat_10km_M.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

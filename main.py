@@ -1527,27 +1527,25 @@ total_tests = 0
 correct_predictions = 0
 last_test_time = timedelta(seconds=3117)
 
-system_update("02/07/2024", "03/22/2024")
-# compare_place_wr('app_data/men/results/2023_05_20_GolfoAranci_10km_M.csv')
+# system_update("02/07/2024", "03/22/2024")
+compare_place_wr('app_data/women/results/2024_02_03_Doha_10km_W.csv')
 # race_accuracy('app_data/women/results/2023_05_13_Piombino_10km_W.csv')
 # archive_athlete_data('Saleh Mohammad', '02/04/2018', '05/19/2023')
 
 # files_with_splits = {
-#     # '2022_03_24_Eilat_10km_M.csv': [0, 1250, 2500, 3750, 5000, 6250, 7500, 8250, 10000],
-#     # '2021_05_13_Budapest_10km_M.csv': [],
-#     # '2020_02_15_Doha_10km_M.csv': [],
-#     # '2019_06_15_Balatonfured_10km_M.csv': [],
-#     # '2019_05_12_Seychelles_10km_M.csv': [],
-#     # '2018_11_09_AbuDhabi_10km_M.csv': [],
-#     # '2018_06_16_Balatonfured_10km_M.csv': [],
-#     # '2018_05_20_Seychelles_10km_M.csv': [],
-#     # '2018_03_17_Doha_10km_M.csv': [],
-#     # '2017_03_11_AbuDhabi_10km_M.csv': [],
-#     # '2016_07_10_Hoorn_10km_M.csv': [],
-#     # '2023_05_20_GolfoAranci_10km_M.csv': [0, 1666, 3332, 5000, 6666, 8332, 10000],
-#     # '2022_11_12_Eilat_10km_M.csv': [0, 1666, 3332, 5000, 6666, 8332, 10000],
+#     '2021_05_13_Budapest_10km_M.csv': [],
+#     '2020_02_15_Doha_10km_M.csv': [],
+#     '2019_06_15_Balatonfured_10km_M.csv': [],
+#     '2019_05_12_Seychelles_10km_M.csv': [],
+#     '2018_11_09_AbuDhabi_10km_M.csv': [],
+#     '2018_06_16_Balatonfured_10km_M.csv': [],
+#     '2018_05_20_Seychelles_10km_M.csv': [],
+#     '2018_03_17_Doha_10km_M.csv': [],
+#     '2017_03_11_AbuDhabi_10km_M.csv': [],
+#     '2016_07_10_Hoorn_10km_M.csv': [],
+#     # Golfo Aranci missing one split in results file - splits distances below are complete
+#     '2023_05_20_GolfoAranci_10km_M.csv': [0, 1666, 3332, 5000, 6666, 8332, 10000],
 # }
-
 
 
 
