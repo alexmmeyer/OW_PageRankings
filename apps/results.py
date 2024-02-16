@@ -39,7 +39,7 @@ layout = html.Div([
 def list_races(gender_choice):
     results_path = 'app_data/' + gender_choice + '/results'
     race_choices = os.listdir(results_path)
-    race_choices.reverse()
+    race_choices.sort(reverse=True)
 
     return [{'label': custom_label('app_data/' + gender_choice + '/results/' + i, 'event', 'location', 'distance',
                                    'date'), 'value': i} for i in race_choices]
